@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Joel Salomon — Data Analyst</title>
+  <meta name="description" content="Data analyst based in Kelowna, BC. SQL, Python, dbt, Snowflake, and whatever else gets the job done.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="bento">
+
+    <!-- Hero -->
+    <div class="card card-hero" data-animate>
+      <div class="hero-top">
+        <div class="hero-badge">Available for opportunities</div>
+      </div>
+      <div class="hero-center">
+        <h1><em>Joel</em> Salomon</h1>
+        <p class="tagline">Data Analyst — Kelowna, BC</p>
+      </div>
+      <div class="hero-bottom">
+        <p class="hero-desc">Turning data into decisions. Building tools that make the complex simple.</p>
+        <div class="hero-links">
+          <a href="mailto:joel@joeldoesdata.com">Email</a>
+          <a href="https://github.com/jsalomon88" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://linkedin.com/in/joelsalomon" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- About -->
+    <div class="card card-about" data-animate>
+      <span class="card-label">About</span>
+      <p>I'm a data analyst working at the intersection of data engineering and product analytics. I care about building data systems that are reliable, interpretable, and actually used.</p>
+      <p>When I'm not at work I'm building things — a personal AI assistant that runs 24/7 and manages my life, a recipe and meal planning app, and whatever else seems worth making.</p>
+    </div>
+
+    <!-- Skills -->
+    <div class="card card-skills" data-animate>
+      <span class="card-label">Stack</span>
+      <div class="skills-grid">
+        <span class="skill">SQL</span>
+        <span class="skill">Python</span>
+        <span class="skill">dbt</span>
+        <span class="skill">Snowflake</span>
+        <span class="skill">BigQuery</span>
+        <span class="skill">Sigma</span>
+        <span class="skill">Looker</span>
+        <span class="skill">Metabase</span>
+        <span class="skill">Git</span>
+        <span class="skill">HTML / CSS</span>
+      </div>
+    </div>
+
+    <!-- Neo project -->
+    <div class="card card-neo" data-animate>
+      <span class="card-label">Project</span>
+      <div class="project-header">
+        <h2>Neo</h2>
+        <span class="project-status">Live</span>
+      </div>
+      <p>A personal AI assistant running 24/7 on a Mac Mini, connected to Discord. Manages recipes, meal planning, shopping lists, real estate tracking, fitness logging, trip planning, and a daily news digest — all from a chat interface.</p>
+      <p class="project-detail">Built from scratch: Python, Claude API, Discord bot, cron scheduling, GitHub auto-commit, Cloudflare Tunnel.</p>
+      <div class="project-tags">
+        <span>Python</span>
+        <span>Claude API</span>
+        <span>Discord</span>
+        <span>Cloudflare</span>
+      </div>
+    </div>
+
+    <!-- Neo stats -->
+    <div class="card card-stats" data-animate>
+      <span class="card-label">Neo — by the numbers</span>
+      <div class="stats-list">
+        <div class="stat">
+          <span class="stat-number">193</span>
+          <span class="stat-label">commits</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">6.8K</span>
+          <span class="stat-label">lines of code</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">47</span>
+          <span class="stat-label">recipes indexed</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">10</span>
+          <span class="stat-label">active dev days</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Commit chart -->
+    <div class="card card-chart" data-animate>
+      <span class="card-label">Commit activity — last 10 days</span>
+      <div class="chart-container">
+        <svg id="commit-chart" width="100%" height="120" preserveAspectRatio="none"></svg>
+        <div class="chart-labels" id="chart-labels"></div>
+      </div>
+    </div>
+
+    <!-- jtmeals project -->
+    <div class="card card-jtmeals" data-animate>
+      <span class="card-label">Project</span>
+      <div class="project-header">
+        <h2>jtmeals.com</h2>
+        <a href="https://www.jtmeals.com" target="_blank" rel="noopener" class="project-link">↗</a>
+      </div>
+      <p>Recipe browser and weekly meal planner. 47 recipes with ratings, cost estimates, and filters. Built with vanilla HTML/CSS/JS, served via Cloudflare Tunnel.</p>
+      <div class="project-tags">
+        <span>HTML / CSS / JS</span>
+        <span>JSON</span>
+        <span>Cloudflare</span>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
