@@ -704,6 +704,7 @@ a { color: inherit; text-decoration: none; }
 /* ─── RESPONSIVE ─────────────────────────────── */
 
 @media (max-width: 768px) {
+  .hero { min-height: 85vh; }
   .skill-grid { grid-template-columns: 1fr; gap: 40px; }
   .stats-row { grid-template-columns: repeat(2, 1fr); }
   .stat { border-right: none; border-bottom: 1px solid var(--border); }
