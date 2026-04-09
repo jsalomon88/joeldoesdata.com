@@ -90,10 +90,7 @@ async function loadActivity() {
   if (!chartEl) return;
 
   try {
-    const res = await fetch(
-      'https://api.github.com/repos/jsalomon88/claude-discord-bot/stats/commit_activity',
-      { headers: { 'Accept': 'application/vnd.github+json' } }
-    );
+    const res = await fetch('./commit-data.json');
     if (!res.ok) throw new Error('API error');
     const data = await res.json();
     if (!Array.isArray(data) || data.length === 0) throw new Error('Empty');
