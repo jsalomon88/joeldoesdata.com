@@ -181,7 +181,19 @@ function buildHeatmap(weeks) {
 (function () {
   const nodes = document.querySelectorAll('.pipeline-node');
   const descs = document.querySelectorAll('.pipeline-desc');
+  const connectors = document.querySelectorAll('.pipeline-connector');
   if (!nodes.length) return;
+
+  // Inject 3 animated dots into each connector
+  connectors.forEach((c, i) => {
+    for (let d = 0; d < 3; d++) {
+      const dot = document.createElement('span');
+      dot.className = 'pipeline-dot';
+      // Stagger delays per connector so they don't all pulse together
+      dot.style.animationDelay = `${d * 0.6 + i * 0.15}s`;
+      c.appendChild(dot);
+    }
+  });
 
   function activate(index) {
     nodes.forEach(n => n.classList.toggle('is-active', +n.dataset.index === index));
