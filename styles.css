@@ -264,6 +264,133 @@ a { color: inherit; text-decoration: none; }
   color: var(--text-mid);
 }
 
+/* ─── EXPERIENCE ─────────────────────────────── */
+
+.experience {
+  padding: clamp(80px, 12vh, 140px) 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  max-width: 720px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 120px;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: var(--border);
+}
+
+.timeline-entry {
+  display: grid;
+  grid-template-columns: 120px 1px 1fr;
+  gap: 0 32px;
+  padding: 0 0 48px;
+  align-items: start;
+  position: relative;
+}
+
+.timeline-entry:last-child {
+  padding-bottom: 0;
+}
+
+.timeline-left {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 2px;
+}
+
+.timeline-duration {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-sec);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.timeline-dot {
+  width: 1px;
+  position: relative;
+  z-index: 1;
+}
+
+.timeline-dot::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--border-mid);
+  border: 1px solid var(--border-mid);
+}
+
+.timeline-entry:first-child .timeline-dot::before {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.timeline-right {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.timeline-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.timeline-company {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--text);
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+
+.timeline-current {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid #1a3a1a;
+  padding: 3px 8px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.timeline-role {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-mid);
+  letter-spacing: 0.02em;
+}
+
+.timeline-meta {
+  font-size: 11px;
+  color: var(--text-sec);
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 768px) {
+  .timeline::before { left: 80px; }
+  .timeline-entry { grid-template-columns: 80px 1px 1fr; gap: 0 20px; }
+  .timeline-company { font-size: 18px; }
+}
+
 /* ─── STACK ──────────────────────────────────── */
 
 .stack {
