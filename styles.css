@@ -135,17 +135,16 @@ a { color: inherit; text-decoration: none; }
 }
 
 .hero h1 {
-  font-family: 'Space Grotesk', var(--sans);
+  font-family: 'DM Serif Display', Georgia, serif;
   font-size: clamp(72px, 12vw, 160px);
-  font-weight: 700;
+  font-weight: 400;
   line-height: 0.88;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.03em;
   color: var(--text);
 }
 
 .hero h1 em {
-  font-style: normal;
-  font-weight: 300;
+  font-style: italic;
   color: #4a4a4a;
 }
 
