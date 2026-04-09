@@ -17,7 +17,7 @@ jobs:
           for i in 1 2 3 4 5; do
             echo "Attempt $i..."
             STATUS=$(curl -s -o commit-data.json -w "%{http_code}" \
-              -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+              -H "Authorization: Bearer ${{ secrets.GH_PAT }}" \
               -H "Accept: application/vnd.github+json" \
               "https://api.github.com/repos/jsalomon88/claude-discord-bot/stats/commit_activity")
             echo "HTTP status: $STATUS"
