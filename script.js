@@ -226,6 +226,19 @@ function buildHeatmap(weeks) {
   activate(0);
 })();
 
+/* ─── Dynamic role duration ──────────────────── */
+
+document.querySelectorAll('.timeline-duration[data-start]').forEach(el => {
+  const [y, m] = el.dataset.start.split('-').map(Number);
+  const now = new Date();
+  const months = (now.getFullYear() - y) * 12 + (now.getMonth() + 1 - m);
+  const yrs = Math.floor(months / 12);
+  const mos = months % 12;
+  el.textContent = yrs > 0
+    ? (mos > 0 ? `${yrs} yr ${mos} mo` : `${yrs} yr`)
+    : `${months} mos`;
+});
+
 loadActivity();
 
 /* ─── Click tooltip ──────────────────────────── */
