@@ -7,126 +7,257 @@
   <meta name="description" content="Data analyst based in Kelowna, BC. SQL, Python, dbt, Snowflake, and whatever else gets the job done.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main class="bento">
 
-    <!-- Hero -->
-    <div class="card card-hero" data-animate>
-      <div class="hero-top">
-        <div class="hero-badge">Available for opportunities</div>
+  <!-- ─── HERO ─────────────────────────────────── -->
+  <section class="hero" id="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Available for opportunities
       </div>
-      <div class="hero-center">
-        <h1><em>Joel</em> Salomon</h1>
-        <p class="tagline">Data Analyst — Kelowna, BC</p>
+      <h1><em>Joel</em><br>Salomon</h1>
+      <p class="hero-tagline">Data Analyst — Kelowna, BC</p>
+      <p class="hero-desc">Turning data into decisions.<br>Building tools that make the complex simple.</p>
+      <div class="hero-links">
+        <a href="mailto:joel.salomon@outlook.com">Email</a>
+        <a href="https://github.com/jsalomon88" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://linkedin.com/in/joel-salomon-b5272118b" target="_blank" rel="noopener">LinkedIn</a>
       </div>
-      <div class="hero-bottom">
-        <p class="hero-desc">Turning data into decisions. Building tools that make the complex simple.</p>
-        <div class="hero-links">
-          <a href="mailto:joel.salomon@outlook.com">Email</a>
-          <a href="https://github.com/jsalomon88" target="_blank" rel="noopener">GitHub</a>
-          <a href="https://linkedin.com/in/joel-salomon-b5272118b" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ─── ABOUT ─────────────────────────────────── -->
+  <section class="about reveal" id="about">
+    <div class="container">
+      <div class="section-meta">
+        <span class="section-num">01</span>
+        <span class="section-label">About</span>
+      </div>
+      <div class="about-body">
+        <p class="about-lead">I work at the intersection of data engineering and product analytics.</p>
+        <p class="about-text">I care about building data systems that are reliable, interpretable, and actually used. When I'm not at work I'm building things — a personal AI assistant that runs 24/7 and manages my life, a recipe and meal planning app, and whatever else seems worth making.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── STACK ─────────────────────────────────── -->
+  <section class="stack reveal" id="stack">
+    <div class="container">
+      <div class="section-meta">
+        <span class="section-num">02</span>
+        <span class="section-label">Stack</span>
+      </div>
+      <div class="skill-grid">
+
+        <div class="skill-group reveal-child">
+          <h3 class="skill-group-title">Data Engineering</h3>
+          <div class="skill-bars">
+            <div class="skill-row">
+              <span class="skill-name">SQL</span>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="97"></div></div>
+              <span class="skill-pct">Expert</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">dbt</span>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="88"></div></div>
+              <span class="skill-pct">Expert</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">Snowflake</span>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="85"></div></div>
+              <span class="skill-pct">Advanced</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">BigQuery</span>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="80"></div></div>
+              <span class="skill-pct">Advanced</span>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
 
-    <!-- About -->
-    <div class="card card-about" data-animate>
-      <span class="card-label">About</span>
-      <p>I'm a data analyst working at the intersection of data engineering and product analytics. I care about building data systems that are reliable, interpretable, and actually used.</p>
-      <p>When I'm not at work I'm building things — a personal AI assistant that runs 24/7 and manages my life, a recipe and meal planning app, and whatever else seems worth making.</p>
-    </div>
-
-    <!-- Skills -->
-    <div class="card card-skills" data-animate>
-      <span class="card-label">Stack</span>
-      <div class="skills-grid">
-        <span class="skill">SQL</span>
-        <span class="skill">Python</span>
-        <span class="skill">dbt</span>
-        <span class="skill">Snowflake</span>
-        <span class="skill">BigQuery</span>
-        <span class="skill">Sigma</span>
-        <span class="skill">Looker</span>
-        <span class="skill">Metabase</span>
-        <span class="skill">Git</span>
-        <span class="skill">HTML / CSS</span>
-        <span class="skill">LLM Prompt Engineering</span>
-        <span class="skill">Automation</span>
-        <span class="skill">Statistical Analysis</span>
-        <span class="skill">Data Storytelling</span>
-        <span class="skill">Customer Segmentation</span>
-        <span class="skill">Power BI</span>
-      </div>
-    </div>
-
-    <!-- Neo project -->
-    <div class="card card-neo" data-animate>
-      <span class="card-label">Project</span>
-      <div class="project-header">
-        <h2>Neo</h2>
-        <span class="project-status">Live</span>
-      </div>
-      <p>A personal AI assistant running 24/7 on a Mac Mini, connected to Discord. Manages recipes, meal planning, shopping lists, real estate tracking, fitness logging, trip planning, and a daily news digest — all from a chat interface.</p>
-      <p class="project-detail">Built from scratch: Python, Claude API, Discord bot, cron scheduling, GitHub auto-commit, Cloudflare Tunnel.</p>
-      <div class="project-tags">
-        <span>Python</span>
-        <span>Claude API</span>
-        <span>Discord</span>
-        <span>Cloudflare</span>
-      </div>
-    </div>
-
-    <!-- Neo stats -->
-    <div class="card card-stats" data-animate>
-      <span class="card-label">Neo — by the numbers</span>
-      <div class="stats-list">
-        <div class="stat">
-          <span class="stat-number">193</span>
-          <span class="stat-label">commits</span>
+        <div class="skill-group reveal-child">
+          <h3 class="skill-group-title">Analytics & BI</h3>
+          <div class="skill-bars">
+            <div class="skill-row">
+              <span class="skill-name">Looker</span>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="82"></div></div>
+              <span class="skill-pct">Advanced</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">Sigma</span>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="78"></div></div>
+              <span class="skill-pct">Advanced</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">Power BI</span>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="68"></div></div>
+              <span class="skill-pct">Proficient</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">Metabase</span>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="72"></div></div>
+              <span class="skill-pct">Proficient</span>
+            </div>
+          </div>
         </div>
-        <div class="stat">
-          <span class="stat-number">6.8K</span>
+
+        <div class="skill-group reveal-child">
+          <h3 class="skill-group-title">Programming</h3>
+          <div class="skill-bars">
+            <div class="skill-row">
+              <span class="skill-name">Python</span>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="78"></div></div>
+              <span class="skill-pct">Advanced</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">Git</span>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="82"></div></div>
+              <span class="skill-pct">Advanced</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">HTML / CSS / JS</span>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="70"></div></div>
+              <span class="skill-pct">Proficient</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-group reveal-child">
+          <h3 class="skill-group-title">AI & Automation</h3>
+          <div class="skill-bars">
+            <div class="skill-row">
+              <span class="skill-name">LLM Engineering</span>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="85"></div></div>
+              <span class="skill-pct">Advanced</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">Automation</span>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="80"></div></div>
+              <span class="skill-pct">Advanced</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">Statistical Analysis</span>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="75"></div></div>
+              <span class="skill-pct">Proficient</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── STATS ─────────────────────────────────── -->
+  <section class="stats reveal" id="stats">
+    <div class="container">
+      <div class="section-meta">
+        <span class="section-num">03</span>
+        <span class="section-label">By the numbers</span>
+      </div>
+      <div class="stats-row">
+        <div class="stat reveal-child">
+          <span class="stat-number" data-target="193" data-suffix="">0</span>
+          <span class="stat-label">commits to Neo</span>
+        </div>
+        <div class="stat reveal-child">
+          <span class="stat-number" data-target="68" data-suffix="K+">0</span>
           <span class="stat-label">lines of code</span>
         </div>
-        <div class="stat">
-          <span class="stat-number">47</span>
+        <div class="stat reveal-child">
+          <span class="stat-number" data-target="47" data-suffix="">0</span>
           <span class="stat-label">recipes indexed</span>
         </div>
-        <div class="stat">
-          <span class="stat-number">10</span>
-          <span class="stat-label">active dev days</span>
+        <div class="stat reveal-child">
+          <span class="stat-number" data-target="8" data-suffix="">0</span>
+          <span class="stat-label">years in data</span>
         </div>
       </div>
     </div>
+  </section>
 
-    <!-- Commit chart -->
-    <div class="card card-chart" data-animate>
-      <span class="card-label">Commit activity — last 10 days</span>
-      <div class="chart-container">
-        <svg id="commit-chart" width="100%" height="120" preserveAspectRatio="none"></svg>
-        <div class="chart-labels" id="chart-labels"></div>
+  <!-- ─── ACTIVITY ──────────────────────────────── -->
+  <section class="activity reveal" id="activity">
+    <div class="container">
+      <div class="section-meta">
+        <span class="section-num">04</span>
+        <span class="section-label">GitHub Activity</span>
+      </div>
+      <p class="activity-sub">Commit activity — claude-discord-bot · last 26 weeks</p>
+      <div class="chart-wrap">
+        <div class="chart-bars" id="activity-chart"></div>
+        <div class="chart-x-labels" id="chart-labels"></div>
+      </div>
+      <div class="activity-heatmap-wrap">
+        <p class="heatmap-label">Contribution heatmap — last 16 weeks</p>
+        <div class="heatmap" id="heatmap"></div>
       </div>
     </div>
+  </section>
 
-    <!-- jtmeals project -->
-    <div class="card card-jtmeals" data-animate>
-      <span class="card-label">Project</span>
-      <div class="project-header">
-        <h2>jtmeals.com</h2>
-        <a href="https://www.jtmeals.com" target="_blank" rel="noopener" class="project-link">↗</a>
+  <!-- ─── PROJECTS ──────────────────────────────── -->
+  <section class="projects reveal" id="projects">
+    <div class="container">
+      <div class="section-meta">
+        <span class="section-num">05</span>
+        <span class="section-label">Projects</span>
       </div>
-      <p>Recipe browser and weekly meal planner. 47 recipes with ratings, cost estimates, and filters. Built with vanilla HTML/CSS/JS, served via Cloudflare Tunnel.</p>
-      <div class="project-tags">
-        <span>HTML / CSS / JS</span>
-        <span>JSON</span>
-        <span>Cloudflare</span>
+      <div class="project-cards">
+
+        <div class="project-card reveal-child">
+          <div class="project-card-top">
+            <div>
+              <div class="project-card-label">Personal AI Assistant</div>
+              <h2 class="project-card-title">Neo</h2>
+            </div>
+            <span class="project-live">Live</span>
+          </div>
+          <p>Runs 24/7 on a Mac Mini, connected to Discord. Manages recipes, meal planning, shopping lists, real estate tracking, fitness logging, trip planning, and a daily news digest — all from a chat interface.</p>
+          <p class="project-detail">Built from scratch: Python · Claude API · Discord bot · Cron scheduling · GitHub auto-commit · Cloudflare Tunnel</p>
+          <div class="project-tags">
+            <span>Python</span>
+            <span>Claude API</span>
+            <span>Discord</span>
+            <span>Cloudflare</span>
+            <span>Bash</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal-child">
+          <div class="project-card-top">
+            <div>
+              <div class="project-card-label">Recipe & Meal Planner</div>
+              <h2 class="project-card-title">jtmeals.com</h2>
+            </div>
+            <a href="https://www.jtmeals.com" target="_blank" rel="noopener" class="project-arrow">↗</a>
+          </div>
+          <p>Recipe browser and weekly meal planner. 47+ recipes with ratings, cost estimates, and filters. Built with vanilla HTML/CSS/JS, served via Cloudflare Tunnel from a local Node.js server.</p>
+          <p class="project-detail">Fully integrated with Neo — recipes are added by sharing a URL or photo in Discord</p>
+          <div class="project-tags">
+            <span>HTML / CSS / JS</span>
+            <span>Node.js</span>
+            <span>JSON</span>
+            <span>Cloudflare</span>
+          </div>
+        </div>
+
       </div>
     </div>
+  </section>
 
-  </main>
+  <!-- ─── FOOTER ────────────────────────────────── -->
+  <footer class="footer">
+    <div class="container">
+      <p>Joel Salomon · Kelowna, BC · <a href="mailto:joel.salomon@outlook.com">joel.salomon@outlook.com</a></p>
+    </div>
+  </footer>
 
   <script src="script.js"></script>
 </body>

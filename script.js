@@ -1,107 +1,182 @@
-// ============================================
-//  joeldoesdata.com — scripts
-// ============================================
+/* =============================================
+   joeldoesdata.com — scroll interactions
+   ============================================= */
 
-// Commit activity — last 10 days (pulled from git log 2026-03-30 → 2026-04-08)
-const commitData = [
-  { date: 'Mar 30', commits: 20 },
-  { date: 'Mar 31', commits: 74 },
-  { date: 'Apr 1',  commits: 31 },
-  { date: 'Apr 2',  commits: 8  },
-  { date: 'Apr 3',  commits: 7  },
-  { date: 'Apr 4',  commits: 12 },
-  { date: 'Apr 5',  commits: 4  },
-  { date: 'Apr 6',  commits: 11 },
-  { date: 'Apr 7',  commits: 23 },
-  { date: 'Apr 8',  commits: 3  },
-];
+/* ─── Reveal on scroll ───────────────────────── */
 
-function drawCommitChart() {
-  const svg = document.getElementById('commit-chart');
-  if (!svg) return;
-
-  const labelsEl = document.getElementById('chart-labels');
-  const w = svg.parentElement.clientWidth || 600;
-  const h = 120;
-  const barPad = 6;
-  const n = commitData.length;
-  const barW = (w - barPad * (n - 1)) / n;
-  const maxCommits = Math.max(...commitData.map(d => d.commits));
-
-  svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
-  svg.setAttribute('width', w);
-  svg.innerHTML = '';
-
-  commitData.forEach((d, i) => {
-    const barH = Math.max(4, (d.commits / maxCommits) * (h - 16));
-    const x = i * (barW + barPad);
-    const y = h - barH;
-
-    // Bar
-    const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-    rect.setAttribute('x', x);
-    rect.setAttribute('y', y);
-    rect.setAttribute('width', barW);
-    rect.setAttribute('height', barH);
-    rect.setAttribute('fill', d.commits === maxCommits ? '#d4d4d4' : '#2a2a2a');
-    rect.setAttribute('rx', 3);
-    rect.style.transition = 'fill 200ms ease';
-
-    rect.addEventListener('mouseenter', () => {
-      if (d.commits !== maxCommits) rect.setAttribute('fill', '#444');
-      tooltip.style.opacity = '1';
-      tooltip.textContent = `${d.date}: ${d.commits} commits`;
-    });
-    rect.addEventListener('mouseleave', () => {
-      if (d.commits !== maxCommits) rect.setAttribute('fill', '#2a2a2a');
-      tooltip.style.opacity = '0';
-    });
-
-    svg.appendChild(rect);
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
   });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
-  // Tooltip
-  const tooltip = document.createElement('div');
-  tooltip.style.cssText = `
-    position: absolute; top: -28px; left: 0;
-    font-size: 11px; color: #888; pointer-events: none;
-    opacity: 0; transition: opacity 150ms ease;
-    font-family: var(--font-sans, Inter, sans-serif);
-  `;
-  svg.parentElement.style.position = 'relative';
-  svg.parentElement.appendChild(tooltip);
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-  // Labels
-  if (labelsEl) {
+/* ─── Staggered children ─────────────────────── */
+
+const childObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const children = entry.target.querySelectorAll('.reveal-child');
+      children.forEach((child, i) => {
+        setTimeout(() => child.classList.add('visible'), i * 80);
+      });
+      childObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.skill-grid, .stats-row, .project-cards').forEach(el => {
+  childObserver.observe(el);
+});
+
+/* ─── Skill bars ─────────────────────────────── */
+
+const barObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('.skill-bar-fill').forEach((bar, i) => {
+        const pct = bar.dataset.pct;
+        setTimeout(() => { bar.style.width = pct + '%'; }, i * 60 + 200);
+      });
+      barObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.2 });
+
+document.querySelectorAll('.skill-group').forEach(g => barObserver.observe(g));
+
+/* ─── Count-up animation ─────────────────────── */
+
+function countUp(el) {
+  const target = parseInt(el.dataset.target, 10);
+  const suffix = el.dataset.suffix || '';
+  const duration = 1400;
+  const start = performance.now();
+
+  function step(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.floor(eased * target) + suffix;
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = target + suffix;
+  }
+  requestAnimationFrame(step);
+}
+
+const statObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('.stat-number').forEach((el, i) => {
+        setTimeout(() => countUp(el), i * 120);
+      });
+      statObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+
+const statsSection = document.getElementById('stats');
+if (statsSection) statObserver.observe(statsSection);
+
+/* ─── GitHub activity chart ──────────────────── */
+
+async function loadActivity() {
+  const chartEl = document.getElementById('activity-chart');
+  const labelsEl = document.getElementById('chart-labels');
+  if (!chartEl) return;
+
+  try {
+    const res = await fetch(
+      'https://api.github.com/repos/jsalomon88/claude-discord-bot/stats/commit_activity',
+      { headers: { 'Accept': 'application/vnd.github+json' } }
+    );
+    if (!res.ok) throw new Error('API error');
+    const data = await res.json();
+    if (!Array.isArray(data) || data.length === 0) throw new Error('Empty');
+
+    const weeks = data.slice(-26);
+    const max = Math.max(...weeks.map(w => w.total), 1);
+
+    chartEl.innerHTML = '';
     labelsEl.innerHTML = '';
-    // Show first, middle, last
-    [0, 4, 9].forEach(i => {
+
+    weeks.forEach((week, i) => {
+      const bar = document.createElement('div');
+      bar.className = 'chart-bar';
+      const pct = week.total / max;
+      bar.style.height = Math.max(pct * 100, week.total > 0 ? 3 : 1) + '%';
+      bar.title = `${week.total} commit${week.total !== 1 ? 's' : ''}`;
+      chartEl.appendChild(bar);
+    });
+
+    // Labels — show every 4 weeks
+    weeks.forEach((week, i) => {
       const span = document.createElement('span');
-      span.textContent = commitData[i].date;
+      if (i % 4 === 0) {
+        const d = new Date(week.week * 1000);
+        span.textContent = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      }
       labelsEl.appendChild(span);
     });
+
+    // Animate bars on scroll
+    const chartObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          chartEl.querySelectorAll('.chart-bar').forEach((bar, i) => {
+            setTimeout(() => { bar.style.transform = 'scaleY(1)'; }, i * 28);
+          });
+          chartObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    chartObserver.observe(chartEl);
+
+    // Build heatmap from last 16 weeks of daily data
+    buildHeatmap(data.slice(-16));
+
+  } catch (e) {
+    chartEl.innerHTML = '<p style="color:#333;font-size:12px;letter-spacing:.04em;align-self:center;">Activity unavailable</p>';
+    buildHeatmap(null);
   }
 }
 
-// Staggered fade-in animation
-function animateCards() {
-  const cards = document.querySelectorAll('[data-animate]');
-  cards.forEach((card, i) => {
-    setTimeout(() => {
-      card.classList.add('visible');
-    }, i * 60);
+/* ─── Contribution heatmap ───────────────────── */
+
+function buildHeatmap(weeks) {
+  const el = document.getElementById('heatmap');
+  if (!el) return;
+
+  el.innerHTML = '';
+
+  if (!weeks) {
+    el.style.display = 'none';
+    return;
+  }
+
+  const allCounts = weeks.flatMap(w => w.days);
+  const max = Math.max(...allCounts, 1);
+
+  weeks.forEach(week => {
+    week.days.forEach(count => {
+      const cell = document.createElement('div');
+      cell.className = 'heat-cell';
+      if (count > 0) {
+        const level = count >= max * 0.75 ? 4
+                    : count >= max * 0.4  ? 3
+                    : count >= max * 0.15 ? 2
+                    : 1;
+        cell.dataset.level = level;
+      }
+      cell.title = `${count} commit${count !== 1 ? 's' : ''}`;
+      el.appendChild(cell);
+    });
   });
 }
 
-// Init
-document.addEventListener('DOMContentLoaded', () => {
-  animateCards();
-  drawCommitChart();
-});
-
-// Redraw chart on resize
-let resizeTimer;
-window.addEventListener('resize', () => {
-  clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(drawCommitChart, 150);
-});
+loadActivity();
