@@ -29,7 +29,7 @@ const childObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.08 });
 
-document.querySelectorAll('.skill-grid, .stats-row, .project-cards').forEach(el => {
+document.querySelectorAll('.skill-grid, .stats-row, .project-cards, .timeline').forEach(el => {
   childObserver.observe(el);
 });
 
