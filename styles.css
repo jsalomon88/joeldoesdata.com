@@ -103,7 +103,8 @@ a { color: inherit; text-decoration: none; }
   display: flex;
   flex-direction: column;
   gap: 28px;
-  padding-top: clamp(40px, 8vh, 100px);
+  padding-top: clamp(32px, 5vh, 64px);
+  max-width: 900px;
 }
 
 .hero-badge {
@@ -476,7 +477,7 @@ a { color: inherit; text-decoration: none; }
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 32px 0;
+  padding: 32px 0 32px 40px;
   border-right: 1px solid var(--border);
 }
 
