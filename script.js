@@ -198,12 +198,18 @@ function buildHeatmap(weeks) {
   function activate(index) {
     nodes.forEach(n => n.classList.toggle('is-active', +n.dataset.index === index));
     descs.forEach(d => d.classList.toggle('is-active', +d.dataset.index === index));
+    // Flow dots on the connector leaving this node (last node uses the connector entering it)
+    const flowIdx = Math.min(index, connectors.length - 1);
+    connectors.forEach((c, i) => c.classList.toggle('is-flowing', i === flowIdx));
   }
 
   nodes.forEach(node => {
     node.addEventListener('mouseenter', () => activate(+node.dataset.index));
     node.addEventListener('click', () => activate(+node.dataset.index));
   });
+
+  // Initialise with first node active
+  activate(0);
 })();
 
 loadActivity();
