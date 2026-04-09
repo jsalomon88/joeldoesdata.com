@@ -95,7 +95,7 @@ async function loadActivity() {
     const data = await res.json();
     if (!Array.isArray(data) || data.length === 0) throw new Error('Empty');
 
-    const weeks = data.slice(-26);
+    const weeks = data.slice(-12);
     const max = Math.max(...weeks.map(w => w.total), 1);
 
     chartEl.innerHTML = '';
@@ -110,10 +110,10 @@ async function loadActivity() {
       chartEl.appendChild(bar);
     });
 
-    // Labels — show every 4 weeks
+    // Labels — show every 3 weeks
     weeks.forEach((week, i) => {
       const span = document.createElement('span');
-      if (i % 4 === 0) {
+      if (i % 3 === 0) {
         const d = new Date(week.week * 1000);
         span.textContent = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
       }
@@ -135,7 +135,7 @@ async function loadActivity() {
     chartObserver.observe(chartEl);
 
     // Build heatmap from last 16 weeks of daily data
-    buildHeatmap(data.slice(-16));
+    buildHeatmap(data.slice(-12));
 
   } catch (e) {
     chartEl.innerHTML = '<p style="color:#333;font-size:12px;letter-spacing:.04em;align-self:center;">Activity unavailable</p>';
@@ -206,10 +206,10 @@ async function loadTokenUsage() {
       chartEl.appendChild(bar);
     });
 
-    // Labels — show every 6 days
+    // Labels — show every 2 weeks
     data.forEach((day, i) => {
       const span = document.createElement('span');
-      if (i % 6 === 0) {
+      if (i % 14 === 0) {
         const d = new Date(day.date + 'T00:00:00');
         span.textContent = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
       }
