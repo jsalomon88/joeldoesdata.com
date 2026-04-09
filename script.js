@@ -177,3 +177,62 @@ function buildHeatmap(weeks) {
 }
 
 loadActivity();
+
+/* ─── Token usage chart ──────────────────────── */
+
+async function loadTokenUsage() {
+  const chartEl = document.getElementById('token-chart');
+  const labelsEl = document.getElementById('token-labels');
+  if (!chartEl) return;
+
+  try {
+    const res = await fetch('./token-usage.json');
+    if (!res.ok) throw new Error('not found');
+    const data = await res.json();
+    if (!Array.isArray(data) || data.length === 0) throw new Error('empty');
+
+    const max = Math.max(...data.map(d => d.tokens), 1);
+
+    chartEl.innerHTML = '';
+    labelsEl.innerHTML = '';
+
+    data.forEach((day, i) => {
+      const bar = document.createElement('div');
+      bar.className = 'chart-bar';
+      const pct = day.tokens / max;
+      bar.style.height = Math.max(pct * 100, day.tokens > 0 ? 3 : 1) + '%';
+      const millions = (day.tokens / 1_000_000).toFixed(1);
+      bar.title = `${millions}M tokens`;
+      chartEl.appendChild(bar);
+    });
+
+    // Labels — show every 6 days
+    data.forEach((day, i) => {
+      const span = document.createElement('span');
+      if (i % 6 === 0) {
+        const d = new Date(day.date + 'T00:00:00');
+        span.textContent = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      }
+      labelsEl.appendChild(span);
+    });
+
+    // Animate on scroll
+    const tokenObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          chartEl.querySelectorAll('.chart-bar').forEach((bar, i) => {
+            setTimeout(() => { bar.style.transform = 'scaleY(1)'; }, i * 18);
+          });
+          tokenObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    tokenObserver.observe(chartEl);
+
+  } catch (e) {
+    chartEl.innerHTML = '<p style="color:#333;font-size:12px;letter-spacing:.04em;align-self:center;">Activity unavailable</p>';
+  }
+}
+
+loadTokenUsage();
