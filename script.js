@@ -49,6 +49,20 @@ const barObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.skill-group').forEach(g => barObserver.observe(g));
 
+/* ─── Dynamic site stats ─────────────────────── */
+
+(async function () {
+  try {
+    const res = await fetch('./site-stats.json');
+    if (!res.ok) return;
+    const stats = await res.json();
+    const commitsEl = document.querySelector('[data-stat="commits"]');
+    const locEl = document.querySelector('[data-stat="loc"]');
+    if (commitsEl) commitsEl.dataset.target = stats.commits;
+    if (locEl) { locEl.dataset.target = stats.lines_of_code_k; locEl.dataset.suffix = 'K+'; }
+  } catch (e) { /* fallback to hardcoded values */ }
+})();
+
 /* ─── Count-up animation ─────────────────────── */
 
 function countUp(el) {
