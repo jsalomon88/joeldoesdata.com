@@ -858,6 +858,6 @@ a { color: inherit; text-decoration: none; }
 
 @media (max-width: 480px) {
   .stats-row { grid-template-columns: 1fr; }
-  .stat { border-right: none; }
+  .stat { border-right: none; padding-left: 0; }
   .hero-links { gap: 20px; }
 }
