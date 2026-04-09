@@ -255,6 +255,7 @@ function hideTip() { _tip.style.display = 'none'; _tip._anchor = null; }
 document.addEventListener('click', e => {
   if (!e.target.closest('.chart-bar') && !e.target.closest('.heat-cell')) hideTip();
 });
+window.addEventListener('scroll', hideTip, { passive: true });
 
 /* ─── Token usage chart ──────────────────────── */
 
