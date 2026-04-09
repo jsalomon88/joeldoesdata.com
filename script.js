@@ -120,7 +120,7 @@ async function loadActivity() {
       bar.className = 'chart-bar';
       const pct = week.total / max;
       bar.style.height = Math.max(pct * 100, week.total > 0 ? 3 : 1) + '%';
-      bar.title = `${week.total} commit${week.total !== 1 ? 's' : ''}`;
+      bar.addEventListener('click', e => { e.stopPropagation(); showTip(bar, `${week.total} commit${week.total !== 1 ? 's' : ''}`); });
       chartEl.appendChild(bar);
     });
 
@@ -184,7 +184,7 @@ function buildHeatmap(weeks) {
                     : 1;
         cell.dataset.level = level;
       }
-      cell.title = `${count} commit${count !== 1 ? 's' : ''}`;
+      cell.addEventListener('click', e => { e.stopPropagation(); showTip(cell, `${count} commit${count !== 1 ? 's' : ''}`); });
       el.appendChild(cell);
     });
   });
@@ -228,6 +228,34 @@ function buildHeatmap(weeks) {
 
 loadActivity();
 
+/* ─── Click tooltip ──────────────────────────── */
+
+const _tip = document.createElement('div');
+_tip.className = 'chart-tooltip';
+_tip.style.display = 'none';
+document.body.appendChild(_tip);
+
+function showTip(el, text) {
+  if (_tip._anchor === el && _tip.style.display !== 'none') { hideTip(); return; }
+  _tip._anchor = el;
+  _tip.textContent = text;
+  _tip.style.display = 'block';
+  const r = el.getBoundingClientRect();
+  const tr = _tip.getBoundingClientRect();
+  let left = r.left + r.width / 2 - tr.width / 2;
+  let top  = r.top  - tr.height - 8;
+  left = Math.max(8, Math.min(left, window.innerWidth - tr.width - 8));
+  if (top < 8) top = r.bottom + 8;
+  _tip.style.left = left + 'px';
+  _tip.style.top  = top  + 'px';
+}
+
+function hideTip() { _tip.style.display = 'none'; _tip._anchor = null; }
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('.chart-bar') && !e.target.closest('.heat-cell')) hideTip();
+});
+
 /* ─── Token usage chart ──────────────────────── */
 
 async function loadTokenUsage() {
@@ -252,7 +280,7 @@ async function loadTokenUsage() {
       const pct = day.tokens / max;
       bar.style.height = Math.max(pct * 100, day.tokens > 0 ? 3 : 1) + '%';
       const millions = (day.tokens / 1_000_000).toFixed(1);
-      bar.title = `${millions}M tokens`;
+      bar.addEventListener('click', e => { e.stopPropagation(); showTip(bar, `${millions}M tokens`); });
       chartEl.appendChild(bar);
     });
 
