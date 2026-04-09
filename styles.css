@@ -579,22 +579,26 @@ a { color: inherit; text-decoration: none; }
   .pipeline-flow {
     flex-direction: column;
     align-items: stretch;
-    gap: 2px;
+    gap: 0;
+  }
+  .pipeline-node {
+    height: auto;
+    padding: 14px 16px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0;
+  }
+  .pipeline-node-tools {
+    text-align: right;
   }
   .pipeline-connector {
     width: 1px;
-    height: 20px;
-    margin: 0 auto;
+    height: 10px;
+    margin: 0 0 0 20px;
+    overflow: hidden;
   }
-  .pipeline-connector::after {
-    right: -3px;
-    top: auto;
-    bottom: -1px;
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
-    border-top: 5px solid var(--border-mid);
-    border-bottom: none;
-  }
+  .pipeline-dot { display: none; }
 }
 
 /* ─── STATS ──────────────────────────────────── */
