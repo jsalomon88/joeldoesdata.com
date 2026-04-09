@@ -12,13 +12,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Fetch commit activity
+      - name: Fetch commit activity (with retry)
         run: |
-          curl -s \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Accept: application/vnd.github+json" \
-            "https://api.github.com/repos/jsalomon88/claude-discord-bot/stats/commit_activity" \
-            > commit-data.json
+          for i in 1 2 3 4 5; do
+            echo "Attempt $i..."
+            STATUS=$(curl -s -o commit-data.json -w "%{http_code}" \
+              -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+              -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/jsalomon88/claude-discord-bot/stats/commit_activity")
+            echo "HTTP status: $STATUS"
+            if [ "$STATUS" = "200" ] && python3 -c "import json,sys; d=json.load(open('commit-data.json')); assert len(d) > 0" 2>/dev/null; then
+              echo "Got valid data."
+              break
+            fi
+            echo "Not ready yet, waiting 10s..."
+            sleep 10
+          done
 
       - name: Deploy to Cloudflare
         uses: cloudflare/wrangler-action@v3
