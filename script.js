@@ -176,6 +176,24 @@ function buildHeatmap(weeks) {
   });
 }
 
+/* ─── Pipeline interaction ───────────────────── */
+
+(function () {
+  const nodes = document.querySelectorAll('.pipeline-node');
+  const descs = document.querySelectorAll('.pipeline-desc');
+  if (!nodes.length) return;
+
+  function activate(index) {
+    nodes.forEach(n => n.classList.toggle('is-active', +n.dataset.index === index));
+    descs.forEach(d => d.classList.toggle('is-active', +d.dataset.index === index));
+  }
+
+  nodes.forEach(node => {
+    node.addEventListener('mouseenter', () => activate(+node.dataset.index));
+    node.addEventListener('click', () => activate(+node.dataset.index));
+  });
+})();
+
 loadActivity();
 
 /* ─── Token usage chart ──────────────────────── */
