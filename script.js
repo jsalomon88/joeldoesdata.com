@@ -58,8 +58,10 @@ document.querySelectorAll('.skill-group').forEach(g => barObserver.observe(g));
     const stats = await res.json();
     const commitsEl = document.querySelector('[data-stat="commits"]');
     const locEl = document.querySelector('[data-stat="loc"]');
+    const recipesEl = document.querySelector('[data-stat="recipes"]');
     if (commitsEl) commitsEl.dataset.target = stats.commits;
     if (locEl) { locEl.dataset.target = stats.lines_of_code_k; locEl.dataset.suffix = 'K+'; }
+    if (recipesEl && stats.recipe_count) recipesEl.textContent = stats.recipe_count;
   } catch (e) { /* fallback to hardcoded values */ }
 })();
 
