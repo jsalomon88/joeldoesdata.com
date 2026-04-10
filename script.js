@@ -303,10 +303,12 @@ async function loadRecipeScatter() {
       svg += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${b.color}" opacity="0.75"/>`;
       svg += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${b.color}" stroke-width="1" opacity="0.9"/>`;
 
-      // Label — nudge to avoid overlap with bubble edge
-      const labelY = cy - r - 4;
-      svg += `<text x="${cx}" y="${labelY < PAD.top + 10 ? cy + r + 11 : labelY}" text-anchor="middle" fill="rgba(255,255,255,0.75)" font-size="9" font-family="Syne,sans-serif" font-weight="600">${b.category}</text>`;
-      svg += `<text x="${cx}" y="${labelY < PAD.top + 10 ? cy + r + 21 : labelY + 10}" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-size="8" font-family="JetBrains Mono,monospace">${b.count}</text>`;
+      // Count centered inside bubble
+      svg += `<text x="${cx}" y="${cy}" text-anchor="middle" dominant-baseline="central" fill="rgba(255,255,255,0.85)" font-size="${Math.max(7, r * 0.55)}" font-family="JetBrains Mono,monospace" font-weight="600">${b.count}</text>`;
+      // Category label above bubble
+      const labelY = cy - r - 5;
+      const fallbackY = cy + r + 12;
+      svg += `<text x="${cx}" y="${labelY < PAD.top + 8 ? fallbackY : labelY}" text-anchor="middle" dominant-baseline="auto" fill="rgba(255,255,255,0.7)" font-size="9" font-family="Syne,sans-serif" font-weight="600">${b.category}</text>`;
     });
 
     svg += '</svg>';
