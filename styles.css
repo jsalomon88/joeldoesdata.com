@@ -722,6 +722,48 @@ a { color: inherit; text-decoration: none; }
 .heat-cell[data-level="3"] { background: #2d6630; }
 .heat-cell[data-level="4"] { background: #4ade80; opacity: 0.7; }
 
+/* ─── COMMIT DISTRIBUTION CHART ─────────────── */
+.dist-chart-wrap { margin-top: 16px; }
+
+.dist-sub {
+  font-size: 11px;
+  color: var(--text-sec);
+  letter-spacing: 0.03em;
+  margin-top: -20px;
+  margin-bottom: 24px;
+}
+
+.commit-dist-svg { width: 100%; overflow: visible; }
+.commit-dist-svg svg { width: 100%; display: block; }
+
+.dist-legend {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+  font-size: 11px;
+  color: var(--text-sec);
+  letter-spacing: 0.03em;
+  font-family: 'JetBrains Mono', monospace;
+}
+.dist-legend-bar {
+  display: inline-block;
+  width: 14px; height: 10px;
+  background: rgba(200,169,110,0.65);
+  border-radius: 2px;
+}
+.dist-legend-line {
+  display: inline-block;
+  width: 20px; height: 2px;
+  background: rgba(255,255,255,0.45);
+  border-radius: 1px;
+}
+.dist-legend-lambda {
+  display: inline-block;
+  width: 14px; height: 14px;
+  border-left: 1.5px dashed rgba(200,169,110,0.5);
+}
+
 /* ─── CHART TOOLTIP ──────────────────────────── */
 
 .chart-tooltip {

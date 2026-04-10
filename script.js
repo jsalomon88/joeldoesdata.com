@@ -242,6 +242,92 @@ document.querySelectorAll('.timeline-duration[data-start]').forEach(el => {
 });
 
 loadActivity();
+loadCommitDist();
+
+/* ─── Commit distribution histogram ─────────── */
+
+async function loadCommitDist() {
+  const el = document.getElementById('commit-dist-chart');
+  if (!el) return;
+
+  try {
+    const res = await fetch('./commit-dist.json');
+    if (!res.ok) throw new Error('no data');
+    const data = await res.json();
+
+    const hourly = data.hourly;       // [{hour, commits}, ...] length 24
+    const smoothed = data.smoothed;   // [float, ...] length 24
+    const peakHour = data.peak_hour;
+
+    // Update legend
+    const lambdaLabel = document.getElementById('dist-lambda-label');
+    const peakLabel = peakHour < 12 ? `${peakHour === 0 ? 12 : peakHour} AM`
+                    : peakHour === 12 ? '12 PM'
+                    : `${peakHour - 12} PM`;
+    if (lambdaLabel) lambdaLabel.textContent = `peak: ${peakLabel}`;
+
+    const maxVal = Math.max(...hourly.map(d => d.commits), 1);
+    const maxSmoothed = Math.max(...smoothed, 1);
+    const scaleMax = Math.max(maxVal, maxSmoothed);
+
+    const H = 180;
+    const PAD = { top: 16, right: 12, bottom: 34, left: 36 };
+    const VW = 600;
+    const plotW = VW - PAD.left - PAD.right;
+    const plotH = H - PAD.top - PAD.bottom;
+    const barW = plotW / 24;
+
+    const xMid = h => PAD.left + h * barW + barW / 2;
+    const yPos = v => PAD.top + plotH - (v / scaleMax) * plotH;
+
+    let svg = `<svg viewBox="0 0 ${VW} ${H}" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">`;
+
+    // Subtle gridlines
+    [0.5, 1].forEach(frac => {
+      const y = PAD.top + plotH - frac * plotH;
+      const val = Math.round(frac * scaleMax);
+      svg += `<line x1="${PAD.left}" y1="${y}" x2="${PAD.left + plotW}" y2="${y}" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>`;
+      svg += `<text x="${PAD.left - 5}" y="${y + 4}" text-anchor="end" fill="rgba(255,255,255,0.22)" font-size="9" font-family="JetBrains Mono,monospace">${val}</text>`;
+    });
+
+    // AM/PM divider
+    const noonX = PAD.left + 12 * barW;
+    svg += `<line x1="${noonX}" y1="${PAD.top}" x2="${noonX}" y2="${PAD.top + plotH}" stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="3,3"/>`;
+    svg += `<text x="${noonX - 4}" y="${PAD.top + 10}" text-anchor="end" fill="rgba(255,255,255,0.15)" font-size="8" font-family="JetBrains Mono,monospace">AM</text>`;
+    svg += `<text x="${noonX + 4}" y="${PAD.top + 10}" text-anchor="start" fill="rgba(255,255,255,0.15)" font-size="8" font-family="JetBrains Mono,monospace">PM</text>`;
+
+    // Bars — highlight peak hour
+    hourly.forEach(({ hour: h, commits: count }) => {
+      const bh = (count / scaleMax) * plotH;
+      const isPeak = h === peakHour;
+      const fill = isPeak ? 'rgba(200,169,110,0.9)' : 'rgba(200,169,110,0.5)';
+      svg += `<rect x="${PAD.left + h * barW + 1.5}" y="${yPos(count)}" width="${barW - 3}" height="${bh}" fill="${fill}" rx="2"/>`;
+    });
+
+    // Smoothed trend line
+    const pts = smoothed.map((v, h) => `${xMid(h)},${yPos(v)}`).join(' ');
+    svg += `<polyline points="${pts}" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>`;
+
+    // Peak marker
+    const px = xMid(peakHour);
+    svg += `<line x1="${px}" y1="${PAD.top}" x2="${px}" y2="${PAD.top + plotH}" stroke="rgba(200,169,110,0.35)" stroke-width="1" stroke-dasharray="4,3"/>`;
+
+    // X-axis hour labels (every 3 hours)
+    [0, 3, 6, 9, 12, 15, 18, 21].forEach(h => {
+      const label = h === 0 ? '12a' : h < 12 ? `${h}a` : h === 12 ? '12p' : `${h - 12}p`;
+      svg += `<text x="${xMid(h)}" y="${H - 8}" text-anchor="middle" fill="rgba(255,255,255,0.28)" font-size="9" font-family="JetBrains Mono,monospace">${label}</text>`;
+    });
+
+    // Baseline
+    svg += `<line x1="${PAD.left}" y1="${PAD.top + plotH}" x2="${PAD.left + plotW}" y2="${PAD.top + plotH}" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>`;
+
+    svg += '</svg>';
+    el.innerHTML = svg;
+
+  } catch (e) {
+    el.innerHTML = '<p style="color:#333;font-size:12px;letter-spacing:.04em;">Distribution unavailable</p>';
+  }
+}
 
 /* ─── Click tooltip ──────────────────────────── */
 
