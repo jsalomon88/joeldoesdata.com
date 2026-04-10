@@ -243,6 +243,79 @@ document.querySelectorAll('.timeline-duration[data-start]').forEach(el => {
 
 loadActivity();
 loadCommitDist();
+loadRecipeScatter();
+
+/* ─── Recipe category bubble chart ──────────── */
+
+async function loadRecipeScatter() {
+  const el = document.getElementById('recipe-scatter-chart');
+  if (!el) return;
+
+  try {
+    const res = await fetch('./recipe-scatter.json');
+    if (!res.ok) throw new Error('no data');
+    const data = await res.json();
+    const bubbles = data.bubbles;
+    if (!bubbles || !bubbles.length) throw new Error('empty');
+
+    const H = 240;
+    const PAD = { top: 20, right: 20, bottom: 44, left: 48 };
+    const VW = 600;
+    const plotW = VW - PAD.left - PAD.right;
+    const plotH = H - PAD.top - PAD.bottom;
+
+    const maxPrep = Math.max(...bubbles.map(b => b.avg_prep), 1);
+    const maxCook = Math.max(...bubbles.map(b => b.avg_cook), 1);
+    const maxCount = Math.max(...bubbles.map(b => b.count), 1);
+
+    const xScale = v => PAD.left + (v / (maxPrep * 1.15)) * plotW;
+    const yScale = v => PAD.top + plotH - (v / (maxCook * 1.2)) * plotH;
+    const rScale = v => 6 + (v / maxCount) * 22;
+
+    let svg = `<svg viewBox="0 0 ${VW} ${H}" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">`;
+
+    // Gridlines
+    [0.25, 0.5, 0.75, 1].forEach(frac => {
+      const gy = PAD.top + plotH - frac * plotH;
+      const gx = PAD.left + frac * plotW;
+      const yVal = Math.round(frac * maxCook * 1.2);
+      const xVal = Math.round(frac * maxPrep * 1.15);
+      svg += `<line x1="${PAD.left}" y1="${gy}" x2="${PAD.left + plotW}" y2="${gy}" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>`;
+      svg += `<line x1="${gx}" y1="${PAD.top}" x2="${gx}" y2="${PAD.top + plotH}" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>`;
+      svg += `<text x="${PAD.left - 5}" y="${gy + 4}" text-anchor="end" fill="rgba(255,255,255,0.2)" font-size="8" font-family="JetBrains Mono,monospace">${yVal}m</text>`;
+      svg += `<text x="${gx}" y="${PAD.top + plotH + 14}" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-size="8" font-family="JetBrains Mono,monospace">${xVal}m</text>`;
+    });
+
+    // Axes
+    svg += `<line x1="${PAD.left}" y1="${PAD.top}" x2="${PAD.left}" y2="${PAD.top + plotH}" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>`;
+    svg += `<line x1="${PAD.left}" y1="${PAD.top + plotH}" x2="${PAD.left + plotW}" y2="${PAD.top + plotH}" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>`;
+
+    // Axis labels
+    svg += `<text x="${PAD.left + plotW / 2}" y="${H - 2}" text-anchor="middle" fill="rgba(255,255,255,0.25)" font-size="9" font-family="JetBrains Mono,monospace">avg prep time</text>`;
+    svg += `<text x="10" y="${PAD.top + plotH / 2}" text-anchor="middle" fill="rgba(255,255,255,0.25)" font-size="9" font-family="JetBrains Mono,monospace" transform="rotate(-90,10,${PAD.top + plotH / 2})">avg cook time</text>`;
+
+    // Bubbles (draw smaller ones on top by sorting by count desc)
+    const sorted = [...bubbles].sort((a, b) => b.count - a.count);
+    sorted.forEach(b => {
+      const cx = xScale(b.avg_prep);
+      const cy = yScale(b.avg_cook);
+      const r = rScale(b.count);
+      svg += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${b.color}" opacity="0.75"/>`;
+      svg += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${b.color}" stroke-width="1" opacity="0.9"/>`;
+
+      // Label — nudge to avoid overlap with bubble edge
+      const labelY = cy - r - 4;
+      svg += `<text x="${cx}" y="${labelY < PAD.top + 10 ? cy + r + 11 : labelY}" text-anchor="middle" fill="rgba(255,255,255,0.75)" font-size="9" font-family="Syne,sans-serif" font-weight="600">${b.category}</text>`;
+      svg += `<text x="${cx}" y="${labelY < PAD.top + 10 ? cy + r + 21 : labelY + 10}" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-size="8" font-family="JetBrains Mono,monospace">${b.count}</text>`;
+    });
+
+    svg += '</svg>';
+    el.innerHTML = svg;
+
+  } catch (e) {
+    el.innerHTML = '<p style="color:#333;font-size:12px;letter-spacing:.04em;">Chart unavailable</p>';
+  }
+}
 
 /* ─── Commit distribution histogram ─────────── */
 
