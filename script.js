@@ -313,10 +313,68 @@ async function loadRecipeScatter() {
 
     svg += '</svg>';
     el.innerHTML = svg;
+    animateSvgCircles(el.querySelector('svg'));
 
   } catch (e) {
     el.innerHTML = '<p style="color:#333;font-size:12px;letter-spacing:.04em;">Chart unavailable</p>';
   }
+}
+
+/* ─── SVG chart scroll animations ───────────── */
+
+function animateSvgBars(container, baseY) {
+  // baseY = bottom of plot area (y where bars touch the baseline)
+  const rects = container.querySelectorAll('rect');
+  rects.forEach(rect => {
+    const targetH = parseFloat(rect.getAttribute('height'));
+    const targetY = parseFloat(rect.getAttribute('y'));
+    rect.setAttribute('height', 0);
+    rect.setAttribute('y', baseY);
+    rect._targetH = targetH;
+    rect._targetY = targetY;
+  });
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const allRects = entry.target.querySelectorAll('rect');
+      allRects.forEach((rect, i) => {
+        setTimeout(() => {
+          rect.style.transition = 'height 500ms cubic-bezier(0.22,1,0.36,1), y 500ms cubic-bezier(0.22,1,0.36,1)';
+          rect.setAttribute('height', rect._targetH);
+          rect.setAttribute('y', rect._targetY);
+        }, i * 50);
+      });
+      obs.unobserve(entry.target);
+    });
+  }, { threshold: 0.2 });
+
+  obs.observe(container);
+}
+
+function animateSvgCircles(container) {
+  const circles = container.querySelectorAll('circle');
+  circles.forEach(circle => {
+    const targetR = parseFloat(circle.getAttribute('r'));
+    circle.setAttribute('r', 0);
+    circle._targetR = targetR;
+  });
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const allCircles = entry.target.querySelectorAll('circle');
+      allCircles.forEach((circle, i) => {
+        setTimeout(() => {
+          circle.style.transition = 'r 500ms cubic-bezier(0.34,1.56,0.64,1)';
+          circle.setAttribute('r', circle._targetR);
+        }, i * 80);
+      });
+      obs.unobserve(entry.target);
+    });
+  }, { threshold: 0.2 });
+
+  obs.observe(container);
 }
 
 /* ─── Recipe cook time distribution ─────────── */
@@ -388,6 +446,7 @@ async function loadRecipeCookDist() {
 
     svg += '</svg>';
     el.innerHTML = svg;
+    animateSvgBars(el.querySelector('svg'), PAD.top + plotH);
 
   } catch (e) {
     el.innerHTML = '<p style="color:#333;font-size:12px;letter-spacing:.04em;">Distribution unavailable</p>';
