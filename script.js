@@ -258,6 +258,9 @@ async function loadRecipeScatter() {
     const bubbles = data.bubbles;
     if (!bubbles || !bubbles.length) throw new Error('empty');
 
+    const scatterCountEl = document.getElementById('scatter-count');
+    if (scatterCountEl) scatterCountEl.textContent = bubbles.reduce((s, b) => s + b.count, 0);
+
     const H = 240;
     const PAD = { top: 20, right: 20, bottom: 44, left: 48 };
     const VW = 600;
@@ -393,6 +396,8 @@ async function loadRecipeCookDist() {
 
     const peakLabel = document.getElementById('cook-dist-peak-label');
     if (peakLabel) peakLabel.textContent = `peak: ${data.peak_label} min`;
+    const countEl = document.getElementById('cook-dist-count');
+    if (countEl) countEl.textContent = data.total;
 
     const maxVal = Math.max(...bins.map(b => b.count), 1);
     const scaleMax = Math.max(maxVal, ...smoothed);
