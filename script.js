@@ -242,7 +242,7 @@ document.querySelectorAll('.timeline-duration[data-start]').forEach(el => {
 });
 
 loadActivity();
-loadCommitDist();
+loadRecipeCookDist();
 loadRecipeScatter();
 
 /* ─── Recipe category bubble chart ──────────── */
@@ -319,45 +319,40 @@ async function loadRecipeScatter() {
   }
 }
 
-/* ─── Commit distribution histogram ─────────── */
+/* ─── Recipe cook time distribution ─────────── */
 
-async function loadCommitDist() {
-  const el = document.getElementById('commit-dist-chart');
+async function loadRecipeCookDist() {
+  const el = document.getElementById('recipe-cook-dist-chart');
   if (!el) return;
 
   try {
-    const res = await fetch('./commit-dist.json');
+    const res = await fetch('./recipe-cook-dist.json');
     if (!res.ok) throw new Error('no data');
     const data = await res.json();
 
-    const hourly = data.hourly;       // [{hour, commits}, ...] length 24
-    const smoothed = data.smoothed;   // [float, ...] length 24
-    const peakHour = data.peak_hour;
+    const bins = data.bins;         // [{label, count}, ...]
+    const smoothed = data.smoothed; // [float, ...]
 
-    // Update legend
-    const lambdaLabel = document.getElementById('dist-lambda-label');
-    const peakLabel = peakHour < 12 ? `${peakHour === 0 ? 12 : peakHour} AM`
-                    : peakHour === 12 ? '12 PM'
-                    : `${peakHour - 12} PM`;
-    if (lambdaLabel) lambdaLabel.textContent = `peak: ${peakLabel}`;
+    const peakLabel = document.getElementById('cook-dist-peak-label');
+    if (peakLabel) peakLabel.textContent = `peak: ${data.peak_label} min`;
 
-    const maxVal = Math.max(...hourly.map(d => d.commits), 1);
-    const maxSmoothed = Math.max(...smoothed, 1);
-    const scaleMax = Math.max(maxVal, maxSmoothed);
+    const maxVal = Math.max(...bins.map(b => b.count), 1);
+    const scaleMax = Math.max(maxVal, ...smoothed);
 
     const H = 180;
     const PAD = { top: 16, right: 12, bottom: 34, left: 36 };
     const VW = 600;
     const plotW = VW - PAD.left - PAD.right;
     const plotH = H - PAD.top - PAD.bottom;
-    const barW = plotW / 24;
+    const n = bins.length;
+    const barW = plotW / n;
 
-    const xMid = h => PAD.left + h * barW + barW / 2;
+    const xMid = i => PAD.left + i * barW + barW / 2;
     const yPos = v => PAD.top + plotH - (v / scaleMax) * plotH;
 
     let svg = `<svg viewBox="0 0 ${VW} ${H}" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">`;
 
-    // Subtle gridlines
+    // Gridlines
     [0.5, 1].forEach(frac => {
       const y = PAD.top + plotH - frac * plotH;
       const val = Math.round(frac * scaleMax);
@@ -365,32 +360,27 @@ async function loadCommitDist() {
       svg += `<text x="${PAD.left - 5}" y="${y + 4}" text-anchor="end" fill="rgba(255,255,255,0.22)" font-size="9" font-family="JetBrains Mono,monospace">${val}</text>`;
     });
 
-    // AM/PM divider
-    const noonX = PAD.left + 12 * barW;
-    svg += `<line x1="${noonX}" y1="${PAD.top}" x2="${noonX}" y2="${PAD.top + plotH}" stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="3,3"/>`;
-    svg += `<text x="${noonX - 4}" y="${PAD.top + 10}" text-anchor="end" fill="rgba(255,255,255,0.15)" font-size="8" font-family="JetBrains Mono,monospace">AM</text>`;
-    svg += `<text x="${noonX + 4}" y="${PAD.top + 10}" text-anchor="start" fill="rgba(255,255,255,0.15)" font-size="8" font-family="JetBrains Mono,monospace">PM</text>`;
+    // Peak bin index
+    const peakIdx = bins.indexOf(bins.reduce((a, b) => a.count >= b.count ? a : b));
 
-    // Bars — highlight peak hour
-    hourly.forEach(({ hour: h, commits: count }) => {
+    // Bars
+    bins.forEach(({ count }, i) => {
       const bh = (count / scaleMax) * plotH;
-      const isPeak = h === peakHour;
-      const fill = isPeak ? 'rgba(200,169,110,0.9)' : 'rgba(200,169,110,0.5)';
-      svg += `<rect x="${PAD.left + h * barW + 1.5}" y="${yPos(count)}" width="${barW - 3}" height="${bh}" fill="${fill}" rx="2"/>`;
+      const fill = i === peakIdx ? 'rgba(200,169,110,0.9)' : 'rgba(200,169,110,0.5)';
+      svg += `<rect x="${PAD.left + i * barW + 2}" y="${yPos(count)}" width="${barW - 4}" height="${bh}" fill="${fill}" rx="2"/>`;
     });
 
-    // Smoothed trend line
-    const pts = smoothed.map((v, h) => `${xMid(h)},${yPos(v)}`).join(' ');
+    // Smoothed trend
+    const pts = smoothed.map((v, i) => `${xMid(i)},${yPos(v)}`).join(' ');
     svg += `<polyline points="${pts}" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>`;
 
-    // Peak marker
-    const px = xMid(peakHour);
+    // Peak dashed line
+    const px = xMid(peakIdx);
     svg += `<line x1="${px}" y1="${PAD.top}" x2="${px}" y2="${PAD.top + plotH}" stroke="rgba(200,169,110,0.35)" stroke-width="1" stroke-dasharray="4,3"/>`;
 
-    // X-axis hour labels (every 3 hours)
-    [0, 3, 6, 9, 12, 15, 18, 21].forEach(h => {
-      const label = h === 0 ? '12a' : h < 12 ? `${h}a` : h === 12 ? '12p' : `${h - 12}p`;
-      svg += `<text x="${xMid(h)}" y="${H - 8}" text-anchor="middle" fill="rgba(255,255,255,0.28)" font-size="9" font-family="JetBrains Mono,monospace">${label}</text>`;
+    // X-axis labels
+    bins.forEach(({ label }, i) => {
+      svg += `<text x="${xMid(i)}" y="${H - 8}" text-anchor="middle" fill="rgba(255,255,255,0.28)" font-size="9" font-family="JetBrains Mono,monospace">${label}</text>`;
     });
 
     // Baseline

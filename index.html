@@ -367,21 +367,21 @@
         <div class="heatmap" id="heatmap"></div>
       </div>
 
-      <div class="dist-chart-wrap reveal">
-        <p class="activity-sub" style="margin-top: 64px;">When do I build? — commits by hour of day</p>
-        <p class="dist-sub">Bars show total commits per hour (local time). Curve is a 3-point smoothed trend.</p>
-        <div id="commit-dist-chart" class="commit-dist-svg"></div>
-        <div class="dist-legend">
-          <span class="dist-legend-bar"></span><span>Commits</span>
-          <span class="dist-legend-line"></span><span>Trend</span>
-          <span class="dist-legend-lambda"></span><span id="dist-lambda-label">peak: —</span>
-        </div>
-      </div>
-
       <div class="token-chart-wrap reveal">
         <p class="activity-sub" style="margin-top: 64px;">Claude API tokens — daily usage · last 12 weeks</p>
         <div class="chart-bars" id="token-chart"></div>
         <div class="chart-x-labels" id="token-labels"></div>
+      </div>
+
+      <div class="dist-chart-wrap reveal">
+        <p class="activity-sub" style="margin-top: 64px;">Recipe cook time distribution</p>
+        <p class="dist-sub">How long do recipes actually take to cook? Distribution across 55 recipes in 10-min bins.</p>
+        <div id="recipe-cook-dist-chart" class="commit-dist-svg"></div>
+        <div class="dist-legend">
+          <span class="dist-legend-bar"></span><span>Recipes</span>
+          <span class="dist-legend-line"></span><span>Trend</span>
+          <span class="dist-legend-lambda"></span><span id="cook-dist-peak-label">peak: —</span>
+        </div>
       </div>
 
       <div class="scatter-wrap reveal">
