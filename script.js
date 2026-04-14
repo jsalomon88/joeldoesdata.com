@@ -49,22 +49,6 @@ const barObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.skill-group').forEach(g => barObserver.observe(g));
 
-/* ─── Dynamic site stats ─────────────────────── */
-
-(async function () {
-  try {
-    const res = await fetch('./site-stats.json');
-    if (!res.ok) return;
-    const stats = await res.json();
-    const commitsEl = document.querySelector('[data-stat="commits"]');
-    const locEl = document.querySelector('[data-stat="loc"]');
-    const recipesEl = document.querySelector('[data-stat="recipes"]');
-    if (commitsEl) commitsEl.dataset.target = stats.commits;
-    if (locEl) { locEl.dataset.target = stats.lines_of_code_k; locEl.dataset.suffix = 'K+'; }
-    if (recipesEl && stats.recipe_count) recipesEl.textContent = stats.recipe_count;
-  } catch (e) { /* fallback to hardcoded values */ }
-})();
-
 /* ─── Count-up animation ─────────────────────── */
 
 function countUp(el) {
@@ -84,19 +68,55 @@ function countUp(el) {
   requestAnimationFrame(step);
 }
 
+/* ─── Dynamic site stats ─────────────────────── */
+// Fetch live stats first, then start the count-up observer.
+// This prevents a race condition where countUp fires before the fetch
+// resolves, causing stale hardcoded values to animate instead.
+
+let statsReady = false;
+const statsSection = document.getElementById('stats');
+
+function triggerCountUp() {
+  if (!statsSection) return;
+  statsSection.querySelectorAll('.stat-number').forEach((el, i) => {
+    setTimeout(() => countUp(el), i * 120);
+  });
+}
+
+(async function () {
+  try {
+    const res = await fetch('./site-stats.json');
+    if (!res.ok) return;
+    const stats = await res.json();
+    const commitsEl = document.querySelector('[data-stat="commits"]');
+    const locEl = document.querySelector('[data-stat="loc"]');
+    const recipesEl = document.querySelector('[data-stat="recipes"]');
+    if (commitsEl) commitsEl.dataset.target = stats.commits;
+    if (locEl) { locEl.dataset.target = stats.lines_of_code_k; locEl.dataset.suffix = 'K+'; }
+    if (recipesEl && stats.recipe_count) recipesEl.textContent = stats.recipe_count;
+  } catch (e) { /* fallback to hardcoded values */ }
+
+  // Data is ready — start observer now. If section already in view, fire immediately.
+  statsReady = true;
+  if (statsSection) {
+    const rect = statsSection.getBoundingClientRect();
+    const inView = rect.top < window.innerHeight && rect.bottom > 0;
+    if (inView) {
+      triggerCountUp();
+    } else {
+      statObserver.observe(statsSection);
+    }
+  }
+})();
+
 const statObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      entry.target.querySelectorAll('.stat-number').forEach((el, i) => {
-        setTimeout(() => countUp(el), i * 120);
-      });
+      triggerCountUp();
       statObserver.unobserve(entry.target);
     }
   });
 }, { threshold: 0.3 });
-
-const statsSection = document.getElementById('stats');
-if (statsSection) statObserver.observe(statsSection);
 
 /* ─── GitHub activity chart ──────────────────── */
 
