@@ -1,0 +1,15 @@
+{
+  "name": "Joel Does Data",
+  "short_name": "JoelDoesData",
+  "icons": [
+    {
+      "src": "/img/joeldoesdata.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#080808",
+  "theme_color": "#080808"
+}
