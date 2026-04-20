@@ -520,18 +520,40 @@ async function loadTokenUsage() {
     const data = await res.json();
     if (!Array.isArray(data) || data.length === 0) throw new Error('empty');
 
-    const max = Math.max(...data.map(d => d.tokens), 1);
+    // Bar height = input + output (cache excluded from height — it's reused context, not new work)
+    const max = Math.max(...data.map(d => (d.input_tokens || 0) + (d.output_tokens || 0)), 1);
 
     chartEl.innerHTML = '';
     labelsEl.innerHTML = '';
 
     data.forEach((day, i) => {
+      const inp = day.input_tokens || 0;
+      const out = day.output_tokens || 0;
+      const cache = day.cache_tokens || 0;
+      const total = inp + out;
+
       const bar = document.createElement('div');
       bar.className = 'chart-bar';
-      const pct = day.tokens / max;
-      bar.style.height = Math.max(pct * 100, day.tokens > 0 ? 3 : 1) + '%';
-      const millions = (day.tokens / 1_000_000).toFixed(1);
-      bar.addEventListener('click', e => { e.stopPropagation(); showTip(bar, `${millions}M tokens`); });
+      const pct = total / max;
+      bar.style.height = Math.max(pct * 100, total > 0 ? 3 : 1) + '%';
+
+      if (total > 0) {
+        const outSeg = document.createElement('div');
+        outSeg.className = 'chart-bar-output';
+        outSeg.style.height = (out / total * 100) + '%';
+
+        const inpSeg = document.createElement('div');
+        inpSeg.className = 'chart-bar-input';
+        inpSeg.style.height = (inp / total * 100) + '%';
+
+        bar.appendChild(outSeg);
+        bar.appendChild(inpSeg);
+
+        const ratio = inp > 0 ? (out / inp).toFixed(1) : '∞';
+        const tipText = `${(out / 1000).toFixed(1)}K out · ${(inp / 1000).toFixed(1)}K in · ${ratio}× ratio`;
+        bar.addEventListener('click', e => { e.stopPropagation(); showTip(bar, tipText); });
+      }
+
       chartEl.appendChild(bar);
     });
 

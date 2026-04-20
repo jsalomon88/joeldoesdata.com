@@ -670,16 +670,33 @@ a { color: inherit; text-decoration: none; }
 
 .chart-bar {
   flex: 1;
-  background: var(--border-mid);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   border-radius: 2px 2px 0 0;
   transform-origin: bottom;
   transform: scaleY(0);
-  transition: transform 600ms var(--ease), background 200ms ease;
+  transition: transform 600ms var(--ease);
   cursor: default;
   min-width: 0;
+  overflow: hidden;
 }
 
-.chart-bar:hover { background: var(--text-sec); }
+.chart-bar-output {
+  background: var(--accent);
+  opacity: 0.85;
+  transition: opacity 200ms ease;
+  flex-shrink: 0;
+}
+
+.chart-bar-input {
+  background: var(--border-mid);
+  transition: background 200ms ease;
+  flex-shrink: 0;
+}
+
+.chart-bar:hover .chart-bar-output { opacity: 1; }
+.chart-bar:hover .chart-bar-input { background: #333; }
 
 .chart-x-labels {
   display: flex;
