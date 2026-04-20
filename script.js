@@ -540,11 +540,11 @@ async function loadTokenUsage() {
       if (total > 0) {
         const outSeg = document.createElement('div');
         outSeg.className = 'chart-bar-output';
-        outSeg.style.height = (out / total * 100) + '%';
+        outSeg.style.flex = out;
 
         const inpSeg = document.createElement('div');
         inpSeg.className = 'chart-bar-input';
-        inpSeg.style.height = (inp / total * 100) + '%';
+        inpSeg.style.flex = inp;
 
         bar.appendChild(outSeg);
         bar.appendChild(inpSeg);

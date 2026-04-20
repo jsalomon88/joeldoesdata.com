@@ -683,19 +683,19 @@ a { color: inherit; text-decoration: none; }
 }
 
 .chart-bar-output {
-  background: #2d6630;
+  background: #7a9e7e;
   transition: background 200ms ease;
-  flex-shrink: 0;
+  min-height: 0;
 }
 
 .chart-bar-input {
-  background: #444;
+  background: #3a3a3a;
   transition: background 200ms ease;
-  flex-shrink: 0;
+  min-height: 0;
 }
 
-.chart-bar:hover .chart-bar-output { background: #3d8b40; }
-.chart-bar:hover .chart-bar-input { background: #555; }
+.chart-bar:hover .chart-bar-output { background: #8fb394; }
+.chart-bar:hover .chart-bar-input { background: #4a4a4a; }
 
 .chart-x-labels {
   display: flex;
