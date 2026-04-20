@@ -561,8 +561,10 @@ async function loadTokenUsage() {
     vLine.setAttribute('stroke', '#555'); vLine.setAttribute('stroke-width', '1');
     vLine.style.display = 'none';
 
-    svg.appendChild(mkPath(mkD(outPts), '#4ade80', '0.7'));
-    svg.appendChild(mkPath(mkD(inpPts), '#3a3a3a', '1'));
+    const outPath = mkPath(mkD(outPts), '#4ade80', '0.7');
+    const inpPath = mkPath(mkD(inpPts), '#3a3a3a', '1');
+    svg.appendChild(outPath);
+    svg.appendChild(inpPath);
     svg.appendChild(vLine);
 
     // Full-area hover overlay
@@ -604,6 +606,29 @@ async function loadTokenUsage() {
     chartEl.style.display = 'block';
     chartEl.style.height = H + 'px';
     chartEl.appendChild(svg);
+
+    // Animate lines on scroll — draw effect matching the bar scaleY animation
+    requestAnimationFrame(() => {
+      const outLen = outPath.getTotalLength();
+      const inpLen = inpPath.getTotalLength();
+      outPath.style.strokeDasharray = outLen;
+      outPath.style.strokeDashoffset = outLen;
+      inpPath.style.strokeDasharray = inpLen;
+      inpPath.style.strokeDashoffset = inpLen;
+      outPath.style.transition = 'stroke-dashoffset 900ms var(--ease)';
+      inpPath.style.transition = 'stroke-dashoffset 900ms var(--ease) 150ms';
+
+      const lineObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            outPath.style.strokeDashoffset = '0';
+            inpPath.style.strokeDashoffset = '0';
+            lineObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      lineObserver.observe(chartEl);
+    });
 
     // Labels — every 2 weeks
     labelsEl.innerHTML = '';
