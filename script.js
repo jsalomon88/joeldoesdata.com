@@ -562,7 +562,7 @@ async function loadTokenUsage() {
     vLine.style.display = 'none';
 
     svg.appendChild(mkPath(mkD(outPts), '#4ade80', '0.7'));
-    svg.appendChild(mkPath(mkD(inpPts), '#888', '1'));
+    svg.appendChild(mkPath(mkD(inpPts), '#3a3a3a', '1'));
     svg.appendChild(vLine);
 
     // Full-area hover overlay
