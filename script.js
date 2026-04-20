@@ -534,17 +534,18 @@ async function loadTokenUsage() {
 
       const bar = document.createElement('div');
       bar.className = 'chart-bar';
-      const pct = total / max;
-      bar.style.height = Math.max(pct * 100, total > 0 ? 3 : 1) + '%';
+      const CHART_H = 120;
+      const barPx = Math.max((total / max) * CHART_H, total > 0 ? 3.6 : 1.2);
+      bar.style.height = barPx + 'px';
 
       if (total > 0) {
         const outSeg = document.createElement('div');
         outSeg.className = 'chart-bar-output';
-        outSeg.style.flex = out;
+        outSeg.style.height = ((out / total) * barPx).toFixed(1) + 'px';
 
         const inpSeg = document.createElement('div');
         inpSeg.className = 'chart-bar-input';
-        inpSeg.style.flex = inp;
+        inpSeg.style.height = ((inp / total) * barPx).toFixed(1) + 'px';
 
         bar.appendChild(outSeg);
         bar.appendChild(inpSeg);
