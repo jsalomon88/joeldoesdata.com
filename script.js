@@ -520,45 +520,93 @@ async function loadTokenUsage() {
     const data = await res.json();
     if (!Array.isArray(data) || data.length === 0) throw new Error('empty');
 
-    // Bar height = input + output (cache excluded from height — it's reused context, not new work)
-    const max = Math.max(...data.map(d => (d.input_tokens || 0) + (d.output_tokens || 0)), 1);
+    const H = 120;
+    const VW = 840; // viewBox width — scales responsively via preserveAspectRatio:none
+    const PAD = { top: 8, right: 4, bottom: 4, left: 4 };
+    const n = data.length;
 
-    chartEl.innerHTML = '';
-    labelsEl.innerHTML = '';
+    const maxOut = Math.max(...data.map(d => d.output_tokens || 0), 1);
+    const maxInp = Math.max(...data.map(d => d.input_tokens || 0), 1);
 
-    data.forEach((day, i) => {
-      const inp = day.input_tokens || 0;
+    const xOf  = i => PAD.left + (i / (n - 1)) * (VW - PAD.left - PAD.right);
+    const yOut = v => PAD.top + (1 - v / maxOut) * (H - PAD.top - PAD.bottom);
+    const yInp = v => PAD.top + (1 - v / maxInp) * (H - PAD.top - PAD.bottom);
+
+    const mkD = pts => 'M ' + pts.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' L ');
+
+    const outPts = data.map((d, i) => [xOf(i), yOut(d.output_tokens || 0)]);
+    const inpPts = data.map((d, i) => [xOf(i), yInp(d.input_tokens || 0)]);
+
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('viewBox', `0 0 ${VW} ${H}`);
+    svg.setAttribute('preserveAspectRatio', 'none');
+    svg.style.cssText = `width:100%;height:${H}px;display:block;overflow:visible;`;
+
+    const mkPath = (d, stroke, opacity) => {
+      const p = document.createElementNS(NS, 'path');
+      p.setAttribute('d', d);
+      p.setAttribute('fill', 'none');
+      p.setAttribute('stroke', stroke);
+      p.setAttribute('stroke-opacity', opacity);
+      p.setAttribute('stroke-width', '1.5');
+      p.setAttribute('stroke-linejoin', 'round');
+      p.setAttribute('stroke-linecap', 'round');
+      return p;
+    };
+
+    // Hover crosshair
+    const vLine = document.createElementNS(NS, 'line');
+    vLine.setAttribute('y1', PAD.top); vLine.setAttribute('y2', H - PAD.bottom);
+    vLine.setAttribute('stroke', '#555'); vLine.setAttribute('stroke-width', '1');
+    vLine.style.display = 'none';
+
+    svg.appendChild(mkPath(mkD(outPts), '#4ade80', '0.7'));
+    svg.appendChild(mkPath(mkD(inpPts), '#888', '1'));
+    svg.appendChild(vLine);
+
+    // Full-area hover overlay
+    const overlay = document.createElementNS(NS, 'rect');
+    overlay.setAttribute('x', 0); overlay.setAttribute('y', 0);
+    overlay.setAttribute('width', VW); overlay.setAttribute('height', H);
+    overlay.setAttribute('fill', 'transparent');
+    svg.appendChild(overlay);
+
+    overlay.addEventListener('mousemove', e => {
+      const rect = svg.getBoundingClientRect();
+      const vx = ((e.clientX - rect.left) / rect.width) * VW;
+      const step = (VW - PAD.left - PAD.right) / (n - 1);
+      const idx = Math.max(0, Math.min(n - 1, Math.round((vx - PAD.left) / step)));
+      const day = data[idx];
       const out = day.output_tokens || 0;
-      const cache = day.cache_tokens || 0;
-      const total = inp + out;
+      const inp = day.input_tokens || 0;
+      const ratio = inp > 0 ? (out / inp).toFixed(1) : '\u221e';
+      const date = new Date(day.date + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 
-      const bar = document.createElement('div');
-      bar.className = 'chart-bar';
-      const CHART_H = 120;
-      const barPx = Math.max((total / max) * CHART_H, total > 0 ? 3.6 : 1.2);
-      bar.style.height = barPx + 'px';
+      vLine.setAttribute('x1', xOf(idx)); vLine.setAttribute('x2', xOf(idx));
+      vLine.style.display = '';
 
-      if (total > 0) {
-        const outSeg = document.createElement('div');
-        outSeg.className = 'chart-bar-output';
-        outSeg.style.height = ((out / total) * barPx).toFixed(1) + 'px';
-
-        const inpSeg = document.createElement('div');
-        inpSeg.className = 'chart-bar-input';
-        inpSeg.style.height = ((inp / total) * barPx).toFixed(1) + 'px';
-
-        bar.appendChild(outSeg);
-        bar.appendChild(inpSeg);
-
-        const ratio = inp > 0 ? (out / inp).toFixed(1) : '∞';
-        const tipText = `${(out / 1000).toFixed(1)}K out · ${(inp / 1000).toFixed(1)}K in · ${ratio}× ratio`;
-        bar.addEventListener('click', e => { e.stopPropagation(); showTip(bar, tipText); });
-      }
-
-      chartEl.appendChild(bar);
+      _tip.textContent = `${date} \u00b7 ${(out / 1000).toFixed(1)}K out \u00b7 ${(inp / 1000).toFixed(1)}K in \u00b7 ${ratio}\u00d7 ratio`;
+      _tip.style.display = 'block';
+      const tr = _tip.getBoundingClientRect();
+      let left = e.clientX - tr.width / 2;
+      let top  = e.clientY - tr.height - 10;
+      left = Math.max(8, Math.min(left, window.innerWidth - tr.width - 8));
+      if (top < 8) top = e.clientY + 12;
+      _tip.style.left = left + 'px';
+      _tip.style.top  = top  + 'px';
+      _tip._anchor = overlay;
     });
 
-    // Labels — show every 2 weeks
+    overlay.addEventListener('mouseleave', () => { vLine.style.display = 'none'; hideTip(); });
+
+    chartEl.innerHTML = '';
+    chartEl.style.display = 'block';
+    chartEl.style.height = H + 'px';
+    chartEl.appendChild(svg);
+
+    // Labels — every 2 weeks
+    labelsEl.innerHTML = '';
     data.forEach((day, i) => {
       const span = document.createElement('span');
       if (i % 14 === 0) {
@@ -568,22 +616,8 @@ async function loadTokenUsage() {
       labelsEl.appendChild(span);
     });
 
-    // Animate on scroll
-    const tokenObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          chartEl.querySelectorAll('.chart-bar').forEach((bar, i) => {
-            setTimeout(() => { bar.style.transform = 'scaleY(1)'; }, i * 18);
-          });
-          tokenObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.2 });
-
-    tokenObserver.observe(chartEl);
-
   } catch (e) {
-    chartEl.innerHTML = '<p style="color:#333;font-size:12px;letter-spacing:.04em;align-self:center;">Activity unavailable</p>';
+    chartEl.innerHTML = '<p style="color:#333;font-size:12px;letter-spacing:.04em;">Activity unavailable</p>';
   }
 }
 
