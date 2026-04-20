@@ -616,6 +616,51 @@ async function loadTokenUsage() {
       labelsEl.appendChild(span);
     });
 
+    // ── Total tokens bar chart ──────────────────
+    const barEl = document.getElementById('token-total-chart');
+    const barLabelsEl = document.getElementById('token-total-labels');
+    if (barEl) {
+      const maxTotal = Math.max(...data.map(d => (d.input_tokens || 0) + (d.output_tokens || 0) + (d.cache_tokens || 0)), 1);
+      barEl.innerHTML = '';
+      barLabelsEl.innerHTML = '';
+
+      data.forEach((day) => {
+        const total = (day.input_tokens || 0) + (day.output_tokens || 0) + (day.cache_tokens || 0);
+        const bar = document.createElement('div');
+        bar.className = 'chart-bar';
+        bar.style.height = Math.max((total / maxTotal) * 100, total > 0 ? 3 : 1) + '%';
+        if (total > 0) {
+          const date = new Date(day.date + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+          const tip = total > 1e6
+            ? `${date} · ${(total / 1e6).toFixed(1)}M tokens`
+            : `${date} · ${(total / 1000).toFixed(1)}K tokens`;
+          bar.addEventListener('click', e => { e.stopPropagation(); showTip(bar, tip); });
+        }
+        barEl.appendChild(bar);
+      });
+
+      data.forEach((day, i) => {
+        const span = document.createElement('span');
+        if (i % 14 === 0) {
+          const d = new Date(day.date + 'T00:00:00');
+          span.textContent = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        }
+        barLabelsEl.appendChild(span);
+      });
+
+      const barObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            barEl.querySelectorAll('.chart-bar').forEach((b, i) => {
+              setTimeout(() => { b.style.transform = 'scaleY(1)'; }, i * 18);
+            });
+            barObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      barObserver.observe(barEl);
+    }
+
   } catch (e) {
     chartEl.innerHTML = '<p style="color:#333;font-size:12px;letter-spacing:.04em;">Activity unavailable</p>';
   }
