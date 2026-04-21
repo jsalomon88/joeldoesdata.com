@@ -841,6 +841,18 @@ a { color: inherit; text-decoration: none; }
   flex-shrink: 0;
 }
 
+.project-dev {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #f59e0b;
+  border: 1px solid #3a2e0a;
+  padding: 4px 10px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
 .project-arrow {
   font-size: 22px;
   color: var(--text-sec);
