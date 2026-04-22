@@ -1,516 +1,544 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-site="joeldoesdata">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Joel Salomon — Data Analyst · Analytics Engineering · AI & Automation</title>
-  <meta name="description" content="Data analyst and analytics engineer based in Kelowna, BC. SQL, Python, dbt, Snowflake, AI automation, and whatever else gets the job done.">
+  <title>Joel Salomon — Data, automation, and things worth making</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:opsz,wght@14..32,100;14..32,300;14..32,400;14..32,500;14..32,600;14..32,900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="icon" href="/img/joeldoesdata.png">
-  <link rel="apple-touch-icon" href="/img/joeldoesdata.png">
-  <link rel="manifest" href="/manifest.json">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="shared/tokens.css">
+  <link rel="stylesheet" href="shared/joel.css">
 </head>
 <body>
 
-  <!-- ─── HERO ─────────────────────────────────── -->
-  <section class="hero" id="hero">
-    <div class="hero-inner">
-<h1><em>Joel</em><br>Salomon</h1>
-      <p class="hero-tagline">Data Analyst · Analytics Engineering · AI & Automation — Kelowna, BC</p>
-      <p class="hero-desc">Turning data into decisions.<br>Building tools that make the complex simple.</p>
-      <div class="hero-links">
-        <a href="mailto:joel.salomon@outlook.com">Email</a>
-        <a href="https://github.com/jsalomon88" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://linkedin.com/in/joel-salomon-b5272118b" target="_blank" rel="noopener">LinkedIn</a>
+<div class="grain"></div>
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <a href="index.html" class="mark">JS — Kelowna, BC</a>
+  <nav class="nav">
+    <a href="#work">Work</a>
+    <a href="#stack">Stack</a>
+    <a href="#activity">Activity</a>
+    <a href="design-system.html">System</a>
+  </nav>
+  <a href="#contact">Contact</a>
+</header>
+
+<!-- ======================================================
+     01  HERO — bigger, more editorial, marquee underneath
+     ====================================================== -->
+<section class="hero">
+  <div class="shell">
+    <h1 class="hero__name">
+      <span class="hero__first">Joel</span>
+      <span class="hero__last">Salomon</span>
+    </h1>
+
+    <div class="hero__meta" data-reveal>
+      <div class="hero__role">
+        <span class="dot"></span>
+        Data Analyst · Analytics Engineering · AI &amp; Automation
+      </div>
+      <div class="hero__loc">Kelowna, BC</div>
+    </div>
+
+    <p class="hero__tag" data-reveal>
+      Turning data into decisions.<br>
+      Building tools that make the complex <em>simple</em>.
+    </p>
+
+    <div class="hero__cta" data-reveal>
+      <a href="/cdn-cgi/l/email-protection#4a222f2626250a20252f262e252f392e2b3e2b64292527" class="btn btn--solid">Get in touch →</a>
+      <a href="#work" class="btn">View work</a>
+    </div>
+
+    <div class="hero__links" data-reveal>
+      <a href="/cdn-cgi/l/email-protection#a8c0cdc4c4c7e8c2c7cdc4ccc7cddbccc9dcc986cbc7c5" class="hero-link"><span class="i">01</span>Email</a>
+      <a href="#" class="hero-link"><span class="i">02</span>GitHub</a>
+      <a href="#" class="hero-link"><span class="i">03</span>LinkedIn</a>
+      <a href="#" class="hero-link"><span class="i">04</span>Read.cv</a>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <div class="scroll-line"><div class="scroll-line__fill"></div></div>
+  </div>
+
+  <!-- Marquee -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span>SQL</span><span>·</span>
+      <span>dbt</span><span>·</span>
+      <span>Snowflake</span><span>·</span>
+      <span>BigQuery</span><span>·</span>
+      <span>Looker</span><span>·</span>
+      <span>Sigma</span><span>·</span>
+      <span>Python</span><span>·</span>
+      <span>Claude API</span><span>·</span>
+      <span>Cloudflare</span><span>·</span>
+      <span>GitHub Actions</span><span>·</span>
+      <span>SQL</span><span>·</span>
+      <span>dbt</span><span>·</span>
+      <span>Snowflake</span><span>·</span>
+      <span>BigQuery</span><span>·</span>
+      <span>Looker</span><span>·</span>
+      <span>Sigma</span><span>·</span>
+      <span>Python</span><span>·</span>
+      <span>Claude API</span><span>·</span>
+      <span>Cloudflare</span><span>·</span>
+      <span>GitHub Actions</span><span>·</span>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     02  ABOUT — statement + column
+     ====================================================== -->
+<section class="section section--about" id="about">
+  <div class="shell">
+    <div class="sec-head" data-reveal>
+      <span class="section-label"><span class="num">01</span><span>About</span></span>
+      <span class="section-meta">Essay / brief</span>
+    </div>
+
+    <div class="about__grid">
+      <h2 class="about__statement" data-reveal>
+        <span>I own data </span>
+        <span class="u">end&nbsp;to&nbsp;end</span><span>&nbsp;—&nbsp;</span>
+        <span>from pipeline architecture and dbt modelling to BI tooling and stakeholder-facing insight.</span>
+      </h2>
+
+      <div class="about__body" data-reveal>
+        <p>I've led BI migrations, built self-serve analytics layers, and embedded AI automation into analytical workflows.</p>
+        <p>When I'm not at work I'm building things — a 24/7 personal AI assistant, a recipe and meal planning app, and whatever else seems worth making.</p>
       </div>
     </div>
-    <div class="scroll-hint">
-      <span>Scroll</span>
-      <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ======================================================
+     03  EXPERIENCE — timeline
+     ====================================================== -->
+<section class="section" id="experience">
+  <div class="shell">
+    <div class="sec-head" data-reveal>
+      <span class="section-label"><span class="num">02</span><span>Experience</span></span>
+      <span class="section-meta">2017 — present · 6 yrs 10 mos</span>
     </div>
-  </section>
 
-  <!-- ─── ABOUT ─────────────────────────────────── -->
-  <section class="about reveal" id="about">
-    <div class="container">
-      <div class="section-meta">
-        <span class="section-num">01</span>
-        <span class="section-label">About</span>
-      </div>
-      <div class="about-body">
-        <p class="about-lead">I own data end-to-end — from pipeline architecture and dbt modelling to BI tooling and stakeholder-facing insight.</p>
-        <p class="about-text">I've led BI migrations, built self-serve analytics layers, and embedded AI automation into analytical workflows. When I'm not at work I'm building things — a 24/7 personal AI assistant, a recipe and meal planning app, and whatever else seems worth making.</p>
-      </div>
+    <ol class="timeline">
+      <li class="timeline__item timeline__item--current" data-reveal>
+        <div class="timeline__when"><span class="dur">7 mos</span><span class="yrs">2025 →</span></div>
+        <div class="timeline__dot"></div>
+        <div class="timeline__what">
+          <div class="timeline__head"><h3>AgencyAnalytics</h3></div>
+          <div class="timeline__role">Data Analyst · Remote</div>
+        </div>
+      </li>
+
+      <li class="timeline__item" data-reveal>
+        <div class="timeline__when"><span class="dur">10 mos</span><span class="yrs">2024 — 2025</span></div>
+        <div class="timeline__dot"></div>
+        <div class="timeline__what">
+          <div class="timeline__head"><h3>Bold Commerce</h3></div>
+          <div class="timeline__role">Data Analyst · Remote</div>
+        </div>
+      </li>
+
+      <li class="timeline__item" data-reveal>
+        <div class="timeline__when"><span class="dur">2y 2mo</span><span class="yrs">2022 — 2024</span></div>
+        <div class="timeline__dot"></div>
+        <div class="timeline__what">
+          <div class="timeline__head"><h3>FreshBooks</h3></div>
+          <div class="timeline__role">Data Analyst · Toronto, ON</div>
+        </div>
+      </li>
+
+      <li class="timeline__item" data-reveal>
+        <div class="timeline__when"><span class="dur">10 mos</span><span class="yrs">2021 — 2022</span></div>
+        <div class="timeline__dot"></div>
+        <div class="timeline__what">
+          <div class="timeline__head"><h3>Canadian Tire Corporation</h3></div>
+          <div class="timeline__role">Business Analyst · Toronto, ON</div>
+        </div>
+      </li>
+
+      <li class="timeline__item" data-reveal>
+        <div class="timeline__when"><span class="dur">1y 10mo</span><span class="yrs">2019 — 2021</span></div>
+        <div class="timeline__dot"></div>
+        <div class="timeline__what">
+          <div class="timeline__head"><h3>Canadian Tire Corporation</h3></div>
+          <div class="timeline__role">Forecast Analyst · Toronto, ON</div>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ======================================================
+     04  STACK — skills with bars
+     ====================================================== -->
+<section class="section section--stack" id="stack">
+  <div class="shell">
+    <div class="sec-head" data-reveal>
+      <span class="section-label"><span class="num">03</span><span>Stack</span></span>
+      <span class="section-meta">What I use · self-assessed</span>
     </div>
-  </section>
 
-  <!-- ─── EXPERIENCE ───────────────────────────────── -->
-  <section class="experience reveal" id="experience">
-    <div class="container">
-      <div class="section-meta">
-        <span class="section-num">02</span>
-        <span class="section-label">Experience</span>
+    <div class="stack">
+      <!-- col 1 -->
+      <div class="stack__col" data-reveal>
+        <h4 class="stack__cat">Data engineering</h4>
+        <div class="skill"><span class="skill__name">SQL</span>          <div class="bar"><i style="--p:98%"></i></div> <span class="skill__level">Expert</span></div>
+        <div class="skill"><span class="skill__name">dbt</span>          <div class="bar"><i style="--p:72%"></i></div> <span class="skill__level">Proficient</span></div>
+        <div class="skill"><span class="skill__name">Snowflake</span>    <div class="bar"><i style="--p:86%"></i></div> <span class="skill__level">Advanced</span></div>
+        <div class="skill"><span class="skill__name">BigQuery</span>     <div class="bar"><i style="--p:82%"></i></div> <span class="skill__level">Advanced</span></div>
+        <div class="skill"><span class="skill__name">Data modelling</span><div class="bar"><i style="--p:85%"></i></div> <span class="skill__level">Advanced</span></div>
       </div>
-      <div class="timeline">
 
-        <div class="timeline-entry reveal-child">
-          <div class="timeline-left">
-            <span class="timeline-duration" data-start="2025-09"></span>
-          </div>
-          <div class="timeline-dot"></div>
-          <div class="timeline-right">
-            <div class="timeline-header">
-              <span class="timeline-company">AgencyAnalytics</span>
-              <span class="timeline-current">Current</span>
-            </div>
-            <span class="timeline-role">Data Analyst</span>
-            <span class="timeline-meta">Remote</span>
-          </div>
-        </div>
-
-        <div class="timeline-entry reveal-child">
-          <div class="timeline-left">
-            <span class="timeline-duration">10 mos</span>
-          </div>
-          <div class="timeline-dot"></div>
-          <div class="timeline-right">
-            <div class="timeline-header">
-              <span class="timeline-company">Bold Commerce</span>
-            </div>
-            <span class="timeline-role">Data Analyst</span>
-            <span class="timeline-meta">Remote</span>
-          </div>
-        </div>
-
-        <div class="timeline-entry reveal-child">
-          <div class="timeline-left">
-            <span class="timeline-duration">2 yrs 2 mos</span>
-          </div>
-          <div class="timeline-dot"></div>
-          <div class="timeline-right">
-            <div class="timeline-header">
-              <span class="timeline-company">FreshBooks</span>
-            </div>
-            <span class="timeline-role">Data Analyst</span>
-            <span class="timeline-meta">Toronto, ON</span>
-          </div>
-        </div>
-
-        <div class="timeline-entry reveal-child">
-          <div class="timeline-left">
-            <span class="timeline-duration">10 mos</span>
-          </div>
-          <div class="timeline-dot"></div>
-          <div class="timeline-right">
-            <div class="timeline-header">
-              <span class="timeline-company">Canadian Tire Corporation</span>
-            </div>
-            <span class="timeline-role">Business Analyst</span>
-            <span class="timeline-meta">Toronto, ON</span>
-          </div>
-        </div>
-
-        <div class="timeline-entry reveal-child">
-          <div class="timeline-left">
-            <span class="timeline-duration">1 yr 10 mos</span>
-          </div>
-          <div class="timeline-dot"></div>
-          <div class="timeline-right">
-            <div class="timeline-header">
-              <span class="timeline-company">Canadian Tire Corporation</span>
-            </div>
-            <span class="timeline-role">Forecast Analyst</span>
-            <span class="timeline-meta">Toronto, ON</span>
-          </div>
-        </div>
-
+      <!-- col 2 -->
+      <div class="stack__col" data-reveal>
+        <h4 class="stack__cat">Analytics &amp; BI</h4>
+        <div class="skill"><span class="skill__name">Looker</span>            <div class="bar"><i style="--p:92%"></i></div> <span class="skill__level">Advanced</span></div>
+        <div class="skill"><span class="skill__name">Sigma</span>             <div class="bar"><i style="--p:88%"></i></div> <span class="skill__level">Advanced</span></div>
+        <div class="skill"><span class="skill__name">Power BI</span>          <div class="bar"><i style="--p:68%"></i></div> <span class="skill__level">Proficient</span></div>
+        <div class="skill"><span class="skill__name">Metabase</span>          <div class="bar"><i style="--p:70%"></i></div> <span class="skill__level">Proficient</span></div>
+        <div class="skill"><span class="skill__name">Data storytelling</span> <div class="bar"><i style="--p:90%"></i></div> <span class="skill__level">Advanced</span></div>
+        <div class="skill"><span class="skill__name">Product &amp; GTM Anal…</span><div class="bar"><i style="--p:84%"></i></div> <span class="skill__level">Advanced</span></div>
+        <div class="skill"><span class="skill__name">Stakeholder comms</span>  <div class="bar"><i style="--p:88%"></i></div> <span class="skill__level">Advanced</span></div>
+        <div class="skill"><span class="skill__name">A/B testing</span>       <div class="bar"><i style="--p:72%"></i></div> <span class="skill__level">Proficient</span></div>
       </div>
-    </div>
-  </section>
 
-  <!-- ─── STACK ─────────────────────────────────── -->
-  <section class="stack reveal" id="stack">
-    <div class="container">
-      <div class="section-meta">
-        <span class="section-num">03</span>
-        <span class="section-label">Stack</span>
+      <!-- col 3 -->
+      <div class="stack__col" data-reveal>
+        <h4 class="stack__cat">Programming</h4>
+        <div class="skill"><span class="skill__name">Python</span>        <div class="bar"><i style="--p:78%"></i></div> <span class="skill__level">Advanced</span></div>
+        <div class="skill"><span class="skill__name">Git</span>           <div class="bar"><i style="--p:80%"></i></div> <span class="skill__level">Advanced</span></div>
+        <div class="skill"><span class="skill__name">HTML / CSS / JS</span><div class="bar"><i style="--p:70%"></i></div> <span class="skill__level">Proficient</span></div>
       </div>
-      <div class="skill-grid">
 
-        <div class="skill-group reveal-child">
-          <h3 class="skill-group-title">Data Engineering</h3>
-          <div class="skill-bars">
-            <div class="skill-row">
-              <span class="skill-name">SQL</span>
-              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="95"></div></div>
-              <span class="skill-pct">Expert</span>
-            </div>
-            <div class="skill-row">
-              <span class="skill-name">dbt</span>
-              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="52"></div></div>
-              <span class="skill-pct">Proficient</span>
-            </div>
-            <div class="skill-row">
-              <span class="skill-name">Snowflake</span>
-              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="72"></div></div>
-              <span class="skill-pct">Advanced</span>
-            </div>
-            <div class="skill-row">
-              <span class="skill-name">BigQuery</span>
-              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="72"></div></div>
-              <span class="skill-pct">Advanced</span>
-            </div>
-            <div class="skill-row">
-              <span class="skill-name">Data Modelling</span>
-              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="72"></div></div>
-              <span class="skill-pct">Advanced</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="skill-group reveal-child">
-          <h3 class="skill-group-title">Analytics & BI</h3>
-          <div class="skill-bars">
-            <div class="skill-row">
-              <span class="skill-name">Looker</span>
-              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="72"></div></div>
-              <span class="skill-pct">Advanced</span>
-            </div>
-            <div class="skill-row">
-              <span class="skill-name">Sigma</span>
-              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="72"></div></div>
-              <span class="skill-pct">Advanced</span>
-            </div>
-            <div class="skill-row">
-              <span class="skill-name">Power BI</span>
-              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="52"></div></div>
-              <span class="skill-pct">Proficient</span>
-            </div>
-            <div class="skill-row">
-              <span class="skill-name">Metabase</span>
-              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="52"></div></div>
-              <span class="skill-pct">Proficient</span>
-            </div>
-            <div class="skill-row">
-              <span class="skill-name">Data Storytelling</span>
-              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="72"></div></div>
-              <span class="skill-pct">Advanced</span>
-            </div>
-            <div class="skill-row">
-              <span class="skill-name">Product & GTM Analytics</span>
-              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="72"></div></div>
-              <span class="skill-pct">Advanced</span>
-            </div>
-            <div class="skill-row">
-              <span class="skill-name">Stakeholder Communication</span>
-              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="72"></div></div>
-              <span class="skill-pct">Advanced</span>
-            </div>
-            <div class="skill-row">
-              <span class="skill-name">A/B Testing & Experimentation</span>
-              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="52"></div></div>
-              <span class="skill-pct">Proficient</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="skill-group reveal-child">
-          <h3 class="skill-group-title">Programming</h3>
-          <div class="skill-bars">
-            <div class="skill-row">
-              <span class="skill-name">Python</span>
-              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="72"></div></div>
-              <span class="skill-pct">Advanced</span>
-            </div>
-            <div class="skill-row">
-              <span class="skill-name">Git</span>
-              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="72"></div></div>
-              <span class="skill-pct">Advanced</span>
-            </div>
-            <div class="skill-row">
-              <span class="skill-name">HTML / CSS / JS</span>
-              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="52"></div></div>
-              <span class="skill-pct">Proficient</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="skill-group reveal-child">
-          <h3 class="skill-group-title">AI & Automation</h3>
-          <div class="skill-bars">
-            <div class="skill-row">
-              <span class="skill-name">LLM Engineering</span>
-              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="72"></div></div>
-              <span class="skill-pct">Advanced</span>
-            </div>
-            <div class="skill-row">
-              <span class="skill-name">Automation</span>
-              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="72"></div></div>
-              <span class="skill-pct">Advanced</span>
-            </div>
-            <div class="skill-row">
-              <span class="skill-name">Agent Deployment & Ops</span>
-              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="72"></div></div>
-              <span class="skill-pct">Advanced</span>
-            </div>
-            <div class="skill-row">
-              <span class="skill-name">Claude Skill Authoring</span>
-              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="72"></div></div>
-              <span class="skill-pct">Advanced</span>
-            </div>
-            <div class="skill-row">
-              <span class="skill-name">Statistical Analysis</span>
-              <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="52"></div></div>
-              <span class="skill-pct">Proficient</span>
-            </div>
-          </div>
-        </div>
-
+      <!-- col 4 -->
+      <div class="stack__col" data-reveal>
+        <h4 class="stack__cat">AI &amp; Automation</h4>
+        <div class="skill"><span class="skill__name">LLM engineering</span>    <div class="bar"><i style="--p:86%"></i></div> <span class="skill__level">Advanced</span></div>
+        <div class="skill"><span class="skill__name">Automation</span>         <div class="bar"><i style="--p:88%"></i></div> <span class="skill__level">Advanced</span></div>
+        <div class="skill"><span class="skill__name">Agent deployment &amp; …</span><div class="bar"><i style="--p:85%"></i></div> <span class="skill__level">Advanced</span></div>
+        <div class="skill"><span class="skill__name">Claude skill authoring</span><div class="bar"><i style="--p:82%"></i></div> <span class="skill__level">Advanced</span></div>
+        <div class="skill"><span class="skill__name">Statistical analysis</span><div class="bar"><i style="--p:70%"></i></div> <span class="skill__level">Proficient</span></div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ─── PIPELINE ────────────────────────────────── -->
-  <section class="pipeline-section reveal" id="pipeline">
-    <div class="container">
-      <div class="section-meta">
-        <span class="section-num">04</span>
-        <span class="section-label">How I work</span>
-      </div>
-      <div class="pipeline-flow">
-
-        <div class="pipeline-node is-active" data-index="0">
-          <span class="pipeline-node-label">Source</span>
-          <span class="pipeline-node-tools">DBs · APIs · Events</span>
-        </div>
-        <div class="pipeline-connector"></div>
-
-        <div class="pipeline-node" data-index="1">
-          <span class="pipeline-node-label">Transform</span>
-          <span class="pipeline-node-tools">dbt · SQL</span>
-        </div>
-        <div class="pipeline-connector"></div>
-
-        <div class="pipeline-node" data-index="2">
-          <span class="pipeline-node-label">Store</span>
-          <span class="pipeline-node-tools">Snowflake · BigQuery</span>
-        </div>
-        <div class="pipeline-connector"></div>
-
-        <div class="pipeline-node" data-index="3">
-          <span class="pipeline-node-label">Visualize</span>
-          <span class="pipeline-node-tools">Looker · Sigma · BI</span>
-        </div>
-        <div class="pipeline-connector"></div>
-
-        <div class="pipeline-node" data-index="4">
-          <span class="pipeline-node-label">Decide</span>
-          <span class="pipeline-node-tools">Insight → Action</span>
-        </div>
-
-      </div>
-
-      <div class="pipeline-desc-panel">
-        <p class="pipeline-desc is-active" data-index="0">Data starts in its raw form — transactional databases, API responses, event streams, exported files. My job begins by understanding what exists, where it lives, and what it actually means to the business.</p>
-        <p class="pipeline-desc" data-index="1">SQL and dbt turn raw data into clean, tested, documented models. Business logic is centralized and version-controlled — not scattered across BI expressions or one-off queries that nobody else can trust.</p>
-        <p class="pipeline-desc" data-index="2">Snowflake or BigQuery as the single source of truth. Structured for analytical performance, organized by domain, and accessible to anyone on the team who needs to build on top of it.</p>
-        <p class="pipeline-desc" data-index="3">Looker, Sigma, or custom dashboards surface the right metrics to the right people. Good visualization is about removing friction between clean data and the person who needs to act on it.</p>
-        <p class="pipeline-desc" data-index="4">Stakeholders see clean data, understand the story, and take action. A data pipeline only has value when it changes how a business operates — that's the measure of whether the work was worth doing.</p>
-      </div>
-
+<!-- ======================================================
+     05  HOW I WORK — pipeline diagram
+     ====================================================== -->
+<section class="section section--pipeline" id="how">
+  <div class="shell">
+    <div class="sec-head" data-reveal>
+      <span class="section-label"><span class="num">04</span><span>How I work</span></span>
+      <span class="section-meta">Source → Decide</span>
     </div>
-  </section>
 
-  <!-- ─── STATS ─────────────────────────────────── -->
-  <section class="stats reveal" id="stats">
-    <div class="container">
-      <div class="section-meta">
-        <span class="section-num">05</span>
-        <span class="section-label">By the numbers</span>
+    <div class="pipeline" data-reveal>
+      <div class="pipeline__stage is-active" data-stage="0">
+        <div class="pipeline__num">01</div>
+        <h4>Source</h4>
+        <p class="pipeline__stack">DBs · APIs · Events</p>
       </div>
-      <div class="stats-row">
-        <div class="stat reveal-child">
-          <span class="stat-number" data-target="345" data-suffix="" data-stat="commits">0</span>
-          <span class="stat-label">GitHub commits</span>
-        </div>
-        <div class="stat reveal-child">
-          <span class="stat-number" data-target="7" data-suffix="K+" data-stat="loc">0</span>
-          <span class="stat-label">lines of code</span>
-        </div>
-        <div class="stat reveal-child">
-          <span class="stat-number" data-target="6" data-suffix="">0</span>
-          <span class="stat-label">years analytics experience</span>
-        </div>
-        <div class="stat reveal-child">
-          <span class="stat-number" data-target="3" data-suffix="">0</span>
-          <span class="stat-label">projects in production</span>
-        </div>
+      <div class="pipeline__rail"><span></span><span></span><span></span></div>
+      <div class="pipeline__stage" data-stage="1">
+        <div class="pipeline__num">02</div>
+        <h4>Transform</h4>
+        <p class="pipeline__stack">dbt · SQL</p>
+      </div>
+      <div class="pipeline__rail"><span></span><span></span><span></span></div>
+      <div class="pipeline__stage" data-stage="2">
+        <div class="pipeline__num">03</div>
+        <h4>Store</h4>
+        <p class="pipeline__stack">Snowflake · BigQuery</p>
+      </div>
+      <div class="pipeline__rail"><span></span><span></span><span></span></div>
+      <div class="pipeline__stage" data-stage="3">
+        <div class="pipeline__num">04</div>
+        <h4>Visualize</h4>
+        <p class="pipeline__stack">Looker · Sigma · BI</p>
+      </div>
+      <div class="pipeline__rail"><span></span><span></span><span></span></div>
+      <div class="pipeline__stage" data-stage="4">
+        <div class="pipeline__num">05</div>
+        <h4>Decide</h4>
+        <p class="pipeline__stack">Insight → Action</p>
       </div>
     </div>
-  </section>
 
-  <!-- ─── ACTIVITY ──────────────────────────────── -->
-  <section class="activity reveal" id="activity">
-    <div class="container">
-      <div class="section-meta">
-        <span class="section-num">06</span>
-        <span class="section-label">Activity</span>
-      </div>
+    <blockquote class="pipeline__quote" data-reveal>
+      <p data-quote="0">Data starts in its raw form — transactional databases, API responses, event streams, exported files. My job begins by understanding what exists, where it lives, and what it actually means to the business.</p>
+      <p data-quote="1" hidden>Transformation is where messy becomes meaningful. Modelling with dbt, testing assumptions in SQL, documenting lineage — so anyone downstream can trust what they're looking at.</p>
+      <p data-quote="2" hidden>Storage is about making the right data cheap and fast to query. Snowflake and BigQuery are the warehouses I reach for most, tuned to the workload.</p>
+      <p data-quote="3" hidden>Good visualization is a teaching act. Looker and Sigma give stakeholders the right level of depth, the right defaults, and the right edges to explore from.</p>
+      <p data-quote="4" hidden>The win isn't the dashboard. It's the decision it unblocks — and how quickly the next one comes.</p>
+    </blockquote>
+  </div>
+</section>
 
-      <p class="activity-sub">GitHub commits — last 12 weeks</p>
-      <div class="chart-wrap">
-        <div class="chart-bars" id="activity-chart"></div>
-        <div class="chart-x-labels" id="chart-labels"></div>
-      </div>
-      <div class="activity-heatmap-wrap">
-        <p class="heatmap-label">Contribution heatmap — last 12 weeks</p>
-        <div class="heatmap" id="heatmap"></div>
-      </div>
-
-      <div class="token-chart-wrap reveal">
-        <p class="activity-sub" style="margin-top: 64px;">Claude API tokens — total daily usage · last 12 weeks</p>
-        <div class="chart-wrap">
-          <div class="chart-bars" id="token-total-chart"></div>
-          <div class="chart-x-labels" id="token-total-labels"></div>
-        </div>
-      </div>
-
-      <div class="token-chart-wrap reveal">
-        <p class="activity-sub" style="margin-top: 48px;">Claude API tokens — output vs. input · last 12 weeks</p>
-        <div class="chart-bars" id="token-chart"></div>
-        <div class="chart-x-labels" id="token-labels"></div>
-        <div class="dist-legend" style="margin-top: 12px;">
-          <span class="dist-legend-bar" style="background:#4ade80;opacity:0.7;height:2px;align-self:center;"></span><span>Output tokens</span>
-          <span class="dist-legend-bar" style="background:#3a3a3a;height:2px;align-self:center;"></span><span>Input tokens</span>
-        </div>
-      </div>
-
-      <div class="dist-chart-wrap reveal">
-        <p class="activity-sub" style="margin-top: 64px;">Recipe cook time distribution · jtmeals.com</p>
-        <p class="dist-sub">Cook time distribution across <span id="cook-dist-count">—</span> recipes from my personal recipe book. Binned in 10-min intervals.</p>
-        <div id="recipe-cook-dist-chart" class="commit-dist-svg"></div>
-        <div class="dist-legend">
-          <span class="dist-legend-bar"></span><span>Recipes</span>
-          <span class="dist-legend-line"></span><span>Trend</span>
-          <span class="dist-legend-lambda"></span><span id="cook-dist-peak-label">peak: —</span>
-        </div>
-      </div>
-
-      <div class="scatter-wrap reveal">
-        <p class="activity-sub" style="margin-top: 64px;">Recipe category analysis · jtmeals.com</p>
-        <p class="dist-sub">Each bubble is a category from my personal recipe book (<span id="scatter-count">—</span> recipes with complete timing data). Size = count, position = avg prep &amp; cook time.</p>
-        <div id="recipe-scatter-chart" class="commit-dist-svg"></div>
-      </div>
-
+<!-- ======================================================
+     06  BY THE NUMBERS
+     ====================================================== -->
+<section class="section section--numbers" id="numbers">
+  <div class="shell">
+    <div class="sec-head" data-reveal>
+      <span class="section-label"><span class="num">05</span><span>By the numbers</span></span>
+      <span class="section-meta">Updated nightly · auto</span>
     </div>
-  </section>
 
-  <!-- ─── PROJECTS ──────────────────────────────── -->
-  <section class="projects reveal" id="projects">
-    <div class="container">
-      <div class="section-meta">
-        <span class="section-num">07</span>
-        <span class="section-label">Projects</span>
+    <div class="numbers">
+      <div class="num-card" data-reveal>
+        <div class="num-card__val"><span data-count="411">0</span></div>
+        <div class="num-card__label">GitHub commits</div>
+        <div class="num-card__sub">Last 12 months</div>
       </div>
-      <div class="project-cards">
-
-        <div class="project-card reveal-child">
-          <div class="project-card-top">
-            <div>
-              <div class="project-card-label">Personal AI Assistant</div>
-              <h2 class="project-card-title">Neo</h2>
-            </div>
-            <span class="project-live">Live</span>
-          </div>
-          <p>Runs 24/7 on a Mac Mini, connected to Discord. Manages recipes, meal planning, shopping lists, real estate tracking, fitness logging, trip planning, and a daily news digest — all from a chat interface.</p>
-          <p class="project-detail">Built from scratch: Python · Claude API · Discord bot · Cron scheduling · GitHub auto-commit · Cloudflare Tunnel</p>
-          <div class="project-tags">
-            <span>Python</span>
-            <span>Claude API</span>
-            <span>Discord</span>
-            <span>Cloudflare</span>
-            <span>Bash</span>
-          </div>
-        </div>
-
-        <div class="project-card reveal-child">
-          <div class="project-card-top">
-            <div>
-              <div class="project-card-label">Recipe & Meal Planner</div>
-              <h2 class="project-card-title">jtmeals.com</h2>
-            </div>
-            <div style="display:flex;align-items:center;gap:10px;">
-              <span class="project-live">Live</span>
-              <a href="https://www.jtmeals.com" target="_blank" rel="noopener" class="project-arrow">↗</a>
-            </div>
-          </div>
-          <p>Recipe browser and weekly meal planner. <span data-stat="recipes">47</span>+ recipes with ratings, cost estimates, and filters. Built with vanilla HTML/CSS/JS, served via Cloudflare Tunnel from a local Node.js server.</p>
-          <p class="project-detail">Fully integrated with Neo — recipes are added by sharing a URL or photo in Discord</p>
-          <div class="project-tags">
-            <span>HTML / CSS / JS</span>
-            <span>Node.js</span>
-            <span>JSON</span>
-            <span>Cloudflare</span>
-          </div>
-        </div>
-
-        <div class="project-card reveal-child">
-          <div class="project-card-top">
-            <div>
-              <div class="project-card-label">Live Data Platform</div>
-              <h2 class="project-card-title">joeldoesdata.com</h2>
-            </div>
-            <div style="display:flex;align-items:center;gap:10px;">
-              <span class="project-live">Live</span>
-              <a href="https://joeldoesdata.com" target="_blank" rel="noopener" class="project-arrow">↗</a>
-            </div>
-          </div>
-          <p>A self-updating data platform that publishes live metrics from my daily workflow. Nightly Python scripts aggregate commit activity and Claude API token usage across repos, committing fresh data that triggers an automated deploy.</p>
-          <p class="project-detail">GitHub Actions CI/CD · Cloudflare Workers · live charts update nightly without touching the site</p>
-          <div class="project-tags">
-            <span>Python</span>
-            <span>GitHub Actions</span>
-            <span>Cloudflare Workers</span>
-            <span>HTML / CSS / JS</span>
-          </div>
-        </div>
-
-        <div class="project-card reveal-child">
-          <div class="project-card-top">
-            <div>
-              <div class="project-card-label">NHL Analytics</div>
-              <h2 class="project-card-title">Caliper</h2>
-            </div>
-            <div style="display:flex;align-items:center;gap:10px;">
-              <span class="project-dev">In Development</span>
-              <a href="https://caliper.joeldoesdata.com" target="_blank" rel="noopener" class="project-arrow">↗</a>
-            </div>
-          </div>
-          <p>Interactive NHL analytics dashboard built on MoneyPuck data. Player stats, shot heatmaps, archetype clustering via K-Means + PCA, and playoff odds from a Monte Carlo simulation — all rendered client-side with D3.js.</p>
-          <p class="project-detail">BigQuery + dbt pipeline → static JSON → Cloudflare Pages. No backend, no server.</p>
-          <div class="project-tags">
-            <span>BigQuery</span>
-            <span>dbt</span>
-            <span>Python</span>
-            <span>D3.js</span>
-            <span>Cloudflare Pages</span>
-          </div>
-        </div>
-
+      <div class="num-card" data-reveal>
+        <div class="num-card__val"><span data-count="8">0</span><span class="num-suffix">K+</span></div>
+        <div class="num-card__label">Lines of code</div>
+        <div class="num-card__sub">Across active projects</div>
+      </div>
+      <div class="num-card" data-reveal>
+        <div class="num-card__val"><span data-count="6">0</span></div>
+        <div class="num-card__label">Years analytics experience</div>
+        <div class="num-card__sub">Since Nov 2019</div>
+      </div>
+      <div class="num-card" data-reveal>
+        <div class="num-card__val"><span data-count="3">0</span></div>
+        <div class="num-card__label">Projects in production</div>
+        <div class="num-card__sub">Neo · jtmeals · caliper</div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ─── FOOTER ────────────────────────────────── -->
-  <footer class="footer">
-    <div class="container">
-      <p>Joel Salomon · Kelowna, BC · <a href="mailto:joel.salomon@outlook.com">joel.salomon@outlook.com</a></p>
+<!-- ======================================================
+     07  ACTIVITY — charts
+     ====================================================== -->
+<section class="section section--activity" id="activity">
+  <div class="shell">
+    <div class="sec-head" data-reveal>
+      <span class="section-label"><span class="num">06</span><span>Activity</span></span>
+      <span class="section-meta">Live · GitHub + Claude API</span>
     </div>
-  </footer>
 
-  <script src="script.js"></script>
+    <div class="chart" data-reveal>
+      <div class="chart__head">
+        <h4>GitHub commits <span class="chart__sub">— last 12 weeks</span></h4>
+        <span class="chart__legend"><i class="dot dot--accent"></i>Commits</span>
+      </div>
+      <div class="chart__frame">
+        <svg class="commits" viewBox="0 0 1200 240" preserveAspectRatio="none" aria-hidden="true"></svg>
+      </div>
+      <div class="chart__axis" id="commitsAxis"></div>
+    </div>
+
+    <div class="chart" data-reveal>
+      <div class="chart__head">
+        <h4>Contribution heatmap <span class="chart__sub">— last 12 weeks</span></h4>
+        <span class="chart__legend">
+          <span>Less</span>
+          <i class="heat-sw" style="opacity:.1"></i>
+          <i class="heat-sw" style="opacity:.3"></i>
+          <i class="heat-sw" style="opacity:.55"></i>
+          <i class="heat-sw" style="opacity:.8"></i>
+          <i class="heat-sw" style="opacity:1"></i>
+          <span>More</span>
+        </span>
+      </div>
+      <div class="heatmap" id="heatmap"></div>
+    </div>
+
+    <div class="chart" data-reveal>
+      <div class="chart__head">
+        <h4>Claude API tokens <span class="chart__sub">— daily · last 12 weeks</span></h4>
+        <span class="chart__legend"><b>peak:</b> Apr 11 · 812K</span>
+      </div>
+      <div class="chart__frame chart__frame--tall">
+        <svg class="tokens" viewBox="0 0 1200 200" preserveAspectRatio="none" aria-hidden="true"></svg>
+      </div>
+      <div class="chart__axis" id="tokensAxis"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     08  LIVE DATA DEMOS — charts from jtmeals
+     ====================================================== -->
+<section class="section section--demos" id="demos">
+  <div class="shell">
+    <div class="sec-head" data-reveal>
+      <span class="section-label"><span class="num">07</span><span>Live queries</span></span>
+      <span class="section-meta">Pulled from jtmeals.com · Apr '26</span>
+    </div>
+
+    <div class="demo" data-reveal>
+      <div class="demo__head">
+        <h4>Recipe cook time distribution</h4>
+        <div class="demo__sub"><span class="chip">source: jtmeals.com</span> <span>· refreshed nightly · 59 recipes · 10-min bins</span></div>
+      </div>
+      <div class="demo__chart">
+        <svg class="cooktime" viewBox="0 0 900 280" aria-hidden="true"></svg>
+      </div>
+      <div class="demo__legend">
+        <span><i style="background:var(--accent)"></i>Recipes</span>
+        <span><i style="background:var(--ink-3); height:1px; width:12px;"></i>Trend</span>
+        <span class="peak">peak: 20–30 min</span>
+      </div>
+    </div>
+
+    <div class="demo" data-reveal>
+      <div class="demo__head">
+        <h4>Recipe category analysis</h4>
+        <div class="demo__sub"><span class="chip">source: jtmeals.com</span> <span>· refreshed nightly · size = recipe count · position = avg prep &amp; cook time</span></div>
+      </div>
+      <div class="demo__chart">
+        <svg class="bubbles" viewBox="0 0 900 360" aria-hidden="true"></svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     09  PROJECTS — the network
+     ====================================================== -->
+<section class="section section--projects" id="work">
+  <div class="shell">
+    <div class="sec-head" data-reveal>
+      <span class="section-label"><span class="num">08</span><span>Projects</span></span>
+      <span class="section-meta">3 live · 1 in build</span>
+    </div>
+
+    <div class="projects">
+      <a href="neo.html" class="project card project--neo" data-reveal data-cursor>
+        <div class="project__top">
+          <span class="section-label"><span class="num">A</span><span>Personal AI assistant</span></span>
+          <span class="pill pill--accent pill--live">Live</span>
+        </div>
+        <h3 class="project__name">Neo</h3>
+        <p class="project__desc">Runs 24/7 on a Mac Mini, connected to Discord. Manages recipes, meal planning, shopping lists, real estate tracking, fitness logging, trip planning, and a daily news digest — all from a chat interface.</p>
+        <p class="project__built">Built from scratch: Python · Claude API · Discord bot · Cron scheduling · GitHub auto-commit · Cloudflare Tunnel</p>
+        <div class="project__tags">
+          <span class="chip">Python</span><span class="chip">Claude API</span><span class="chip">Discord</span><span class="chip">Cloudflare</span><span class="chip">Bash</span>
+        </div>
+      </a>
+
+      <a href="jtmeals.html" class="project card project--jtmeals" data-reveal data-cursor>
+        <div class="project__top">
+          <span class="section-label"><span class="num">B</span><span>Recipe &amp; meal planner</span></span>
+          <span class="pill pill--accent pill--live">Live <span class="ext">↗</span></span>
+        </div>
+        <h3 class="project__name">jtmeals.com</h3>
+        <p class="project__desc">Recipe browser and weekly meal planner. 70+ recipes with ratings, cost estimates, and filters. Built with vanilla HTML/CSS/JS, served via Cloudflare Tunnel from a local Node.js server.</p>
+        <p class="project__built">Fully integrated with Neo — recipes are added by sharing a URL or photo in Discord.</p>
+        <div class="project__tags">
+          <span class="chip">HTML / CSS / JS</span><span class="chip">Node.js</span><span class="chip">JSON</span><span class="chip">Cloudflare</span>
+        </div>
+      </a>
+
+      <a href="caliper.html" class="project card project--caliper" data-reveal data-cursor>
+        <div class="project__top">
+          <span class="section-label"><span class="num">C</span><span>Sports data platform</span></span>
+          <span class="pill pill--ghost">In development</span>
+        </div>
+        <h3 class="project__name">caliper.<span class="project__name-dim">joeldoesdata.com</span></h3>
+        <p class="project__desc">NHL telemetry at team and player level. Big datasets, fun disguise — built to showcase analytics chops on real-world sports data. Expanding to NBA and NFL.</p>
+        <p class="project__built">Nightly ingest · Python · Cloudflare Workers · vanilla chart stack</p>
+        <div class="project__tags">
+          <span class="chip">Python</span><span class="chip">DuckDB</span><span class="chip">Cloudflare Workers</span><span class="chip">D3</span>
+        </div>
+      </a>
+
+      <a href="index.html" class="project card project--self" data-reveal data-cursor>
+        <div class="project__top">
+          <span class="section-label"><span class="num">D</span><span>Live data platform</span></span>
+          <span class="pill pill--accent pill--live">Live</span>
+        </div>
+        <h3 class="project__name">joeldoesdata.com</h3>
+        <p class="project__desc">A self-updating data platform that publishes live metrics from my daily workflow. Nightly Python scripts aggregate commit activity and Claude API token usage across repos, committing fresh data that triggers an automated deploy.</p>
+        <p class="project__built">GitHub Actions CI/CD · Cloudflare Workers · live charts update nightly without touching the site</p>
+        <div class="project__tags">
+          <span class="chip">Python</span><span class="chip">GitHub Actions</span><span class="chip">Cloudflare Workers</span><span class="chip">HTML / CSS / JS</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     10  CONTACT
+     ====================================================== -->
+<section class="section section--contact" id="contact">
+  <div class="shell">
+    <div class="sec-head" data-reveal>
+      <span class="section-label"><span class="num">09</span><span>Contact</span></span>
+      <span class="section-meta">Response within 24h</span>
+    </div>
+
+    <h2 class="contact__hed" data-reveal>
+      Have a <em>messy pipeline</em>,<br>
+      a <em>stalled dashboard</em>,<br>
+      or an <em>AI workflow</em> worth building?
+    </h2>
+
+    <div class="contact__rows" data-reveal>
+      <a href="/cdn-cgi/l/email-protection#2048454c4c4f604a4f454c444f4553444154410e434f4d" class="contact-row">
+        <span class="contact-row__label">Email</span>
+        <span class="contact-row__val"><span class="__cf_email__" data-cfemail="e28a878e8e8da2888d878e868d879186839683cc818d8f">[email&#160;protected]</span></span>
+        <span class="contact-row__arrow">→</span>
+      </a>
+      <a href="#" class="contact-row">
+        <span class="contact-row__label">GitHub</span>
+        <span class="contact-row__val">github.com/joeldoesdata</span>
+        <span class="contact-row__arrow">↗</span>
+      </a>
+      <a href="#" class="contact-row">
+        <span class="contact-row__label">LinkedIn</span>
+        <span class="contact-row__val">in/joeldoesdata</span>
+        <span class="contact-row__arrow">↗</span>
+      </a>
+      <a href="#" class="contact-row">
+        <span class="contact-row__label">Read.cv</span>
+        <span class="contact-row__val">read.cv/joeldoesdata</span>
+        <span class="contact-row__arrow">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <span>© 2026 Joel Salomon</span>
+  <span class="footer-mid">Built in Kelowna · Deployed on Cloudflare</span>
+  <span>
+    <a href="index.html">joeldoesdata</a> ·
+    <a href="jtmeals.html">jtmeals</a> ·
+    <a href="caliper.html">caliper</a> ·
+    <a href="design-system.html">system</a>
+  </span>
+</footer>
+
+<!-- Tweaks panel (hidden until toolbar toggle) -->
+<div id="tweaks-panel" class="tweaks" hidden>
+  <div class="tweaks__head">
+    <h4>Tweaks</h4>
+    <button class="tweaks__close" aria-label="Close">×</button>
+  </div>
+  <div class="tweaks__body"></div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="shared/chrome.js"></script>
+<script src="shared/joel.js"></script>
+<script src="shared/tweaks.js"></script>
 </body>
 </html>
