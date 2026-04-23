@@ -814,3 +814,20 @@
 }
 .tweak-switch.is-on { background: var(--accent); }
 .tweak-switch.is-on::after { transform: translateX(16px); background: var(--bg-0); }
+
+/* ---------- CHART TOOLTIP ---------- */
+.chart-tip {
+  position: fixed;
+  background: var(--ink-1);
+  color: var(--bg-0);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 9px;
+  pointer-events: none;
+  z-index: 999;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 100ms;
+}
+.chart-tip.is-visible { opacity: 1; }
