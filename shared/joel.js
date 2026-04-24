@@ -219,9 +219,9 @@ function addSvgTooltip(svg, viewW, count, labelFn) {
     const countEl = document.querySelector('[data-count="411"]');
     if (countEl) {
       countEl.dataset.count = totalCommits;
-      countEl.closest('.num-card')
-        ?.querySelector('.num-card__sub')
-        ?.textContent && (countEl.closest('.num-card').querySelector('.num-card__sub').textContent = 'Last 12 weeks');
+      countEl.textContent = totalCommits.toString();
+      const sub = countEl.closest('.num-card')?.querySelector('.num-card__sub');
+      if (sub) sub.textContent = 'Last 12 weeks';
     }
   }
 
