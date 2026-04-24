@@ -68,12 +68,10 @@ function countUp(el) {
   requestAnimationFrame(step);
 }
 
-/* ─── Dynamic site stats ─────────────────────── */
-// Fetch live stats first, then start the count-up observer.
-// This prevents a race condition where countUp fires before the fetch
-// resolves, causing stale hardcoded values to animate instead.
+/* ─── Stat count-up ──────────────────────────── */
+// Values are baked into HTML data-target attributes nightly by export-site-stats.py.
+// No fetch needed — always correct, no race condition.
 
-let statsReady = false;
 const statsSection = document.getElementById('stats');
 
 function triggerCountUp() {
@@ -83,32 +81,6 @@ function triggerCountUp() {
   });
 }
 
-(async function () {
-  try {
-    const res = await fetch('./site-stats.json');
-    if (!res.ok) return;
-    const stats = await res.json();
-    const commitsEl = document.querySelector('[data-stat="commits"]');
-    const locEl = document.querySelector('[data-stat="loc"]');
-    const recipesEl = document.querySelector('[data-stat="recipes"]');
-    if (commitsEl) commitsEl.dataset.target = stats.commits;
-    if (locEl) { locEl.dataset.target = stats.lines_of_code_k; locEl.dataset.suffix = 'K+'; }
-    if (recipesEl && stats.recipe_count) recipesEl.textContent = stats.recipe_count;
-  } catch (e) { /* fallback to hardcoded values */ }
-
-  // Data is ready — start observer now. If section already in view, fire immediately.
-  statsReady = true;
-  if (statsSection) {
-    const rect = statsSection.getBoundingClientRect();
-    const inView = rect.top < window.innerHeight && rect.bottom > 0;
-    if (inView) {
-      triggerCountUp();
-    } else {
-      statObserver.observe(statsSection);
-    }
-  }
-})();
-
 const statObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -117,6 +89,13 @@ const statObserver = new IntersectionObserver((entries) => {
     }
   });
 }, { threshold: 0.3 });
+
+if (statsSection) {
+  const rect = statsSection.getBoundingClientRect();
+  const inView = rect.top < window.innerHeight && rect.bottom > 0;
+  if (inView) triggerCountUp();
+  else statObserver.observe(statsSection);
+}
 
 /* ─── GitHub activity chart ──────────────────── */
 
