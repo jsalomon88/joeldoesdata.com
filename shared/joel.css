@@ -838,16 +838,9 @@
   .topbar .mark { display: none; }
   .topbar .nav { gap: var(--s-4); }
 
-  /* Hero: more top breathing room + shrink tag font */
-  .hero { padding-top: var(--s-9); }
+  /* Hero: more top breathing room, extra bottom padding to clear scroll indicator */
+  .hero { padding-top: var(--s-9); padding-bottom: var(--s-8); }
   .hero__tag { font-size: 22px; padding-right: var(--s-5); }
-
-  /* Scroll indicator: pin to viewport bottom-left, below the ticker */
-  .scroll-indicator {
-    position: fixed;
-    left: var(--gutter);
-    bottom: var(--s-6);
-  }
 
   /* Timeline: offset the date text past the dot (dot is at left:-6px within item) */
   .timeline__when { padding-left: var(--s-5); }
