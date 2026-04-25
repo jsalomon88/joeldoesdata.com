@@ -842,13 +842,11 @@
   .hero { padding-top: var(--s-9); }
   .hero__tag { font-size: 22px; padding-right: var(--s-5); }
 
-  /* Scroll indicator: pull back into flow so it sits above the ticker */
+  /* Scroll indicator: pin to viewport bottom-left, below the ticker */
   .scroll-indicator {
-    position: relative;
-    left: auto;
-    bottom: auto;
-    margin-left: var(--gutter);
-    margin-top: var(--s-5);
+    position: fixed;
+    left: var(--gutter);
+    bottom: var(--s-6);
   }
 
   /* Timeline: offset the date text past the dot (dot is at left:-6px within item) */
