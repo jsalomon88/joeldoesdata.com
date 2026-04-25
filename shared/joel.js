@@ -2,6 +2,17 @@
    joeldoesdata.com — page-specific behavior
    ============================================================ */
 
+/* ---------- Scroll indicator fade-out ---------- */
+(function () {
+  const ind = document.querySelector('.scroll-indicator');
+  if (!ind) return;
+  window.addEventListener('scroll', () => {
+    const opacity = Math.max(0, 1 - window.scrollY / 120);
+    ind.style.opacity = opacity;
+    ind.style.pointerEvents = opacity < 0.05 ? 'none' : '';
+  }, { passive: true });
+})();
+
 /* ---------- Skill bar loading animation ----------
    Uses MutationObserver on each stack__col so bars only fire
    after chrome.js's reveal system has made the column visible.
