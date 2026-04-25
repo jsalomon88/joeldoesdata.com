@@ -11,7 +11,7 @@
   justify-content: flex-start;
   padding: var(--s-7) 0 var(--s-6);
   position: relative;
-  overflow: hidden;
+  overflow: clip; /* clip rather than hidden — prevents glow from scrolling page without clipping text */
 }
 
 .hero::before {
@@ -831,3 +831,19 @@
   transition: opacity 100ms;
 }
 .chart-tip.is-visible { opacity: 1; }
+
+/* ---------- MOBILE ---------- */
+@media (max-width: 640px) {
+  /* Topbar: hide mark text, tighten nav gap so it doesn't overflow */
+  .topbar .mark { display: none; }
+  .topbar .nav { gap: var(--s-4); }
+
+  /* Hero tag: ensure italic text never clips at right edge */
+  .hero__tag { overflow-wrap: break-word; padding-right: 4px; }
+
+  /* Heatmap: allow horizontal scroll if weeks overflow narrow screens */
+  #heatmap { overflow-x: auto; }
+
+  /* Demo charts: reduce fixed height so SVG fills correctly on narrow screens */
+  .demo__chart { height: 220px; }
+}
