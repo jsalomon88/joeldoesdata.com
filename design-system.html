@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en" data-site="joeldoesdata">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design System — joeldoesdata / jtmeals / caliper</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared/tokens.css">
+  <link rel="stylesheet" href="shared/joel.css">
+  <style>
+    .ds-hero { padding: clamp(120px, 16vh, 180px) 0 var(--s-7); }
+    .ds-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 8vw, 120px);
+      line-height: 0.95; letter-spacing: -0.03em;
+      color: var(--ink-0);
+    }
+    .ds-hero h1 em { font-style: italic; color: var(--accent); }
+    .ds-hero p { max-width: 640px; margin-top: var(--s-5); color: var(--ink-2); font-size: 17px; line-height: 1.6; }
+
+    .ds-sites {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-4);
+      margin-top: var(--s-7);
+    }
+    @media (max-width: 820px) { .ds-sites { grid-template-columns: 1fr; } }
+    .ds-site {
+      border: 1px solid var(--hairline);
+      padding: var(--s-5);
+      background: var(--ink-7);
+      display: flex; flex-direction: column; gap: var(--s-3);
+      transition: border-color var(--d-fast) var(--e-out);
+    }
+    .ds-site:hover { border-color: var(--hairline-strong); }
+    .ds-site__sw {
+      width: 20px; height: 20px; border-radius: 4px;
+    }
+    .ds-site h3 {
+      font-family: var(--font-display); font-size: 26px;
+      font-weight: 400; letter-spacing: -0.01em;
+    }
+    .ds-site p { font-size: 13px; color: var(--ink-3); line-height: 1.55; }
+
+    .swatches {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: var(--s-2);
+    }
+    .sw {
+      padding: var(--s-4);
+      border: 1px solid var(--hairline);
+      min-height: 120px;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .sw__val {
+      font-family: var(--font-mono); font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--ink-2);
+    }
+    .sw__name { font-size: 12px; color: var(--ink-3); font-family: var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; }
+    .sw--filled { color: var(--ink-0); }
+    .sw--filled .sw__name { color: rgba(255,255,255,0.6); }
+    .sw--filled .sw__val { color: rgba(255,255,255,0.9); }
+
+    .type-row {
+      display: grid; grid-template-columns: 140px 1fr;
+      gap: var(--s-5); padding: var(--s-5) 0;
+      border-bottom: 1px solid var(--hairline);
+      align-items: baseline;
+    }
+    .type-row__label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-3); }
+    .type-row__sample { line-height: 1.1; }
+
+    .space-grid { display: flex; flex-wrap: wrap; gap: var(--s-4); align-items: flex-end; }
+    .space {
+      display: flex; flex-direction: column; gap: 6px; align-items: flex-start;
+    }
+    .space__bar { background: var(--accent); height: 32px; }
+    .space__l { font-family: var(--font-mono); font-size: 10px; color: var(--ink-3); letter-spacing: 0.1em; }
+
+    .comp-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-4);
+    }
+    @media (max-width: 820px) { .comp-grid { grid-template-columns: 1fr; } }
+    .comp {
+      border: 1px solid var(--hairline);
+      padding: var(--s-6);
+      background: var(--ink-7);
+    }
+    .comp__label {
+      font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--ink-3); margin-bottom: var(--s-4);
+    }
+    .comp__demo { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+
+    .rules { display: grid; gap: var(--s-3); max-width: 720px; }
+    .rule {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: var(--s-4);
+      padding: var(--s-4);
+      border-left: 1px solid var(--accent);
+      background: var(--ink-7);
+    }
+    .rule__n { font-family: var(--font-mono); font-size: 11px; color: var(--accent); letter-spacing: 0.16em; }
+    .rule__t { font-size: 15px; line-height: 1.5; color: var(--ink-1); }
+    .rule__t b { color: var(--accent); font-weight: 400; }
+
+    .variant-row {
+      display: grid; grid-template-columns: 120px repeat(3, 1fr);
+      gap: var(--s-3); align-items: center;
+      padding: var(--s-4) 0;
+      border-bottom: 1px solid var(--hairline);
+    }
+    .variant-row__l { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); }
+    .variant-cell {
+      padding: var(--s-3);
+      border: 1px solid var(--hairline);
+      min-height: 72px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-mono); font-size: 12px;
+      color: var(--ink-2);
+    }
+    .variant-cell[data-site="joeldoesdata"] { --accent: #00E28A; --accent-dim: rgba(0, 226, 138, 0.14); }
+    .variant-cell[data-site="jtmeals"]      { --accent: #E8A857; --accent-dim: rgba(232, 168, 87, 0.14); background: #110D08;}
+    .variant-cell[data-site="caliper"]      { --accent: #6BA4FF; --accent-dim: rgba(107, 164, 255, 0.14); background: #060709;}
+  </style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<header class="topbar">
+  <a href="index.html" class="mark">Design System / v1</a>
+  <nav class="nav">
+    <a href="#foundations">Foundations</a>
+    <a href="#components">Components</a>
+    <a href="#variants">Per-site</a>
+    <a href="#rules">Rules</a>
+  </nav>
+  <a href="index.html">← Back</a>
+</header>
+
+<section class="ds-hero shell">
+  <span class="section-label"><span class="num">00</span><span>The system</span></span>
+  <h1>One <em>visual language</em>.<br>Three <em>personalities</em>.</h1>
+  <p>A shared foundation for <b>joeldoesdata</b>, <b>jtmeals</b>, and <b>caliper</b>. Typography, spacing, motion, and components are locked across all three. Each site personalizes only through accent color, bg warmth, and content density — so the network feels intentional, not fragmented.</p>
+
+  <div class="ds-sites">
+    <a href="index.html" class="ds-site">
+      <div class="ds-site__sw" style="background: #00E28A"></div>
+      <h3>joeldoesdata</h3>
+      <p>The hub. Editorial, quiet, green. Portfolio + live data platform.</p>
+      <span class="link-arrow">Open <span class="arrow">↗</span></span>
+    </a>
+    <a href="jtmeals.html" class="ds-site" style="background: #110D08">
+      <div class="ds-site__sw" style="background: #E8A857"></div>
+      <h3>jtmeals</h3>
+      <p>Warmer, denser, food-forward. Recipe book that writes itself.</p>
+      <span class="link-arrow">Open <span class="arrow">↗</span></span>
+    </a>
+    <a href="caliper.html" class="ds-site" style="background: #060709">
+      <div class="ds-site__sw" style="background: #6BA4FF"></div>
+      <h3>caliper</h3>
+      <p>Technical, grid-lined, cool. NHL data tooling.</p>
+      <span class="link-arrow">Open <span class="arrow">↗</span></span>
+    </a>
+  </div>
+</section>
+
+<!-- FOUNDATIONS -->
+<section class="section" id="foundations">
+  <div class="shell">
+    <div class="sec-head">
+      <span class="section-label"><span class="num">01</span><span>Colors</span></span>
+      <span class="section-meta">Base palette · shared</span>
+    </div>
+
+    <div class="swatches">
+      <div class="sw sw--filled" style="background: #000000"><span class="sw__name">bg-0</span><span class="sw__val">#000000</span></div>
+      <div class="sw sw--filled" style="background: #0a0a0a"><span class="sw__name">bg-1</span><span class="sw__val">#0A0A0A</span></div>
+      <div class="sw sw--filled" style="background: #111111"><span class="sw__name">bg-2</span><span class="sw__val">#111111</span></div>
+      <div class="sw sw--filled" style="background: #181818"><span class="sw__name">bg-3</span><span class="sw__val">#181818</span></div>
+      <div class="sw sw--filled" style="background: #222222"><span class="sw__name">bg-4</span><span class="sw__val">#222222</span></div>
+      <div class="sw sw--filled" style="background: #ffffff; color:#000"><span class="sw__name" style="color:rgba(0,0,0,0.6)!important">ink-0</span><span class="sw__val" style="color:rgba(0,0,0,0.9)!important">#FFFFFF</span></div>
+    </div>
+
+    <div class="sec-head" style="margin-top: var(--s-9)">
+      <span class="section-label"><span class="num">02</span><span>Accents</span></span>
+      <span class="section-meta">One per site</span>
+    </div>
+    <div class="swatches">
+      <div class="sw sw--filled" style="background: #00E28A; color:#000"><span class="sw__name" style="color:rgba(0,0,0,0.6)!important">joel · green</span><span class="sw__val" style="color:rgba(0,0,0,0.9)!important">#00E28A</span></div>
+      <div class="sw sw--filled" style="background: #E8A857; color:#000"><span class="sw__name" style="color:rgba(0,0,0,0.6)!important">jtmeals · amber</span><span class="sw__val" style="color:rgba(0,0,0,0.9)!important">#E8A857</span></div>
+      <div class="sw sw--filled" style="background: #6BA4FF; color:#000"><span class="sw__name" style="color:rgba(0,0,0,0.6)!important">caliper · blue</span><span class="sw__val" style="color:rgba(0,0,0,0.9)!important">#6BA4FF</span></div>
+      <div class="sw sw--filled" style="background: #B38CFF; color:#000"><span class="sw__name" style="color:rgba(0,0,0,0.6)!important">future · violet</span><span class="sw__val" style="color:rgba(0,0,0,0.9)!important">#B38CFF</span></div>
+    </div>
+
+    <!-- TYPE -->
+    <div class="sec-head" style="margin-top: var(--s-9)">
+      <span class="section-label"><span class="num">03</span><span>Type</span></span>
+      <span class="section-meta">Instrument Serif / Inter Tight / JetBrains Mono</span>
+    </div>
+
+    <div>
+      <div class="type-row">
+        <span class="type-row__label">Hero display</span>
+        <span class="type-row__sample" style="font-family: var(--font-display); font-size: 96px; letter-spacing: -0.03em;">Salomon.</span>
+      </div>
+      <div class="type-row">
+        <span class="type-row__label">Display italic</span>
+        <span class="type-row__sample" style="font-family: var(--font-display); font-style: italic; font-size: 56px;">measure what you love</span>
+      </div>
+      <div class="type-row">
+        <span class="type-row__label">H1 serif</span>
+        <span class="type-row__sample" style="font-family: var(--font-display); font-size: 40px; letter-spacing: -0.01em;">I own data end to end.</span>
+      </div>
+      <div class="type-row">
+        <span class="type-row__label">H2 serif</span>
+        <span class="type-row__sample" style="font-family: var(--font-display); font-size: 28px;">Florida Panthers lead the East</span>
+      </div>
+      <div class="type-row">
+        <span class="type-row__label">Body sans</span>
+        <span class="type-row__sample" style="font-family: var(--font-sans); font-size: 15px; line-height: 1.6; color: var(--ink-2);">The quick brown fox jumps over the lazy dog. 0123456789 — a reliable body size for most contexts, at 1.55–1.65 line-height.</span>
+      </div>
+      <div class="type-row">
+        <span class="type-row__label">Mono body</span>
+        <span class="type-row__sample" style="font-family: var(--font-mono); font-size: 13px; color: var(--ink-2);">SELECT * FROM recipes WHERE cook_time &lt; 20 — used for data, labels, technical copy.</span>
+      </div>
+      <div class="type-row">
+        <span class="type-row__label">Mono caps</span>
+        <span class="type-row__sample" style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-3);">01  SECTION LABEL  ·  UPDATED NIGHTLY</span>
+      </div>
+    </div>
+
+    <!-- SPACE -->
+    <div class="sec-head" style="margin-top: var(--s-9)">
+      <span class="section-label"><span class="num">04</span><span>Spacing</span></span>
+      <span class="section-meta">4px base</span>
+    </div>
+    <div class="space-grid">
+      <div class="space"><div class="space__bar" style="width: 4px;"></div><span class="space__l">s-1 · 4</span></div>
+      <div class="space"><div class="space__bar" style="width: 8px;"></div><span class="space__l">s-2 · 8</span></div>
+      <div class="space"><div class="space__bar" style="width: 12px;"></div><span class="space__l">s-3 · 12</span></div>
+      <div class="space"><div class="space__bar" style="width: 16px;"></div><span class="space__l">s-4 · 16</span></div>
+      <div class="space"><div class="space__bar" style="width: 24px;"></div><span class="space__l">s-5 · 24</span></div>
+      <div class="space"><div class="space__bar" style="width: 32px;"></div><span class="space__l">s-6 · 32</span></div>
+      <div class="space"><div class="space__bar" style="width: 48px;"></div><span class="space__l">s-7 · 48</span></div>
+      <div class="space"><div class="space__bar" style="width: 64px;"></div><span class="space__l">s-8 · 64</span></div>
+      <div class="space"><div class="space__bar" style="width: 96px;"></div><span class="space__l">s-9 · 96</span></div>
+      <div class="space"><div class="space__bar" style="width: 128px;"></div><span class="space__l">s-10 · 128</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPONENTS -->
+<section class="section" id="components">
+  <div class="shell">
+    <div class="sec-head">
+      <span class="section-label"><span class="num">05</span><span>Components</span></span>
+      <span class="section-meta">Shared primitives</span>
+    </div>
+
+    <div class="comp-grid">
+      <div class="comp">
+        <div class="comp__label">Pills</div>
+        <div class="comp__demo">
+          <span class="pill pill--accent pill--live">Live</span>
+          <span class="pill pill--accent">Current</span>
+          <span class="pill">Draft</span>
+          <span class="pill pill--ghost">In development</span>
+        </div>
+      </div>
+
+      <div class="comp">
+        <div class="comp__label">Chips</div>
+        <div class="comp__demo">
+          <span class="chip">Python</span>
+          <span class="chip">Claude API</span>
+          <span class="chip">Cloudflare</span>
+          <span class="chip">dbt</span>
+        </div>
+      </div>
+
+      <div class="comp">
+        <div class="comp__label">Buttons</div>
+        <div class="comp__demo">
+          <a href="#" class="btn btn--solid">Primary →</a>
+          <a href="#" class="btn">Secondary</a>
+        </div>
+      </div>
+
+      <div class="comp">
+        <div class="comp__label">Link with arrow</div>
+        <div class="comp__demo">
+          <a href="#" class="link-arrow">View work <span class="arrow">↗</span></a>
+        </div>
+      </div>
+
+      <div class="comp">
+        <div class="comp__label">Section label</div>
+        <div class="comp__demo">
+          <span class="section-label"><span class="num">01</span><span>About</span></span>
+        </div>
+      </div>
+
+      <div class="comp">
+        <div class="comp__label">Stat</div>
+        <div class="comp__demo" style="flex-direction:column; align-items:flex-start;">
+          <div style="font-family: var(--font-display); font-size: 64px; line-height: 0.9; letter-spacing: -0.02em;">411</div>
+          <div style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); margin-top: 8px;">GitHub commits</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PER-SITE VARIANTS -->
+<section class="section" id="variants">
+  <div class="shell">
+    <div class="sec-head">
+      <span class="section-label"><span class="num">06</span><span>Per-site behavior</span></span>
+      <span class="section-meta">Same primitives · three personalities</span>
+    </div>
+
+    <div class="variant-row" style="border-top: 1px solid var(--hairline)">
+      <span class="variant-row__l">&nbsp;</span>
+      <span class="variant-row__l" style="text-align:center; color: var(--ink-2)">joeldoesdata</span>
+      <span class="variant-row__l" style="text-align:center; color: var(--ink-2)">jtmeals</span>
+      <span class="variant-row__l" style="text-align:center; color: var(--ink-2)">caliper</span>
+    </div>
+
+    <div class="variant-row">
+      <span class="variant-row__l">Live pill</span>
+      <div class="variant-cell" data-site="joeldoesdata"><span class="pill pill--accent pill--live">Live</span></div>
+      <div class="variant-cell" data-site="jtmeals"><span class="pill pill--accent pill--live">Live</span></div>
+      <div class="variant-cell" data-site="caliper"><span class="pill pill--accent pill--live">Live</span></div>
+    </div>
+
+    <div class="variant-row">
+      <span class="variant-row__l">Button</span>
+      <div class="variant-cell" data-site="joeldoesdata"><a class="btn btn--solid">Get in touch</a></div>
+      <div class="variant-cell" data-site="jtmeals"><a class="btn btn--solid">Browse recipes</a></div>
+      <div class="variant-cell" data-site="caliper"><a class="btn btn--solid">View API</a></div>
+    </div>
+
+    <div class="variant-row">
+      <span class="variant-row__l">Stat number</span>
+      <div class="variant-cell" data-site="joeldoesdata"><div style="font-family:var(--font-display); font-size:44px;">411</div></div>
+      <div class="variant-cell" data-site="jtmeals"><div style="font-family:var(--font-display); font-size:44px;">$4.80</div></div>
+      <div class="variant-cell" data-site="caliper"><div style="font-family:var(--font-display); font-size:44px; font-variant-numeric: tabular-nums;">58.1<span style="font-size:0.5em; color:var(--ink-3)">%</span></div></div>
+    </div>
+
+    <div class="variant-row">
+      <span class="variant-row__l">Hero hed</span>
+      <div class="variant-cell" data-site="joeldoesdata"><div style="font-family:var(--font-display); font-size:24px; text-align:center">Salomon</div></div>
+      <div class="variant-cell" data-site="jtmeals"><div style="font-family:var(--font-display); font-size:20px; text-align:center"><em style="color:var(--accent)">A recipe book</em><br>that writes itself.</div></div>
+      <div class="variant-cell" data-site="caliper"><div style="font-family:var(--font-mono); font-size:22px; text-align:center">caliper<span style="color:var(--accent)">.</span></div></div>
+    </div>
+
+    <div class="variant-row">
+      <span class="variant-row__l">Density</span>
+      <div class="variant-cell" data-site="joeldoesdata">Roomy · editorial</div>
+      <div class="variant-cell" data-site="jtmeals">Cozy · grid-heavy</div>
+      <div class="variant-cell" data-site="caliper">Tight · telemetry</div>
+    </div>
+  </div>
+</section>
+
+<!-- RULES -->
+<section class="section" id="rules">
+  <div class="shell">
+    <div class="sec-head">
+      <span class="section-label"><span class="num">07</span><span>System rules</span></span>
+      <span class="section-meta">Non-negotiable</span>
+    </div>
+
+    <div class="rules">
+      <div class="rule"><div class="rule__n">01</div><div class="rule__t">Only one accent color per site. It gets used for <b>status, active, and emphasis</b> — never for decoration.</div></div>
+      <div class="rule"><div class="rule__n">02</div><div class="rule__t">Section labels are always <b>mono 10–11px uppercase with 0.16em tracking</b>, prefixed with a two-digit index.</div></div>
+      <div class="rule"><div class="rule__n">03</div><div class="rule__t">Display serif is reserved for <b>hero, statement, and big numbers</b>. Never body copy. Body is always sans.</div></div>
+      <div class="rule"><div class="rule__n">04</div><div class="rule__t">Numbers in tables, telemetry, and data viz use <b>mono with tabular-nums</b>. Big stats use display serif.</div></div>
+      <div class="rule"><div class="rule__n">05</div><div class="rule__t">Cards are <b>1px hairline border, 4% white fill, 4px radius</b>. Hover raises fill to 6% and border to 18%.</div></div>
+      <div class="rule"><div class="rule__n">06</div><div class="rule__t">Backgrounds follow site warmth: joel true-black, jtmeals warm-near-black (<code style="font-family:var(--font-mono); background:#110D08; padding:2px 6px;">#0B0805</code>), caliper cool-near-black (<code style="font-family:var(--font-mono); background:#060709; padding:2px 6px;">#060709</code>).</div></div>
+      <div class="rule"><div class="rule__n">07</div><div class="rule__t">Page transitions: <b>fade 280ms</b> in and out between internal links. Scroll-reveal on section entry, <b>800ms out-cubic</b>.</div></div>
+      <div class="rule"><div class="rule__n">08</div><div class="rule__t">Custom cursor + ring on desktop. Ring <b>grows over interactive elements</b> and shifts to accent color.</div></div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <span>© 2026 · Design System v1</span>
+  <span class="footer-mid">Updates propagate to all three sites via shared/tokens.css</span>
+  <span>
+    <a href="index.html">joeldoesdata</a> ·
+    <a href="jtmeals.html">jtmeals</a> ·
+    <a href="caliper.html">caliper</a>
+  </span>
+</footer>
+
+<script src="shared/chrome.js"></script>
+</body>
+</html>

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en" data-site="caliper">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>caliper — NHL analytics, built for the curious</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared/tokens.css">
+  <link rel="stylesheet" href="shared/joel.css">
+  <link rel="stylesheet" href="shared/caliper.css?v=2">
+</head>
+<body>
+
+<div class="grain"></div>
+<div class="cal-grid-bg" aria-hidden="true"></div>
+
+<header class="topbar">
+  <a href="caliper.html" class="mark">caliper / nhl · 2025–26</a>
+  <nav class="nav">
+    <a href="#teams">Teams</a>
+    <a href="#players">Players</a>
+    <a href="#models">Models</a>
+    <a href="#data">Data</a>
+  </nav>
+  <div class="topbar__meta">
+    <span class="topbar__pulse"></span>
+    <span>Apr 17 · 1,287 games · 2.1M events</span>
+  </div>
+</header>
+
+<section class="cal-hero">
+  <div class="shell">
+    <h1 class="cal-hero__title">
+      <span class="mono">caliper</span><span class="dot">.</span>
+    </h1>
+
+    <p class="cal-hero__tag" data-reveal>
+      NHL telemetry at team and player level.<br>
+      Built to make analytics feel like a game.
+    </p>
+
+    <!-- Live ticker -->
+    <div class="cal-ticker" data-reveal>
+      <div class="cal-ticker__track">
+        <span class="cal-tick"><b>TOR</b> 3 — 2 <b>MTL</b> <em>F/OT</em></span>
+        <span class="cal-tick"><b>EDM</b> 5 — 1 <b>VGK</b> <em>F</em></span>
+        <span class="cal-tick"><b>BOS</b> 2 — 3 <b>NYR</b> <em>F</em></span>
+        <span class="cal-tick"><b>COL</b> 4 — 4 <b>DAL</b> <em>3rd 04:12</em></span>
+        <span class="cal-tick"><b>LAK</b> 1 — 0 <b>ANA</b> <em>2nd 11:05</em></span>
+        <span class="cal-tick"><b>CAR</b> 2 — 1 <b>FLA</b> <em>F/SO</em></span>
+        <span class="cal-tick"><b>TOR</b> 3 — 2 <b>MTL</b> <em>F/OT</em></span>
+        <span class="cal-tick"><b>EDM</b> 5 — 1 <b>VGK</b> <em>F</em></span>
+        <span class="cal-tick"><b>BOS</b> 2 — 3 <b>NYR</b> <em>F</em></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULE 1: LEAGUE DASHBOARD -->
+<section class="section" id="teams">
+  <div class="shell">
+    <div class="sec-head" data-reveal>
+      <span class="section-label"><span class="num">01</span><span>League dashboard</span></span>
+      <span class="section-meta">Atlantic · Metro · Central · Pacific</span>
+    </div>
+
+    <!-- Stat cards row -->
+    <div class="cal-kpis" data-reveal>
+      <div class="cal-kpi">
+        <div class="cal-kpi__l">Top pts/60</div>
+        <div class="cal-kpi__v">3.42</div>
+        <div class="cal-kpi__sub">C. McDavid · EDM</div>
+        <svg class="spark" viewBox="0 0 100 28" preserveAspectRatio="none"><polyline fill="none" stroke="var(--accent)" stroke-width="1.5" points="0,20 10,18 20,14 30,16 40,10 50,12 60,8 70,6 80,9 90,4 100,2"/></svg>
+      </div>
+      <div class="cal-kpi">
+        <div class="cal-kpi__l">Best xGF%</div>
+        <div class="cal-kpi__v">58.1<span>%</span></div>
+        <div class="cal-kpi__sub">Florida Panthers</div>
+        <svg class="spark" viewBox="0 0 100 28" preserveAspectRatio="none"><polyline fill="none" stroke="var(--accent)" stroke-width="1.5" points="0,14 10,12 20,15 30,10 40,13 50,8 60,9 70,5 80,7 90,3 100,4"/></svg>
+      </div>
+      <div class="cal-kpi">
+        <div class="cal-kpi__l">PP conversion</div>
+        <div class="cal-kpi__v">28.4<span>%</span></div>
+        <div class="cal-kpi__sub">Tampa Bay Lightning</div>
+        <svg class="spark" viewBox="0 0 100 28" preserveAspectRatio="none"><polyline fill="none" stroke="var(--accent)" stroke-width="1.5" points="0,22 10,16 20,20 30,14 40,18 50,10 60,12 70,6 80,10 90,5 100,3"/></svg>
+      </div>
+      <div class="cal-kpi">
+        <div class="cal-kpi__l">Goalie SV%</div>
+        <div class="cal-kpi__v">.926</div>
+        <div class="cal-kpi__sub">C. Hellebuyck · WPG</div>
+        <svg class="spark" viewBox="0 0 100 28" preserveAspectRatio="none"><polyline fill="none" stroke="var(--accent)" stroke-width="1.5" points="0,18 10,14 20,16 30,10 40,11 50,6 60,9 70,4 80,7 90,2 100,5"/></svg>
+      </div>
+    </div>
+
+    <!-- Standings table -->
+    <div class="cal-panel" data-reveal>
+      <div class="cal-panel__head">
+        <h4>Standings · Eastern Conference</h4>
+        <span class="cal-panel__meta">sorted by pts · through Apr 17</span>
+      </div>
+      <table class="cal-table">
+        <thead>
+          <tr>
+            <th>#</th><th>Team</th><th>GP</th><th>W</th><th>L</th><th>OT</th><th>PTS</th><th>GF</th><th>GA</th><th>xGF%</th><th>Δ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="is-top"><td>1</td><td><b>Florida Panthers</b></td><td>79</td><td>52</td><td>21</td><td>6</td><td class="num">110</td><td>272</td><td>215</td><td class="pos">58.1</td><td class="pos">+57</td></tr>
+          <tr class="is-top"><td>2</td><td><b>Toronto Maple Leafs</b></td><td>79</td><td>48</td><td>24</td><td>7</td><td class="num">103</td><td>256</td><td>224</td><td class="pos">54.7</td><td class="pos">+32</td></tr>
+          <tr><td>3</td><td><b>Tampa Bay Lightning</b></td><td>79</td><td>46</td><td>27</td><td>6</td><td class="num">98</td><td>248</td><td>220</td><td class="pos">53.2</td><td class="pos">+28</td></tr>
+          <tr><td>4</td><td><b>New York Rangers</b></td><td>79</td><td>45</td><td>26</td><td>8</td><td class="num">98</td><td>241</td><td>226</td><td class="pos">51.8</td><td class="pos">+15</td></tr>
+          <tr><td>5</td><td><b>Carolina Hurricanes</b></td><td>79</td><td>44</td><td>28</td><td>7</td><td class="num">95</td><td>239</td><td>218</td><td class="pos">56.4</td><td class="pos">+21</td></tr>
+          <tr><td>6</td><td><b>Washington Capitals</b></td><td>79</td><td>42</td><td>29</td><td>8</td><td class="num">92</td><td>228</td><td>221</td><td class="pos">50.3</td><td class="pos">+7</td></tr>
+          <tr><td>7</td><td><b>Boston Bruins</b></td><td>79</td><td>40</td><td>30</td><td>9</td><td class="num">89</td><td>218</td><td>217</td><td class="neg">49.1</td><td class="pos">+1</td></tr>
+          <tr><td>8</td><td><b>Detroit Red Wings</b></td><td>79</td><td>39</td><td>32</td><td>8</td><td class="num">86</td><td>232</td><td>245</td><td class="neg">47.8</td><td class="neg">−13</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- MODULE 2: SHOT CHART / ICE RINK -->
+<section class="section" id="players">
+  <div class="shell">
+    <div class="sec-head" data-reveal>
+      <span class="section-label"><span class="num">02</span><span>Player profile</span></span>
+      <span class="section-meta">Connor McDavid · EDM · #97 · 2025–26</span>
+    </div>
+
+    <!-- Player filter bar -->
+    <div class="cal-filter" data-reveal>
+      <div class="cal-filter__search">
+        <span class="cal-filter__icon">⌕</span>
+        <input type="text" placeholder="Search players… e.g. McDavid, MacKinnon, Matthews" value="Connor McDavid">
+      </div>
+      <div class="cal-filter__meta">
+        <select aria-label="Position">
+          <option>All positions</option><option>C</option><option>LW</option><option>RW</option><option>D</option><option>G</option>
+        </select>
+        <select aria-label="Team">
+          <option>All teams</option><option>EDM</option><option>TOR</option><option>FLA</option><option>COL</option>
+        </select>
+      </div>
+      <button class="cal-filter__random" type="button">
+        <span class="dice">⚄</span> Surprise me
+        <span class="cal-filter__sub">random / underrated</span>
+      </button>
+    </div>
+
+    <div class="cal-player" data-reveal>
+      <div class="cal-player__head">
+        <div>
+          <div class="cal-player__badge"><span>EDM</span>#97</div>
+          <h3>Connor McDavid</h3>
+          <p class="cal-player__sub">Centre · 6'1" · 197 lbs · Drafted 2015 (1st)</p>
+        </div>
+        <div class="cal-player__pills">
+          <span class="pill pill--accent">Top 1% pts/60</span>
+          <span class="pill">Top 5% xG/60</span>
+          <span class="pill">League leader · A</span>
+        </div>
+      </div>
+
+      <!-- KPI row -->
+      <div class="cal-player__kpis">
+        <div><div class="kv">74</div><div class="kl">G</div></div>
+        <div><div class="kv">118</div><div class="kl">A</div></div>
+        <div><div class="kv">192</div><div class="kl">PTS</div></div>
+        <div><div class="kv">+41</div><div class="kl">+/−</div></div>
+        <div><div class="kv">3.42</div><div class="kl">PTS/60</div></div>
+        <div><div class="kv">61.2</div><div class="kl">xGF%</div></div>
+      </div>
+
+      <div class="cal-player__split">
+        <!-- Rink -->
+        <div class="cal-rink">
+          <div class="cal-rink__title">Shot map · all situations</div>
+          <svg viewBox="0 0 420 360" class="rink-svg" aria-hidden="true"></svg>
+          <div class="cal-rink__legend">
+            <span><i style="background:var(--accent); opacity:.9"></i>Goal</span>
+            <span><i style="background:var(--accent); opacity:.4"></i>Shot on net</span>
+            <span><i style="background:var(--ink-4); opacity:.6"></i>Missed</span>
+          </div>
+        </div>
+
+        <!-- Rolling chart -->
+        <div class="cal-panel cal-panel--inner">
+          <div class="cal-panel__head">
+            <h4>Rolling 10-game pts/60</h4>
+            <span class="cal-panel__meta">season arc · OTL 5.3 avg</span>
+          </div>
+          <div class="demo__chart" style="height: 220px;">
+            <svg class="cal-line" viewBox="0 0 800 220" aria-hidden="true"></svg>
+          </div>
+
+          <div class="cal-panel__head" style="margin-top: 24px;">
+            <h4>Ice time by strength</h4>
+            <span class="cal-panel__meta">min / game · all situations</span>
+          </div>
+          <div class="cal-bars">
+            <div class="cal-bar"><span>Even</span><div class="cal-bar__t"><i style="--p:75%"></i></div><span class="cal-bar__v">17:42</span></div>
+            <div class="cal-bar"><span>PP</span><div class="cal-bar__t"><i style="--p:82%"></i></div><span class="cal-bar__v">4:18</span></div>
+            <div class="cal-bar"><span>PK</span><div class="cal-bar__t"><i style="--p:18%"></i></div><span class="cal-bar__v">0:48</span></div>
+            <div class="cal-bar"><span>OT</span><div class="cal-bar__t"><i style="--p:44%"></i></div><span class="cal-bar__v">1:32</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULE 3: MODEL -->
+<section class="section" id="models">
+  <div class="shell">
+    <div class="sec-head" data-reveal>
+      <span class="section-label"><span class="num">03</span><span>Models</span></span>
+      <span class="section-meta">xG v2.1 · shrinkage applied</span>
+    </div>
+
+    <div class="cal-model" data-reveal>
+      <div class="cal-model__left">
+        <h2 class="cal-model__hed"><em>Why</em> is McDavid on a heater?</h2>
+        <p>The model decomposes 5v5 production into linemate quality, deployment, shot quality, and a residual that we call <em>skill signal</em>. For McDavid, the signal dominates — no one is carrying him.</p>
+        <ul class="cal-reasons">
+          <li><span class="tag">+0.42</span> high-danger chance rate vs. peers</li>
+          <li><span class="tag">+0.28</span> entry completion at 5v5</li>
+          <li><span class="tag">+0.19</span> rush generation off controlled zone exits</li>
+          <li><span class="tag neg">−0.04</span> finishing luck above expected</li>
+        </ul>
+      </div>
+      <div class="cal-model__right">
+        <div class="cal-gauge">
+          <svg viewBox="0 0 200 200" aria-hidden="true">
+            <circle cx="100" cy="100" r="80" fill="none" stroke="var(--ink-6)" stroke-width="8"/>
+            <circle cx="100" cy="100" r="80" fill="none" stroke="var(--accent)" stroke-width="8"
+              stroke-dasharray="502" stroke-dashoffset="120" stroke-linecap="round"
+              transform="rotate(-90 100 100)"/>
+          </svg>
+          <div class="cal-gauge__v"><b>76</b><i>%</i></div>
+        </div>
+        <div class="cal-gauge__l">repeatable</div>
+        <p class="cal-gauge__note">Model confidence that this rate is skill, not variance.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULE 4: DATA PREVIEW -->
+<section class="section" id="data">
+  <div class="shell">
+    <div class="sec-head" data-reveal>
+      <span class="section-label"><span class="num">04</span><span>Data preview</span></span>
+      <span class="section-meta">How the numbers are structured</span>
+    </div>
+
+    <div class="cal-data" data-reveal>
+      <div class="cal-data__intro">
+        <h3>Every stat on this page comes from a <em>clean, queryable schema</em>.</h3>
+        <p>Below is the shape of a single player record — the same structure powers the league dashboard, the shot map, and the model. Everything is derived; nothing is scraped and hand-edited.</p>
+      </div>
+
+      <div class="cal-terminal">
+        <div class="cal-terminal__head">
+          <span class="tt-dot"></span><span class="tt-dot"></span><span class="tt-dot"></span>
+          <span class="tt-title">players/8478402.json · season 2025–26</span>
+        </div>
+<pre class="cal-terminal__body"><span class="c-cmt"># Player record — shape of the underlying dataset</span>
+{
+  <span class="c-key">"player"</span>:  { <span class="c-key">"id"</span>: 8478402, <span class="c-key">"name"</span>: <span class="c-str">"Connor McDavid"</span>, <span class="c-key">"team"</span>: <span class="c-str">"EDM"</span>, <span class="c-key">"pos"</span>: <span class="c-str">"C"</span> },
+  <span class="c-key">"season"</span>:  <span class="c-str">"2025-26"</span>,
+  <span class="c-key">"games"</span>:   78,
+  <span class="c-key">"totals"</span>: {
+    <span class="c-key">"goals"</span>:        74,
+    <span class="c-key">"assists"</span>:     118,
+    <span class="c-key">"points"</span>:      192,
+    <span class="c-key">"plus_minus"</span>:  +41
+  },
+  <span class="c-key">"rates"</span>: {
+    <span class="c-key">"pts_per_60"</span>:  3.42,
+    <span class="c-key">"xGF_pct"</span>:     61.2,
+    <span class="c-key">"on_ice_sh_pct"</span>: 11.8
+  },
+  <span class="c-key">"shots"</span>:   {
+    <span class="c-key">"total"</span>:       312,
+    <span class="c-key">"on_goal"</span>:     201,
+    <span class="c-key">"high_danger"</span>:  98,
+    <span class="c-key">"xG"</span>:         45.2
+  },
+  <span class="c-key">"by_zone"</span>: [
+    { <span class="c-key">"zone"</span>: <span class="c-str">"slot"</span>,     <span class="c-key">"shots"</span>: 112, <span class="c-key">"g"</span>: 48 },
+    { <span class="c-key">"zone"</span>: <span class="c-str">"point"</span>,    <span class="c-key">"shots"</span>:  22, <span class="c-key">"g"</span>:  3 },
+    { <span class="c-key">"zone"</span>: <span class="c-str">"circles"</span>,  <span class="c-key">"shots"</span>: 128, <span class="c-key">"g"</span>: 18 },
+    { <span class="c-key">"zone"</span>: <span class="c-str">"perimeter"</span>,<span class="c-key">"shots"</span>:  50, <span class="c-key">"g"</span>:  5 }
+  ]
+}</pre>
+      </div>
+
+      <div class="cal-data__stack">
+        <div class="cal-data__pipe">
+          <span class="cal-data__step"><i>01</i>Ingest<em>nightly · NHL API</em></span>
+          <span class="cal-data__arrow">→</span>
+          <span class="cal-data__step"><i>02</i>Model<em>DuckDB · dbt</em></span>
+          <span class="cal-data__arrow">→</span>
+          <span class="cal-data__step"><i>03</i>Cache<em>Cloudflare KV</em></span>
+          <span class="cal-data__arrow">→</span>
+          <span class="cal-data__step"><i>04</i>Render<em>this page</em></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <span>© 2026 caliper · a joeldoesdata project</span>
+  <span class="footer-mid">Built on DuckDB · Cloudflare Workers · vanilla D3</span>
+  <span>
+    <a href="index.html">joeldoesdata</a> ·
+    <a href="jtmeals.html">jtmeals</a> ·
+    <a href="caliper.html">caliper</a>
+  </span>
+</footer>
+
+<div id="tweaks-panel" class="tweaks" hidden>
+  <div class="tweaks__head"><h4>Tweaks</h4><button class="tweaks__close">×</button></div>
+  <div class="tweaks__body"></div>
+</div>
+
+<script src="shared/chrome.js"></script>
+<script src="shared/joel.js"></script>
+<script src="shared/caliper.js"></script>
+<script src="shared/tweaks.js"></script>
+</body>
+</html>
