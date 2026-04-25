@@ -297,6 +297,21 @@ function addSvgTooltip(svg, viewW, count, labelFn) {
     });
 
     animateHeatmapOnScroll(el);
+
+    // Size cells to fill the full container width
+    const weeks = commitData.length;
+    function sizeHeatmap() {
+      const availW = el.clientWidth;
+      if (availW > 0 && weeks > 0) {
+        const cellPx = Math.floor((availW - 3 * (weeks - 1)) / weeks);
+        if (cellPx > 0) {
+          el.style.gridAutoColumns = cellPx + 'px';
+          el.style.gridTemplateRows = `repeat(7, ${cellPx}px)`;
+        }
+      }
+    }
+    requestAnimationFrame(sizeHeatmap);
+    window.addEventListener('resize', sizeHeatmap);
   })();
 
   /* --- Tokens histogram --- */
