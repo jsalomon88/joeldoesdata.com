@@ -834,16 +834,23 @@
 
 /* ---------- MOBILE ---------- */
 @media (max-width: 640px) {
-  /* Topbar: hide mark text, tighten nav gap so it doesn't overflow */
+  /* Topbar */
   .topbar .mark { display: none; }
   .topbar .nav { gap: var(--s-4); }
 
-  /* Hero tag: ensure italic text never clips at right edge */
-  .hero__tag { overflow-wrap: break-word; padding-right: 4px; }
+  /* Hero: shrink tag font so the long italic line fits within the gutter */
+  .hero__tag { font-size: 22px; padding-right: var(--s-5); }
 
-  /* Heatmap: allow horizontal scroll if weeks overflow narrow screens */
+  /* Hide scroll indicator — it overlaps the marquee ticker on mobile */
+  .scroll-indicator { display: none; }
+
+  /* Timeline: offset the date text past the dot (dot is at left:-6px within item) */
+  .timeline__when { padding-left: var(--s-5); }
+
+  /* Heatmap: slightly larger cells + horizontal scroll for overflow */
+  .heatmap { grid-template-rows: repeat(7, 14px); grid-auto-columns: 14px; }
   #heatmap { overflow-x: auto; }
 
-  /* Demo charts: reduce fixed height so SVG fills correctly on narrow screens */
+  /* Demo charts: reduce height for narrow screens */
   .demo__chart { height: 220px; }
 }
