@@ -128,7 +128,6 @@ body {
   background: var(--bg-0);
   min-height: 100vh;
   overflow-x: hidden;
-  cursor: none;
 }
 
 /* Allow normal cursor on touch / low-precision */
@@ -138,7 +137,7 @@ body {
 }
 
 a { color: inherit; text-decoration: none; }
-button { font: inherit; color: inherit; background: none; border: none; cursor: none; }
+button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
 
 ::selection { background: var(--accent); color: var(--bg-0); }
 
@@ -248,7 +247,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   text-transform: uppercase;
   color: var(--ink-1);
   transition: all var(--d-fast) var(--e-out);
-  cursor: none;
+  cursor: pointer;
   position: relative;
   overflow: hidden;
 }
@@ -311,8 +310,9 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   transform: none;
 }
 
-/* Cursor */
-.cursor, .cursor-ring {
+/* Cursor — disabled */
+.cursor, .cursor-ring { display: none !important; }
+.cursor-hidden {
   position: fixed;
   top: 0; left: 0;
   pointer-events: none;
