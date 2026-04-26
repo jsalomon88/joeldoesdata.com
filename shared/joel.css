@@ -842,6 +842,9 @@
   .hero { padding-top: var(--s-10); padding-bottom: var(--s-8); }
   .hero__tag { font-size: 22px; padding-right: var(--s-5); }
 
+  /* Hero links: force 3 equal columns so nothing clips or wraps */
+  .hero__links { grid-template-columns: repeat(3, 1fr); }
+
   /* Timeline: offset the date text past the dot (dot is at left:-6px within item) */
   .timeline__when { padding-left: var(--s-5); }
 
