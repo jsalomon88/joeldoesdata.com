@@ -8,7 +8,7 @@
   const TWEAKS = /*EDITMODE-BEGIN*/{
     "accent": "site",
     "density": "cozy",
-    "cursor": true,
+    "cursor": false,
     "grain": true
   }/*EDITMODE-END*/;
 

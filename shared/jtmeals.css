@@ -140,7 +140,7 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--ink-2);
-  cursor: none;
+  cursor: pointer;
   transition: all var(--d-fast) var(--e-out);
 }
 .jt-chip:hover { border-color: var(--accent); color: var(--accent); }
