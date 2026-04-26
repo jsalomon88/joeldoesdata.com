@@ -1,45 +1,6 @@
 /* ============================================================
-   Shared chrome: cursor + scroll reveal + magnetic hovers
+   Shared chrome: scroll reveal + cross-page transitions
    ============================================================ */
-
-(function () {
-  const isTouch = matchMedia('(hover: none), (pointer: coarse)').matches;
-  if (isTouch) return;
-
-  // --- Cursor ---
-  const dot = document.createElement('div');
-  dot.className = 'cursor';
-  const ring = document.createElement('div');
-  ring.className = 'cursor-ring';
-  document.body.appendChild(dot);
-  document.body.appendChild(ring);
-
-  let mx = window.innerWidth / 2, my = window.innerHeight / 2;
-  let rx = mx, ry = my;
-  window.addEventListener('mousemove', (e) => {
-    mx = e.clientX; my = e.clientY;
-    dot.style.transform = `translate(${mx}px, ${my}px)`;
-  });
-
-  (function loop() {
-    rx += (mx - rx) * 0.18;
-    ry += (my - ry) * 0.18;
-    ring.style.transform = `translate(${rx}px, ${ry}px)`;
-    requestAnimationFrame(loop);
-  })();
-
-  // Enlarge over interactive elements
-  const interactive = 'a, button, .card, [data-cursor]';
-  document.addEventListener('mouseover', (e) => {
-    if (e.target.closest(interactive)) document.body.classList.add('cursor-lg');
-  });
-  document.addEventListener('mouseout', (e) => {
-    if (e.target.closest(interactive)) document.body.classList.remove('cursor-lg');
-  });
-
-  window.addEventListener('mouseleave', () => { dot.style.opacity = 0; ring.style.opacity = 0; });
-  window.addEventListener('mouseenter', () => { dot.style.opacity = 1; ring.style.opacity = 1; });
-})();
 
 /* --- Scroll reveal --- */
 (function () {
