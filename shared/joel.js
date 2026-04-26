@@ -227,7 +227,7 @@ function addSvgTooltip(svg, viewW, count, labelFn) {
   /* --- Wire commit count card to live data --- */
   if (commitData) {
     const totalCommits = commitData.reduce((s, w) => s + w.total, 0);
-    const countEl = document.querySelector('[data-count="411"]');
+    const countEl = document.querySelector('[data-stat="commits"]');
     if (countEl) {
       countEl.dataset.count = totalCommits;
       countEl.textContent = totalCommits.toString();
