@@ -314,10 +314,10 @@ function addSvgTooltip(svg, viewW, count, labelFn) {
     function sizeHeatmap() {
       const availW = el.clientWidth;
       if (availW > 0 && weeks > 0) {
-        const cellPx = Math.min(14, Math.floor((availW - 3 * (weeks - 1)) / weeks));
-        if (cellPx > 0) {
-          el.style.gridAutoColumns = cellPx + 'px';
-          el.style.gridTemplateRows = `repeat(7, ${cellPx}px)`;
+        const cellW = Math.floor((availW - 3 * (weeks - 1)) / weeks);
+        if (cellW > 0) {
+          el.style.gridAutoColumns = cellW + 'px';
+          el.style.gridTemplateRows = 'repeat(7, 14px)';
         }
       }
     }
