@@ -397,7 +397,7 @@
   padding: var(--s-5);
   border: 1px solid var(--hairline);
   background: var(--ink-7);
-  cursor: none;
+  cursor: pointer;
   transition: all var(--d-med) var(--e-out);
   position: relative;
 }
@@ -797,7 +797,7 @@
   height: 28px;
   border-radius: 3px;
   border: 1px solid var(--hairline);
-  cursor: none;
+  cursor: pointer;
   position: relative;
 }
 .tweak-sw.is-active {
@@ -819,7 +819,7 @@
   background: var(--ink-6);
   border-radius: 999px;
   position: relative;
-  cursor: none;
+  cursor: pointer;
   transition: background var(--d-fast) var(--e-out);
 }
 .tweak-switch::after {
