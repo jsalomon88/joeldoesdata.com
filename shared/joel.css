@@ -142,7 +142,7 @@
 .hero-link:hover { color: var(--accent); padding-left: 8px; }
 
 .scroll-indicator {
-  position: absolute;
+  position: fixed;
   left: var(--gutter); bottom: var(--s-6);
   display: flex; align-items: center; gap: var(--s-3);
   font-family: var(--font-mono);
@@ -150,6 +150,7 @@
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--ink-3);
+  z-index: 10;
 }
 .scroll-line {
   width: 48px; height: 1px;
@@ -858,6 +859,8 @@
 
   /* Hero: more top breathing room, extra bottom padding to clear scroll indicator */
   .hero { padding-top: var(--s-10); padding-bottom: var(--s-8); }
+  /* On mobile keep scroll indicator in-flow within the hero to avoid ticker overlap */
+  .scroll-indicator { position: absolute; }
   .hero__tag { font-size: 22px; padding-right: var(--s-5); }
 
   /* Hero links: single column on mobile so they don't stretch across the full width */
