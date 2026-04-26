@@ -309,6 +309,25 @@ function addSvgTooltip(svg, viewW, count, labelFn) {
 
     animateHeatmapOnScroll(el);
 
+    // Y-axis: day labels
+    const daysEl = document.getElementById('heatmapDays');
+    if (daysEl) {
+      daysEl.innerHTML = DAY_NAMES.map(d => `<span>${d}</span>`).join('');
+    }
+
+    // X-axis: month labels at each month boundary
+    const weeksEl = document.getElementById('heatmapWeeks');
+    if (weeksEl) {
+      weeksEl.innerHTML = commitData.map((w, i) => {
+        const d = new Date(w.week * 1000);
+        const prev = i > 0 ? new Date(commitData[i - 1].week * 1000) : null;
+        const label = (!prev || d.getMonth() !== prev.getMonth())
+          ? d.toLocaleDateString('en-US', { month: 'short' })
+          : '';
+        return `<span>${label}</span>`;
+      }).join('');
+    }
+
     // Size cells to fill the full container width
     const weeks = commitData.length;
     function sizeHeatmap() {
@@ -318,6 +337,7 @@ function addSvgTooltip(svg, viewW, count, labelFn) {
         if (cellW > 0) {
           el.style.gridAutoColumns = cellW + 'px';
           el.style.gridTemplateRows = 'repeat(7, 14px)';
+          if (weeksEl) weeksEl.style.gridAutoColumns = cellW + 'px';
         }
       }
     }

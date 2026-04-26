@@ -557,6 +557,24 @@
   color: var(--ink-4);
 }
 
+.heatmap-outer { display: flex; align-items: flex-start; gap: 8px; }
+.heatmap-body { flex: 1; min-width: 0; }
+.heatmap-yaxis { display: flex; flex-direction: column; gap: 3px; flex-shrink: 0; }
+.heatmap-yaxis span {
+  height: 14px; line-height: 14px;
+  font-size: 9px; color: var(--ink-4);
+  font-family: var(--font-mono); letter-spacing: 0.04em; text-align: right;
+}
+.heatmap-xaxis {
+  display: grid; grid-auto-flow: column; gap: 3px;
+  margin-top: 5px; overflow: hidden;
+}
+.heatmap-xaxis span {
+  font-size: 9px; color: var(--ink-4);
+  font-family: var(--font-mono); letter-spacing: 0.04em;
+  white-space: nowrap; overflow: hidden;
+}
+
 .heatmap {
   display: grid;
   grid-template-rows: repeat(7, 12px);
