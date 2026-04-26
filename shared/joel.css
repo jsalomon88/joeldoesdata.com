@@ -839,7 +839,7 @@
   .topbar .nav { gap: var(--s-4); }
 
   /* Hero: more top breathing room, extra bottom padding to clear scroll indicator */
-  .hero { padding-top: var(--s-9); padding-bottom: var(--s-8); }
+  .hero { padding-top: var(--s-10); padding-bottom: var(--s-8); }
   .hero__tag { font-size: 22px; padding-right: var(--s-5); }
 
   /* Timeline: offset the date text past the dot (dot is at left:-6px within item) */
