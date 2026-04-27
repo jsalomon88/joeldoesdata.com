@@ -79,6 +79,8 @@
   const quotes = document.querySelectorAll('[data-quote]');
   if (!stages.length) return;
 
+  const isMobile = () => window.matchMedia('(max-width: 900px)').matches;
+
   let active = 0;
   const setActive = (idx) => {
     active = idx;
@@ -87,12 +89,19 @@
   };
 
   stages.forEach((s, i) => {
-    s.addEventListener('mouseenter', () => setActive(i));
-    s.addEventListener('click', () => setActive(i));
+    s.addEventListener('mouseenter', () => { if (!isMobile()) setActive(i); });
+    s.addEventListener('click', () => {
+      if (isMobile()) {
+        // Accordion: tap active to collapse, tap another to expand
+        setActive(s.classList.contains('is-active') ? -1 : i);
+      } else {
+        setActive(i);
+      }
+    });
   });
 
-  let timer = setInterval(() => setActive((active + 1) % stages.length), 4800);
-  stages.forEach(s => s.addEventListener('mouseenter', () => clearInterval(timer)));
+  let timer = setInterval(() => { if (!isMobile()) setActive((active + 1) % stages.length); }, 4800);
+  stages.forEach(s => s.addEventListener('mouseenter', () => { if (!isMobile()) clearInterval(timer); }));
 })();
 
 /* ---------- Chart tooltip ---------- */

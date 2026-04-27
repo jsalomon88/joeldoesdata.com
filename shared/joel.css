@@ -456,6 +456,43 @@
   font-style: italic;
 }
 
+.pipeline__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-3);
+}
+.pipeline__chevron {
+  display: none;
+  font-size: 18px;
+  color: var(--ink-3);
+  transition: transform var(--d-med) var(--e-out), color var(--d-med) var(--e-out);
+  flex-shrink: 0;
+  line-height: 1;
+}
+.pipeline__stage.is-active .pipeline__chevron {
+  transform: rotate(180deg);
+  color: var(--accent);
+}
+.pipeline__desc {
+  display: none;
+  font-family: var(--font-display);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink-2);
+  font-style: italic;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.35s var(--e-out), opacity 0.25s ease, margin-top 0.25s ease;
+  opacity: 0;
+  margin-top: 0;
+}
+.pipeline__stage.is-active .pipeline__desc {
+  max-height: 200px;
+  opacity: 1;
+  margin-top: var(--s-4);
+}
+
 @media (max-width: 900px) {
   .pipeline {
     grid-template-columns: 1fr;
@@ -465,6 +502,9 @@
     flex-direction: column;
     height: 16px;
   }
+  .pipeline__chevron { display: block; }
+  .pipeline__desc { display: block; }
+  .pipeline__quote { display: none; }
 }
 
 /* ---------- NUMBERS ---------- */
