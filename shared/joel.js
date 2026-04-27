@@ -109,7 +109,7 @@ const tip = (function () {
   const el = document.createElement('div');
   el.className = 'chart-tip';
   document.body.appendChild(el);
-  return {
+  const api = {
     show(x, y, html) {
       el.innerHTML = html;
       el.classList.add('is-visible');
@@ -122,6 +122,11 @@ const tip = (function () {
     },
     hide() { el.classList.remove('is-visible'); }
   };
+  window.addEventListener('scroll', () => api.hide(), { passive: true });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('svg, .cell')) api.hide();
+  });
+  return api;
 })();
 
 /* ---------- Scroll-triggered animation helpers ---------- */
