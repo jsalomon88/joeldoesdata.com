@@ -382,10 +382,9 @@
   background: var(--ink-1);
   display: block;
   transform-origin: left;
-  animation: barGrow 900ms var(--e-out) both;
+  transform: scaleX(0);
 }
 .skill:hover .bar i { background: var(--accent); }
-@keyframes barGrow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
 /* ---------- PIPELINE ---------- */
 .pipeline {
