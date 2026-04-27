@@ -897,14 +897,28 @@
   .topbar .mark { display: none; }
   .topbar .nav { gap: var(--s-4); }
 
-  /* Hero: more top breathing room, extra bottom padding to clear scroll indicator */
-  .hero { padding-top: var(--s-10); padding-bottom: var(--s-8); }
-  /* On mobile keep scroll indicator in-flow within the hero to avoid ticker overlap */
+  /* Hero: fill exactly one viewport so scroll indicator lands at the fold */
+  .hero { padding-top: 80px; padding-bottom: var(--s-6); min-height: 100dvh; }
+  /* Scroll indicator: absolutely positioned at bottom of hero */
   .scroll-indicator { position: absolute; }
-  .hero__tag { font-size: 22px; padding-right: var(--s-5); }
 
-  /* Hero links: single column on mobile so they don't stretch across the full width */
-  .hero__links { grid-template-columns: 1fr; }
+  /* Meta: stack role + location vertically — prevents the inline-flex wrap bug */
+  .hero__meta { flex-direction: column; align-items: flex-start; gap: 4px; margin-top: var(--s-3); }
+  /* Role as block so the dot bullet + text wrap naturally as inline content */
+  .hero__role { display: block; }
+  .hero__role .dot { display: inline-block; vertical-align: middle; margin-right: var(--s-3); }
+  /* Remove auto-margin that would push loc to the right edge in the new column layout */
+  .hero__loc { margin-left: 0; }
+
+  /* Tag: tighter top margin, slightly smaller */
+  .hero__tag { font-size: 20px; padding-right: var(--s-5); margin-top: var(--s-4); }
+
+  /* Hero links: 3-col horizontal, compact padding — keeps them above the fold */
+  .hero__links { grid-template-columns: repeat(3, 1fr); margin-top: var(--s-5); }
+  .hero-link { padding: var(--s-2) 0; }
+
+  /* Marquee: push to bottom of hero with auto top margin, clear scroll indicator */
+  .marquee { margin-top: auto; margin-bottom: calc(var(--s-6) + 24px); }
 
   /* Timeline: offset the date text past the dot (dot is at left:-6px within item) */
   .timeline__when { padding-left: var(--s-5); }
