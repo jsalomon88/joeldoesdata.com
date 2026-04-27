@@ -328,6 +328,9 @@
     margin-bottom: 6px;
   }
   .timeline__when .dur, .timeline__when .yrs { display: inline; margin-right: 8px; }
+  /* Dot was top:8px to align with h3 when .when was off-screen. Now .when is in-flow
+     (~21px tall), so offset the dot down to keep it centered on the company name. */
+  .timeline__dot { top: 28px; }
 }
 
 /* ---------- STACK ---------- */
