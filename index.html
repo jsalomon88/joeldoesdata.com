@@ -444,122 +444,80 @@
     <div class="sec-head" data-reveal>
       <span class="section-label"><span class="num">08</span><span>System architecture</span></span>
     </div>
-    <p class="neo-arch__intro" data-reveal>Neo is a distributed AI system running 24/7 on a Mac Mini. Four independent processes, one unified assistant.</p>
+    <p class="neo-arch__intro" data-reveal>Neo is a distributed AI system running 24/7 on a Mac Mini — four independent processes, one unified assistant.</p>
 
-    <div class="neo-arch" data-reveal>
+    <div class="neo-tree" data-reveal>
+      <div class="tree-root">Neo/</div>
 
-      <!-- LAYER 1: INPUT -->
-      <div class="neo-arch__layer">
-        <div class="neo-arch__layer-head">
-          <span class="neo-arch__layer-num">01</span>
-          <span class="neo-arch__layer-label">Input</span>
-        </div>
-        <div class="neo-arch__row neo-arch__row--center">
-          <div class="neo-arch__node neo-arch__node--external">
-            <div class="neo-arch__node-top">
-              <span class="neo-arch__node-name">Discord</span>
-              <span class="neo-arch__node-badge">interface</span>
-            </div>
-            <div class="neo-arch__node-sub">17 channels · real-time message ingestion</div>
-            <div class="neo-arch__node-chips"><span class="chip">Discord API</span><span class="chip">WebSocket</span></div>
-          </div>
-        </div>
+      <div class="tree-line">
+        <span class="tree-chars">├── </span>
+        <span class="tree-name">Discord</span>
+        <span class="tree-sep"> — </span>
+        <span class="tree-desc">17 channels · real-time ingestion · Discord API · WebSocket</span>
       </div>
 
-      <div class="neo-arch__arrow">↓</div>
-
-      <!-- LAYER 2: CORE RUNTIME -->
-      <div class="neo-arch__layer neo-arch__layer--core">
-        <div class="neo-arch__layer-head">
-          <span class="neo-arch__layer-num">02</span>
-          <span class="neo-arch__layer-label">Core runtime</span>
-        </div>
-        <div class="neo-arch__row neo-arch__row--grid">
-          <div class="neo-arch__node neo-arch__node--primary">
-            <div class="neo-arch__node-top">
-              <span class="neo-arch__node-name">Neo Claude</span>
-              <span class="neo-arch__node-live"><span class="pulse"></span>live</span>
-            </div>
-            <div class="neo-arch__node-sub">AI core · conversation handler · tool use</div>
-            <div class="neo-arch__node-chips"><span class="chip">Claude API</span><span class="chip">Python</span><span class="chip">tmux</span></div>
-          </div>
-          <div class="neo-arch__node neo-arch__node--monitor">
-            <div class="neo-arch__node-top">
-              <span class="neo-arch__node-name">Watchdog</span>
-            </div>
-            <div class="neo-arch__node-sub">Auto-restart · crash loop detection · alerts</div>
-            <div class="neo-arch__node-chips"><span class="chip">Bash</span><span class="chip">cron</span></div>
-          </div>
-          <div class="neo-arch__node neo-arch__node--secondary">
-            <div class="neo-arch__node-top">
-              <span class="neo-arch__node-name">Neo Tasks</span>
-            </div>
-            <div class="neo-arch__node-sub">Cron scheduler · 11 scheduled jobs</div>
-            <div class="neo-arch__node-chips"><span class="chip">Bash</span><span class="chip">cron</span></div>
-          </div>
-          <div class="neo-arch__node neo-arch__node--secondary">
-            <div class="neo-arch__node-top">
-              <span class="neo-arch__node-name">Recipe Server</span>
-            </div>
-            <div class="neo-arch__node-sub">REST API · 86 recipes · meal planner</div>
-            <div class="neo-arch__node-chips"><span class="chip">Node.js</span><span class="chip">Cloudflare</span></div>
-          </div>
-        </div>
+      <div class="tree-line">
+        <span class="tree-chars">├── </span>
+        <span class="tree-name tree-name--group">Core Runtime/</span>
+      </div>
+      <div class="tree-line">
+        <span class="tree-chars">│   ├── </span>
+        <span class="tree-name">Neo Claude</span>
+        <span class="tree-sep"> — </span>
+        <span class="tree-desc">AI core · conversation handler · tool use · Claude API · Python · tmux</span>
+      </div>
+      <div class="tree-line">
+        <span class="tree-chars">│   ├── </span>
+        <span class="tree-name">Watchdog</span>
+        <span class="tree-sep"> — </span>
+        <span class="tree-desc">Auto-restart · crash loop detection · health alerts · Bash</span>
+      </div>
+      <div class="tree-line">
+        <span class="tree-chars">│   ├── </span>
+        <span class="tree-name">Neo Tasks</span>
+        <span class="tree-sep"> — </span>
+        <span class="tree-desc">Cron scheduler · 11 scheduled jobs · Bash</span>
+      </div>
+      <div class="tree-line">
+        <span class="tree-chars">│   └── </span>
+        <span class="tree-name">Recipe Server</span>
+        <span class="tree-sep"> — </span>
+        <span class="tree-desc">REST API · 86 recipes · meal planner · Node.js · Cloudflare</span>
       </div>
 
-      <div class="neo-arch__arrow">↓</div>
-
-      <!-- LAYER 3: AI DISPATCH -->
-      <div class="neo-arch__layer neo-arch__layer--dispatch">
-        <div class="neo-arch__layer-head">
-          <span class="neo-arch__layer-num">03</span>
-          <span class="neo-arch__layer-label">AI dispatch</span>
-        </div>
-        <div class="neo-arch__row neo-arch__row--center">
-          <div class="neo-arch__node neo-arch__node--dispatch">
-            <div class="neo-arch__node-top">
-              <span class="neo-arch__node-name">Claude&nbsp;-p&nbsp;Subprocesses</span>
-              <span class="neo-arch__node-badge">async</span>
-            </div>
-            <div class="neo-arch__node-sub">Heavy tasks fired as independent Claude processes — news digests, real estate reports, idea scoring. Main session stays responsive.</div>
-            <div class="neo-arch__node-chips"><span class="chip">claude -p</span><span class="chip">subprocess</span><span class="chip">discord-post.py</span></div>
-          </div>
-        </div>
+      <div class="tree-line">
+        <span class="tree-chars">├── </span>
+        <span class="tree-name tree-name--group">AI Dispatch/</span>
+      </div>
+      <div class="tree-line">
+        <span class="tree-chars">│   └── </span>
+        <span class="tree-name">Claude -p</span>
+        <span class="tree-sep"> — </span>
+        <span class="tree-desc">Heavy tasks as independent Claude processes · news · real estate · ideas</span>
       </div>
 
-      <div class="neo-arch__arrow">↓</div>
-
-      <!-- LAYER 4: OUTPUT -->
-      <div class="neo-arch__layer">
-        <div class="neo-arch__layer-head">
-          <span class="neo-arch__layer-num">04</span>
-          <span class="neo-arch__layer-label">Output</span>
-        </div>
-        <div class="neo-arch__row neo-arch__row--grid">
-          <div class="neo-arch__node neo-arch__node--output">
-            <div class="neo-arch__node-top">
-              <span class="neo-arch__node-name">GitHub</span>
-            </div>
-            <div class="neo-arch__node-sub">686 auto-commits · persistent JSON storage</div>
-            <div class="neo-arch__node-chips"><span class="chip">git</span><span class="chip">auto-commit</span></div>
-          </div>
-          <div class="neo-arch__node neo-arch__node--output">
-            <div class="neo-arch__node-top">
-              <span class="neo-arch__node-name">jtmeals.com</span>
-            </div>
-            <div class="neo-arch__node-sub">Public recipe site via Cloudflare Tunnel</div>
-            <div class="neo-arch__node-chips"><span class="chip">Cloudflare Tunnel</span></div>
-          </div>
-          <div class="neo-arch__node neo-arch__node--output">
-            <div class="neo-arch__node-top">
-              <span class="neo-arch__node-name">joeldoesdata.com</span>
-            </div>
-            <div class="neo-arch__node-sub">Auto-deploys from GitHub · nightly data</div>
-            <div class="neo-arch__node-chips"><span class="chip">Cloudflare Pages</span></div>
-          </div>
-        </div>
+      <div class="tree-line">
+        <span class="tree-chars">└── </span>
+        <span class="tree-name tree-name--group">Output/</span>
       </div>
-
+      <div class="tree-line">
+        <span class="tree-chars">&nbsp;&nbsp;&nbsp;&nbsp;├── </span>
+        <span class="tree-name">GitHub</span>
+        <span class="tree-sep"> — </span>
+        <span class="tree-desc">686 auto-commits · persistent JSON storage · auto-commit pipeline</span>
+      </div>
+      <div class="tree-line">
+        <span class="tree-chars">&nbsp;&nbsp;&nbsp;&nbsp;├── </span>
+        <span class="tree-name">jtmeals.com</span>
+        <span class="tree-sep"> — </span>
+        <span class="tree-desc">Public recipe site · Cloudflare Tunnel from local Node.js server</span>
+      </div>
+      <div class="tree-line">
+        <span class="tree-chars">&nbsp;&nbsp;&nbsp;&nbsp;└── </span>
+        <span class="tree-name">joeldoesdata.com</span>
+        <span class="tree-sep"> — </span>
+        <span class="tree-desc">Auto-deploys from GitHub push · nightly data pipeline · Cloudflare Pages</span>
+      </div>
     </div>
   </div>
 </section>
