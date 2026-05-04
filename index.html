@@ -446,78 +446,27 @@
     </div>
     <p class="neo-arch__intro" data-reveal>Neo is a distributed AI system running 24/7 on a Mac Mini — four independent processes, one unified assistant.</p>
 
-    <div class="neo-tree" data-reveal>
-      <div class="tree-root">Neo/</div>
+    <div class="code-window" data-reveal>
+      <div class="code-window__head">
+        <span class="cw-dot"></span><span class="cw-dot"></span><span class="cw-dot"></span>
+        <span class="cw-title">neo · system architecture · mac mini</span>
+      </div>
+<pre class="code-window__body"><span class="cw-cmt"># distributed AI system · 24/7 · 4 independent processes</span>
 
-      <div class="tree-line">
-        <span class="tree-chars">├── </span>
-        <span class="tree-name">Discord</span>
-        <span class="tree-sep"> — </span>
-        <span class="tree-desc">17 channels · real-time ingestion · Discord API · WebSocket</span>
-      </div>
-
-      <div class="tree-line">
-        <span class="tree-chars">├── </span>
-        <span class="tree-name tree-name--group">Core Runtime/</span>
-      </div>
-      <div class="tree-line">
-        <span class="tree-chars">│   ├── </span>
-        <span class="tree-name">Neo Claude</span>
-        <span class="tree-sep"> — </span>
-        <span class="tree-desc">AI core · conversation handler · tool use · Claude API · Python · tmux</span>
-      </div>
-      <div class="tree-line">
-        <span class="tree-chars">│   ├── </span>
-        <span class="tree-name">Watchdog</span>
-        <span class="tree-sep"> — </span>
-        <span class="tree-desc">Auto-restart · crash loop detection · health alerts · Bash</span>
-      </div>
-      <div class="tree-line">
-        <span class="tree-chars">│   ├── </span>
-        <span class="tree-name">Neo Tasks</span>
-        <span class="tree-sep"> — </span>
-        <span class="tree-desc">Cron scheduler · 11 scheduled jobs · Bash</span>
-      </div>
-      <div class="tree-line">
-        <span class="tree-chars">│   └── </span>
-        <span class="tree-name">Recipe Server</span>
-        <span class="tree-sep"> — </span>
-        <span class="tree-desc">REST API · 86 recipes · meal planner · Node.js · Cloudflare</span>
-      </div>
-
-      <div class="tree-line">
-        <span class="tree-chars">├── </span>
-        <span class="tree-name tree-name--group">AI Dispatch/</span>
-      </div>
-      <div class="tree-line">
-        <span class="tree-chars">│   └── </span>
-        <span class="tree-name">Claude -p</span>
-        <span class="tree-sep"> — </span>
-        <span class="tree-desc">Heavy tasks as independent Claude processes · news · real estate · ideas</span>
-      </div>
-
-      <div class="tree-line">
-        <span class="tree-chars">└── </span>
-        <span class="tree-name tree-name--group">Output/</span>
-      </div>
-      <div class="tree-line">
-        <span class="tree-chars">&nbsp;&nbsp;&nbsp;&nbsp;├── </span>
-        <span class="tree-name">GitHub</span>
-        <span class="tree-sep"> — </span>
-        <span class="tree-desc">686 auto-commits · persistent JSON storage · auto-commit pipeline</span>
-      </div>
-      <div class="tree-line">
-        <span class="tree-chars">&nbsp;&nbsp;&nbsp;&nbsp;├── </span>
-        <span class="tree-name">jtmeals.com</span>
-        <span class="tree-sep"> — </span>
-        <span class="tree-desc">Public recipe site · Cloudflare Tunnel from local Node.js server</span>
-      </div>
-      <div class="tree-line">
-        <span class="tree-chars">&nbsp;&nbsp;&nbsp;&nbsp;└── </span>
-        <span class="tree-name">joeldoesdata.com</span>
-        <span class="tree-sep"> — </span>
-        <span class="tree-desc">Auto-deploys from GitHub push · nightly data pipeline · Cloudflare Pages</span>
-      </div>
+Neo/
+├── <span class="cw-name">Discord</span>              <span class="cw-dim">—</span> <span class="cw-desc">17 channels · real-time ingestion · Discord API</span>
+├── <span class="cw-group">Core Runtime</span>/
+│   ├── <span class="cw-name">Neo Claude</span>      <span class="cw-dim">—</span> <span class="cw-desc">AI core · conversation handler · Claude API · Python · tmux</span>
+│   ├── <span class="cw-name">Watchdog</span>        <span class="cw-dim">—</span> <span class="cw-desc">Auto-restart · crash loop detection · health alerts · Bash</span>
+│   ├── <span class="cw-name">Neo Tasks</span>       <span class="cw-dim">—</span> <span class="cw-desc">Cron scheduler · 11 scheduled jobs · Bash</span>
+│   └── <span class="cw-name">Recipe Server</span>   <span class="cw-dim">—</span> <span class="cw-desc">REST API · 86 recipes · meal planner · Node.js</span>
+├── <span class="cw-group">AI Dispatch</span>/
+│   └── <span class="cw-name">Claude -p</span>       <span class="cw-dim">—</span> <span class="cw-desc">Heavy tasks as independent Claude processes · news · real estate · ideas</span>
+└── <span class="cw-group">Output</span>/
+    ├── <span class="cw-name">GitHub</span>          <span class="cw-dim">—</span> <span class="cw-desc">686 auto-commits · persistent JSON storage</span>
+    ├── <span class="cw-name">jtmeals.com</span>     <span class="cw-dim">—</span> <span class="cw-desc">Public recipe site · Cloudflare Tunnel</span>
+    └── <span class="cw-name">joeldoesdata.com</span><span class="cw-dim"> —</span> <span class="cw-desc">Auto-deploys from GitHub · Cloudflare Pages · nightly data</span>
+</pre>
     </div>
   </div>
 </section>

@@ -895,7 +895,7 @@ a { color: inherit; text-decoration: none; }
   letter-spacing: 0.05em;
 }
 
-/* ─── NEO ARCHITECTURE TREE ─────────────────── */
+/* ─── NEO ARCHITECTURE — CODE WINDOW ────────── */
 .neo-arch__intro {
   font-size: 15px;
   color: var(--text-sec);
@@ -904,55 +904,59 @@ a { color: inherit; text-decoration: none; }
   line-height: 1.7;
 }
 
-.neo-tree {
-  font-family: 'SF Mono', 'Fira Mono', 'Consolas', 'Courier New', monospace;
-  font-size: 14px;
-  line-height: 1.9;
-  max-width: 720px;
+.code-window {
+  border: 1px solid var(--border-mid);
+  border-radius: var(--radius);
+  overflow: hidden;
+  max-width: 760px;
 }
 
-.tree-root {
-  font-size: 17px;
-  color: var(--accent);
-  margin-bottom: 2px;
-  letter-spacing: -0.01em;
-}
-
-.tree-line {
+.code-window__head {
   display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-}
-
-.tree-chars {
-  color: var(--accent);
-  opacity: 0.45;
-  white-space: pre;
-  flex-shrink: 0;
-  font-size: 13px;
-  user-select: none;
-}
-
-.tree-name {
-  color: var(--text);
-  font-size: 14px;
-  flex-shrink: 0;
-}
-
-.tree-name--group {
-  color: var(--text-mid);
-}
-
-.tree-sep {
-  color: var(--border-mid);
-  flex-shrink: 0;
-  font-size: 13px;
-}
-
-.tree-desc {
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  background: var(--border);
+  border-bottom: 1px solid var(--border-mid);
+  font-family: 'SF Mono', 'Fira Mono', 'Consolas', monospace;
+  font-size: 11px;
   color: var(--text-sec);
-  font-size: 12px;
-  line-height: 1.9;
+  letter-spacing: 0.04em;
+}
+
+.cw-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border-mid);
+  flex-shrink: 0;
+}
+.cw-dot:nth-child(1) { background: #D96B5F; }
+.cw-dot:nth-child(2) { background: #E8A857; }
+.cw-dot:nth-child(3) { background: var(--accent); }
+.cw-title { margin-left: 8px; }
+
+.code-window__body {
+  display: block;
+  padding: 24px 28px;
+  font-family: 'SF Mono', 'Fira Mono', 'Consolas', 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.85;
+  color: var(--text);
+  background: var(--surface);
+  overflow-x: auto;
+  white-space: pre;
+  margin: 0;
+}
+
+.cw-cmt   { color: var(--text-sec); }
+.cw-name  { color: var(--text); }
+.cw-group { color: #8FB5C9; }
+.cw-dim   { color: var(--border-mid); }
+.cw-desc  { color: var(--text-sec); font-size: 12px; }
+
+@media (max-width: 768px) {
+  .code-window__body { font-size: 11px; padding: 16px; }
 }
 
 /* ─── FOOTER ─────────────────────────────────── */
