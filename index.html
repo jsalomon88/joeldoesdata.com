@@ -437,12 +437,120 @@
 </section>
 
 <!-- ======================================================
+     08  NEO — SYSTEM ARCHITECTURE
+     ====================================================== -->
+<section class="section section--neo-arch" id="neo-arch">
+  <div class="shell">
+    <div class="sec-head" data-reveal>
+      <span class="section-label"><span class="num">08</span><span>System architecture</span></span>
+    </div>
+    <p class="neo-arch__intro" data-reveal>Neo is a distributed AI system running 24/7 on a Mac Mini. Four independent processes, one unified assistant.</p>
+
+    <div class="neo-arch" data-reveal>
+
+      <!-- Entry -->
+      <div class="neo-arch__tier neo-arch__tier--single">
+        <div class="neo-arch__node neo-arch__node--external">
+          <div class="neo-arch__node-top">
+            <span class="neo-arch__node-name">Discord</span>
+            <span class="neo-arch__node-badge">interface</span>
+          </div>
+          <div class="neo-arch__node-sub">17 channels · real-time message ingestion</div>
+          <div class="neo-arch__node-chips"><span class="chip">Discord API</span><span class="chip">WebSocket</span></div>
+        </div>
+      </div>
+
+      <div class="neo-arch__vconn"><span></span><span></span><span></span></div>
+
+      <!-- Core runtime -->
+      <div class="neo-arch__tier neo-arch__tier--core">
+        <div class="neo-arch__node neo-arch__node--primary">
+          <div class="neo-arch__node-top">
+            <span class="neo-arch__node-name">Neo Claude</span>
+            <span class="neo-arch__node-live"><span class="pulse"></span>live</span>
+          </div>
+          <div class="neo-arch__node-sub">AI core · conversation handler · tool use</div>
+          <div class="neo-arch__node-chips"><span class="chip">Claude API</span><span class="chip">Python</span><span class="chip">tmux</span></div>
+        </div>
+        <div class="neo-arch__hconn"><span></span><span></span><span></span></div>
+        <div class="neo-arch__node neo-arch__node--monitor">
+          <div class="neo-arch__node-top">
+            <span class="neo-arch__node-name">Watchdog</span>
+          </div>
+          <div class="neo-arch__node-sub">Auto-restart · crash loop detection · alerts</div>
+          <div class="neo-arch__node-chips"><span class="chip">Bash</span><span class="chip">cron</span></div>
+        </div>
+        <div class="neo-arch__hconn"><span></span><span></span><span></span></div>
+        <div class="neo-arch__node neo-arch__node--secondary">
+          <div class="neo-arch__node-top">
+            <span class="neo-arch__node-name">Neo Tasks</span>
+          </div>
+          <div class="neo-arch__node-sub">Cron scheduler · 11 scheduled jobs</div>
+          <div class="neo-arch__node-chips"><span class="chip">Bash</span><span class="chip">cron</span></div>
+        </div>
+        <div class="neo-arch__hconn"><span></span><span></span><span></span></div>
+        <div class="neo-arch__node neo-arch__node--secondary">
+          <div class="neo-arch__node-top">
+            <span class="neo-arch__node-name">Recipe Server</span>
+          </div>
+          <div class="neo-arch__node-sub">REST API · 86 recipes · meal planner</div>
+          <div class="neo-arch__node-chips"><span class="chip">Node.js</span><span class="chip">Cloudflare</span></div>
+        </div>
+      </div>
+
+      <div class="neo-arch__vconn"><span></span><span></span><span></span></div>
+
+      <!-- Dispatch layer -->
+      <div class="neo-arch__tier neo-arch__tier--single">
+        <div class="neo-arch__node neo-arch__node--dispatch">
+          <div class="neo-arch__node-top">
+            <span class="neo-arch__node-name">Claude&nbsp;-p&nbsp;Subprocesses</span>
+            <span class="neo-arch__node-badge">async dispatch</span>
+          </div>
+          <div class="neo-arch__node-sub">Heavy tasks fired as independent Claude processes — news digests, real estate reports, idea scoring. Main session stays responsive.</div>
+          <div class="neo-arch__node-chips"><span class="chip">claude -p</span><span class="chip">subprocess</span><span class="chip">discord-post.py</span></div>
+        </div>
+      </div>
+
+      <div class="neo-arch__vconn"><span></span><span></span><span></span></div>
+
+      <!-- Output -->
+      <div class="neo-arch__tier neo-arch__tier--output">
+        <div class="neo-arch__node neo-arch__node--output">
+          <div class="neo-arch__node-top">
+            <span class="neo-arch__node-name">GitHub</span>
+          </div>
+          <div class="neo-arch__node-sub">686 auto-commits · persistent JSON storage</div>
+          <div class="neo-arch__node-chips"><span class="chip">git</span><span class="chip">auto-commit</span></div>
+        </div>
+        <div class="neo-arch__node neo-arch__node--output">
+          <div class="neo-arch__node-top">
+            <span class="neo-arch__node-name">jtmeals.com</span>
+          </div>
+          <div class="neo-arch__node-sub">Public recipe site served via Cloudflare Tunnel</div>
+          <div class="neo-arch__node-chips"><span class="chip">Cloudflare Tunnel</span></div>
+        </div>
+        <div class="neo-arch__node neo-arch__node--output">
+          <div class="neo-arch__node-top">
+            <span class="neo-arch__node-name">joeldoesdata.com</span>
+          </div>
+          <div class="neo-arch__node-sub">Auto-deploys from GitHub · nightly data updates</div>
+          <div class="neo-arch__node-chips"><span class="chip">Cloudflare Pages</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================
      09  PROJECTS — the network
      ====================================================== -->
 <section class="section section--projects" id="work">
   <div class="shell">
     <div class="sec-head" data-reveal>
-      <span class="section-label"><span class="num">08</span><span>Projects</span></span>
+      <span class="section-label"><span class="num">09</span><span>Projects</span></span>
     </div>
 
     <div class="projects">
