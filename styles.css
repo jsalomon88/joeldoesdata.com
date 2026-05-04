@@ -909,6 +909,7 @@ a { color: inherit; text-decoration: none; }
   border-radius: var(--radius);
   overflow: hidden;
   max-width: 760px;
+  margin: 0 auto;
 }
 
 .code-window__head {
@@ -956,6 +957,7 @@ a { color: inherit; text-decoration: none; }
 .cw-desc  { color: var(--text-sec); font-size: 12px; }
 
 @media (max-width: 768px) {
+  .code-window { max-width: calc(100% - 40px); }
   .code-window__body { font-size: 11px; padding: 16px; }
 }
 
