@@ -32,7 +32,7 @@
   --accent-glow: rgba(61, 186, 122, 0.28);
 
   /* -------- Type -------- */
-  --font-display: 'Instrument Serif', 'Times New Roman', Georgia, serif;
+  --font-display: 'Space Grotesk', sans-serif;
   --font-sans:    'Inter Tight', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono:    'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 

@@ -12,7 +12,7 @@
   --text-mid:    #999;
   --accent:      #4ade80;
   --radius:      4px;
-  --serif:       'Instrument Serif', Georgia, serif;
+  --serif:       'Space Grotesk', sans-serif;
   --sans:        'Inter', system-ui, sans-serif;
   --ease:        cubic-bezier(0.16, 1, 0.3, 1);
 }
