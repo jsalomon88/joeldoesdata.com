@@ -170,30 +170,6 @@
   100% { transform: translateX(100%); }
 }
 
-/* ---------- MARQUEE ---------- */
-.marquee {
-  margin-top: var(--s-9);
-  padding: var(--s-5) 0;
-  border-top: 1px solid var(--hairline);
-  border-bottom: 1px solid var(--hairline);
-  overflow: hidden;
-  white-space: nowrap;
-  font-family: var(--font-display);
-  font-size: clamp(28px, 3.6vw, 48px);
-  color: var(--ink-3);
-  position: relative;
-}
-.marquee__track {
-  display: inline-flex;
-  gap: var(--s-5);
-  animation: marquee 40s linear infinite;
-  padding-left: var(--gutter);
-}
-.marquee__track span { display: inline-block; }
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
 
 /* ---------- SECTION HEAD ---------- */
 .sec-head {
@@ -980,9 +956,6 @@
   /* Hero links: 3-col horizontal, compact padding — keeps them above the fold */
   .hero__links { grid-template-columns: repeat(3, 1fr); margin-top: var(--s-5); }
   .hero-link { padding: var(--s-2) 0; }
-
-  /* Marquee: push to bottom of hero with auto top margin, clear scroll indicator */
-  .marquee { margin-top: auto; margin-bottom: calc(var(--s-6) + 24px); }
 
   /* Timeline: offset the date text past the dot (dot is at left:-6px within item) */
   .timeline__when { padding-left: var(--s-5); }
