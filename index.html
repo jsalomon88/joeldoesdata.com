@@ -319,7 +319,7 @@
 <!-- ======================================================
      07  ACTIVITY  -  charts
      ====================================================== -->
-<section class="section section--activity" id="activity">
+<section class="section section--activity" id="activity" data-keep-activity>
   <div class="shell">
     <div class="sec-head" data-reveal>
       <span class="section-label"><span class="num">06</span><span>Activity</span></span>
@@ -358,7 +358,8 @@
       </div>
     </div>
 
-    <div class="chart">
+    <!-- Retired token chart retained in source but hidden from the portfolio. -->
+    <div class="chart chart--retired">
       <div class="chart__head">
         <h4>Claude API tokens <span class="chart__sub"> -  daily · last 12 weeks</span></h4>
         <span class="chart__legend"><b>peak:</b> <span id="tokensPeak"> - </span></span>
@@ -369,7 +370,7 @@
       <div class="chart__axis" id="tokensAxis"></div>
     </div>
 
-    <div class="chart">
+    <div class="chart chart--retired">
       <div class="chart__head">
         <h4>Output vs. input <span class="chart__sub"> -  daily · last 12 weeks</span></h4>
         <span class="chart__legend">

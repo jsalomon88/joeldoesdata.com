@@ -3,7 +3,8 @@
    ============================================= */
 
 /* ─── Remove retired portfolio sections ───────── */
-['how', 'activity', 'demos'].forEach((id) => document.getElementById(id)?.remove());
+document.getElementById('how')?.remove();
+document.getElementById('demos')?.remove();
 
 /* Center the shorter Experience column against Stack on desktop only. */
 window.addEventListener('load', () => {
