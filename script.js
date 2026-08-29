@@ -27,7 +27,22 @@
     render();
   }
 
-  crank.addEventListener('click', () => setBrightness(brightness >= 82 ? min : brightness + 10));
+  let dragged = false;
+  crank.addEventListener('pointerdown', (event) => {
+    dragged = false;
+    crank.setPointerCapture(event.pointerId);
+  });
+  crank.addEventListener('pointermove', (event) => {
+    if (!crank.hasPointerCapture(event.pointerId)) return;
+    dragged = true;
+    const rect = crank.getBoundingClientRect();
+    const angle = Math.atan2(event.clientY - (rect.top + rect.height / 2), event.clientX - (rect.left + rect.width / 2)) * 180 / Math.PI + 90;
+    const normalized = Math.min(135, Math.max(-135, angle));
+    setBrightness(Math.round(min + ((normalized + 135) / 270) * (max - min)));
+  });
+  crank.addEventListener('click', () => {
+    if (!dragged) setBrightness(brightness >= 82 ? min : brightness + 10);
+  });
   crank.addEventListener('keydown', (event) => {
     if (event.key === 'ArrowUp' || event.key === 'ArrowRight') {
       event.preventDefault();

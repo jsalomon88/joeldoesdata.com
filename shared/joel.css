@@ -934,7 +934,11 @@
 /* ---------- MOBILE ---------- */
 /* Brightness is intentionally restrained: it dims the paper and ink together. */
 :root { --page-brightness: 1; }
-[data-site="joeldoesdata"] body { filter: brightness(var(--page-brightness)); }
+/* Keep the control above the page filter so it stays fixed as the user scrolls. */
+[data-site="joeldoesdata"] body > :not(.brightness-widget):not(script) {
+  filter: brightness(var(--page-brightness));
+}
+.brightness-widget { filter: none; }
 
 .brightness-widget {
   position: fixed;
