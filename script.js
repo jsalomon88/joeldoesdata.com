@@ -13,8 +13,8 @@ window.addEventListener('load', () => {
   if (!experience || !stack) return;
   function centerColumns() {
     const desktop = window.matchMedia('(min-width: 821px)').matches;
-    experience.style.marginTop = '';
-    experience.style.transform = desktop ? `translateY(${Math.max(0, (stack.offsetHeight - experience.offsetHeight) / 2)}px)` : '';
+    experience.style.transform = '';
+    experience.style.setProperty('--stack-content-height', desktop ? `${stack.querySelector('.stack')?.offsetHeight || 0}px` : '0px');
   }
   window.addEventListener('load', centerColumns);
   window.addEventListener('resize', centerColumns);
