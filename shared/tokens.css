@@ -106,6 +106,31 @@
   --accent-glow: rgba(107, 164, 255, 0.32);
 }
 
+/* Public portfolio theme: bright paper, ink, and a confident cobalt accent. */
+[data-site="joeldoesdata"] {
+  --bg-0: #f7f9fc;
+  --bg-1: #ffffff;
+  --bg-2: #eef3f8;
+  --bg-3: #e2eaf2;
+  --bg-4: #cbd8e5;
+
+  --ink-0: #102238;
+  --ink-1: rgba(16, 34, 56, 0.92);
+  --ink-2: rgba(16, 34, 56, 0.70);
+  --ink-3: rgba(16, 34, 56, 0.52);
+  --ink-4: rgba(16, 34, 56, 0.34);
+  --ink-5: rgba(16, 34, 56, 0.16);
+  --ink-6: rgba(16, 34, 56, 0.08);
+  --ink-7: rgba(16, 34, 56, 0.035);
+
+  --hairline: rgba(16, 34, 56, 0.12);
+  --hairline-strong: rgba(16, 34, 56, 0.22);
+  --accent: #1769d2;
+  --accent-dim: rgba(23, 105, 210, 0.12);
+  --accent-ink: #135bb7;
+  --accent-glow: rgba(23, 105, 210, 0.24);
+}
+
 /* ============================================================
    BASE RESET + TYPOGRAPHY
    ============================================================ */
