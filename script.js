@@ -3,7 +3,7 @@
    ============================================= */
 
 /* ─── Remove retired portfolio sections ───────── */
-['how', 'demos'].forEach((id) => document.getElementById(id)?.remove());
+['how', 'activity', 'demos'].forEach((id) => document.getElementById(id)?.remove());
 
 /* ─── Cabin light switch ──────────────────────── */
 (function () {
