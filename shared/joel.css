@@ -549,9 +549,8 @@
   .num-card:nth-child(1), .num-card:nth-child(2) { border-bottom: 1px solid var(--hairline); }
 }
 
-/* Only the GitHub commits and contribution heatmap remain visible. */
-#activity .chart:nth-of-type(3),
-#activity .chart:nth-of-type(4) { display: none; }
+/* Only the GitHub commits bar chart and contribution heatmap remain visible. */
+#activity .chart--retired { display: none !important; }
 
 /* ---------- ACTIVITY CHARTS ---------- */
 .chart { margin-bottom: var(--s-8); }
