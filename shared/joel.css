@@ -127,7 +127,7 @@
   transition: color var(--d-fast) var(--e-out), padding var(--d-fast) var(--e-out);
 }
 .hero-link .i { color: var(--ink-4); font-variant-numeric: tabular-nums; }
-.hero-link:hover { color: var(--accent); padding-left: 8px; }
+.hero-link:hover { color: var(--accent); }
 
 .scroll-indicator {
   position: fixed;
@@ -774,7 +774,7 @@
   color: var(--ink-2);
   transition: padding var(--d-fast) var(--e-out), color var(--d-fast) var(--e-out);
 }
-.contact-row:hover { padding-left: 14px; color: var(--accent); }
+.contact-row:hover { color: var(--accent); }
 .contact-row__label {
   font-size: var(--t-micro);
   letter-spacing: 0.16em;
@@ -1026,7 +1026,7 @@
   filter: blur(42px);
 }
 [data-site="joeldoesdata"] .hero__first { -webkit-text-stroke-color: var(--accent); }
-[data-site="joeldoesdata"] .card:hover { transform: translateY(-3px); box-shadow: 0 16px 34px rgba(16, 34, 56, 0.08); }
+[data-site="joeldoesdata"] .card:hover { box-shadow: 0 16px 34px rgba(16, 34, 56, 0.08); }
 [data-site="joeldoesdata"] .code-window { box-shadow: 0 18px 40px rgba(16, 34, 56, 0.08); }
 [data-site="joeldoesdata"] .code-window__head { color: var(--ink-3); }
 [data-site="joeldoesdata"] .cw-dot { background: var(--ink-5); }
