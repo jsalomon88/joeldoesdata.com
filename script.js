@@ -38,8 +38,8 @@ document.querySelectorAll('a[href="#activity"]').forEach((link) => link.remove()
   const map = {
     agencyanalytics: allSkills.filter((skill) => skill !== 'power bi'),
     boldcommerce: allSkills.filter((skill) => !['sigma', 'power bi', 'metabase', 'claude skill authoring', 'agent deployment'].includes(skill)),
-    freshbooks: ['sql', 'dbt', 'bigquery', 'data modelling', 'looker', 'data storytelling', 'product & gtm analytics', 'stakeholder comms', 'a/b testing', 'statistical analysis', 'automation'],
-    ctc: ['sql', 'data modelling', 'power bi', 'stakeholder comms', 'automation']
+    freshbooks: ['sql', 'dbt', 'bigquery', 'data modelling', 'looker', 'data storytelling', 'product & gtm analytics', 'stakeholder comms', 'a/b testing', 'statistical analysis', 'automation', 'git', 'python'],
+    ctc: ['sql', 'data modelling', 'power bi', 'stakeholder comms', 'data storytelling', 'automation']
   };
   function skillName(skill) {
     return skill.querySelector('.skill__name')?.textContent.toLowerCase().replace(/\s+/g, ' ').trim() || '';
