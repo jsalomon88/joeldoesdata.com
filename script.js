@@ -26,6 +26,33 @@
   render();
 })();
 
+/* ─── Experience-to-skill highlighting ───────── */
+(function () {
+  const companies = document.querySelectorAll('[data-company]');
+  const skills = document.querySelectorAll('.skill');
+  const map = {
+    agencyanalytics: ['sql', 'looker', 'python', 'automation', 'data storytelling', 'product & gtm'],
+    boldcommerce: ['sql', 'dbt', 'looker', 'power bi', 'product & gtm', 'a/b testing'],
+    freshbooks: ['sql', 'dbt', 'snowflake', 'bigquery', 'data modelling', 'looker', 'storytelling'],
+    ctc: ['sql', 'data modelling', 'python', 'power bi', 'statistical', 'a/b testing']
+  };
+  function highlight(company) {
+    const related = map[company] || [];
+    skills.forEach((skill) => {
+      const name = skill.querySelector('.skill__name')?.textContent.toLowerCase() || '';
+      const isRelated = related.some((item) => name.includes(item));
+      skill.classList.toggle('is-related', isRelated);
+      skill.classList.toggle('is-muted', Boolean(company) && !isRelated);
+    });
+  }
+  companies.forEach((company) => {
+    company.addEventListener('mouseenter', () => highlight(company.dataset.company));
+    company.addEventListener('focus', () => highlight(company.dataset.company));
+    company.addEventListener('mouseleave', () => highlight(''));
+    company.addEventListener('blur', () => highlight(''));
+  });
+})();
+
 /* ─── Reveal on scroll ───────────────────────── */
 
 const revealObserver = new IntersectionObserver((entries) => {

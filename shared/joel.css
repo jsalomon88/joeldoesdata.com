@@ -14,18 +14,6 @@
   overflow: clip; /* clip rather than hidden — prevents glow from scrolling page without clipping text */
 }
 
-.hero::before {
-  /* Soft accent glow */
-  content: '';
-  position: absolute;
-  left: -20%; top: 10%;
-  width: 55%; height: 55%;
-  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-  opacity: 0.35;
-  filter: blur(60px);
-  pointer-events: none;
-}
-
 .hero__eyebrow {
   display: inline-flex;
   align-items: center;
@@ -309,6 +297,17 @@
   .timeline__dot { top: 28px; }
 }
 
+/* Experience and Stack share a desktop canvas; mobile returns to a single column. */
+@media (min-width: 821px) {
+  #experience, #stack { display: inline-block; vertical-align: top; width: calc(50% - 2px); box-sizing: border-box; }
+  #experience { padding-right: var(--s-6); }
+  #stack { padding-left: var(--s-6); }
+  #experience .shell, #stack .shell { width: 100%; }
+}
+@media (max-width: 820px) {
+  #experience, #stack { display: block; width: 100%; }
+}
+
 /* ---------- STACK ---------- */
 .stack {
   display: grid;
@@ -361,6 +360,14 @@
   transform: scaleX(0);
 }
 .skill:hover .bar i { background: var(--accent); }
+.skill { transition: opacity 180ms ease, color 180ms ease, background 180ms ease; }
+.skill.is-muted { opacity: 0.32; }
+.skill.is-related { opacity: 1; background: var(--accent-dim); }
+.skill.is-related .skill__name, .skill.is-related .skill__level { color: var(--accent-ink); }
+.skill.is-related .bar i { background: var(--accent); }
+.timeline__item[tabindex="0"] { cursor: pointer; outline: none; }
+.timeline__item[tabindex="0"]:focus-visible .timeline__what h3 { color: var(--accent); }
+.timeline__item[tabindex="0"]:hover .timeline__what h3 { color: var(--accent); }
 
 /* ---------- PIPELINE ---------- */
 .pipeline {
@@ -1052,4 +1059,11 @@
 
   /* Demo charts: reduce height for narrow screens */
   .demo__chart { height: 220px; }
+}
+
+@media (min-width: 821px) {
+  body > #experience, body > #stack { display: inline-block !important; vertical-align: top; width: calc(50% - 2px) !important; box-sizing: border-box; }
+}
+@media (max-width: 820px) {
+  body > #experience, body > #stack { display: block !important; width: 100% !important; }
 }
