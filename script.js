@@ -37,20 +37,46 @@
     freshbooks: ['sql', 'dbt', 'bigquery', 'data modelling', 'looker', 'data storytelling', 'product & gtm analytics', 'stakeholder comms', 'a/b testing', 'statistical analysis', 'automation'],
     ctc: ['sql', 'data modelling', 'power bi', 'stakeholder comms', 'automation']
   };
-  function highlight(company) {
+  function skillName(skill) {
+    return skill.querySelector('.skill__name')?.textContent.toLowerCase().replace(/\s+/g, ' ').trim() || '';
+  }
+  function highlightCompany(company) {
     const related = map[company] || [];
     skills.forEach((skill) => {
-      const name = skill.querySelector('.skill__name')?.textContent.toLowerCase().replace(/\s+/g, ' ').trim() || '';
-      const isRelated = related.some((item) => name.includes(item));
+      const isRelated = related.some((item) => skillName(skill).includes(item));
       skill.classList.toggle('is-related', isRelated);
       skill.classList.toggle('is-muted', Boolean(company) && !isRelated);
     });
+    companies.forEach((item) => item.classList.remove('is-related', 'is-muted'));
+  }
+  function highlightSkill(skill) {
+    const name = skillName(skill);
+    skills.forEach((item) => item.classList.toggle('is-related', item === skill));
+    skills.forEach((item) => item.classList.toggle('is-muted', item !== skill));
+    companies.forEach((company) => {
+      const isRelated = (map[company.dataset.company] || []).some((item) => name.includes(item));
+      company.classList.toggle('is-related', isRelated);
+      company.classList.toggle('is-muted', !isRelated);
+    });
+  }
+  function clearHighlights() {
+    skills.forEach((skill) => skill.classList.remove('is-related', 'is-muted'));
+    companies.forEach((company) => company.classList.remove('is-related', 'is-muted'));
   }
   companies.forEach((company) => {
-    company.addEventListener('mouseenter', () => highlight(company.dataset.company));
-    company.addEventListener('focus', () => highlight(company.dataset.company));
-    company.addEventListener('mouseleave', () => highlight(''));
-    company.addEventListener('blur', () => highlight(''));
+    company.addEventListener('mouseenter', () => highlightCompany(company.dataset.company));
+    company.addEventListener('focus', () => highlightCompany(company.dataset.company));
+    company.addEventListener('mouseleave', clearHighlights);
+    company.addEventListener('blur', clearHighlights);
+  });
+  skills.forEach((skill) => {
+    skill.addEventListener('mouseover', () => highlightSkill(skill));
+    skill.addEventListener('focus', () => highlightSkill(skill));
+    skill.addEventListener('mouseout', (event) => {
+      if (!skill.contains(event.relatedTarget)) clearHighlights();
+    });
+    skill.addEventListener('blur', clearHighlights);
+    skill.setAttribute('tabindex', '0');
   });
 })();
 

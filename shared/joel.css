@@ -369,6 +369,14 @@
 .timeline__item[tabindex="0"] { cursor: pointer; outline: none; }
 .timeline__item[tabindex="0"]:focus-visible .timeline__what h3 { color: var(--accent); }
 .timeline__item[tabindex="0"]:hover .timeline__what h3 { color: var(--accent); }
+.timeline__item.is-related { opacity: 1; background: var(--accent-dim); }
+.timeline__item.is-muted { opacity: 0.32; }
+.timeline__item.is-related .timeline__what h3 { color: var(--accent); }
+.skill[tabindex="0"] { cursor: pointer; }
+.skill[tabindex="0"]:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  .skill, .timeline__item { transition: none; }
+}
 
 /* ---------- PIPELINE ---------- */
 .pipeline {
