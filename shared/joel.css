@@ -988,7 +988,7 @@
 [data-site="joeldoesdata"] .hero {
   min-height: 100svh;
   box-sizing: border-box;
-  justify-content: space-between;
+  justify-content: center;
   padding-top: clamp(24px, 4vh, 48px);
   padding-bottom: clamp(24px, 4vh, 48px);
   background: linear-gradient(115deg, var(--bg-1) 0%, var(--bg-0) 68%);
