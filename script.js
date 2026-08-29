@@ -2,58 +2,25 @@
    joeldoesdata.com — scroll interactions
    ============================================= */
 
-/* ─── Window crank brightness ─────────────────── */
+/* ─── Cabin light switch ──────────────────────── */
 (function () {
-  const crank = document.getElementById('brightness-crank');
-  const valueEl = document.getElementById('brightness-value');
-  if (!crank || !valueEl) return;
+  const toggle = document.getElementById('theme-switch');
+  const state = document.getElementById('theme-state');
+  if (!toggle || !state) return;
 
-  const min = 35;
-  const max = 100;
-  const saved = Number.parseInt(localStorage.getItem('jdd-brightness'), 10);
-  let brightness = Number.isFinite(saved) ? Math.min(max, Math.max(min, saved)) : 72;
+  const saved = localStorage.getItem('jdd-theme');
+  toggle.checked = saved !== 'dark';
 
   function render() {
-    document.documentElement.style.setProperty('--page-brightness', `${brightness / 100}`);
-    crank.style.setProperty('--crank-angle', `${-135 + ((brightness - min) / (max - min)) * 270}deg`);
-    crank.setAttribute('aria-valuenow', brightness);
-    crank.setAttribute('aria-valuetext', `${brightness} percent brightness`);
-    valueEl.textContent = `${brightness}%`;
+    const lightMode = toggle.checked;
+    document.documentElement.classList.toggle('theme-dark', !lightMode);
+    toggle.setAttribute('aria-label', lightMode ? 'Turn light mode off' : 'Turn light mode on');
+    state.textContent = lightMode ? 'ON' : 'OFF';
   }
 
-  function setBrightness(next) {
-    brightness = Math.min(max, Math.max(min, next));
-    localStorage.setItem('jdd-brightness', brightness);
+  toggle.addEventListener('change', () => {
+    localStorage.setItem('jdd-theme', toggle.checked ? 'light' : 'dark');
     render();
-  }
-
-  let dragged = false;
-  crank.addEventListener('pointerdown', (event) => {
-    dragged = false;
-    crank.setPointerCapture(event.pointerId);
-  });
-  crank.addEventListener('pointermove', (event) => {
-    if (!crank.hasPointerCapture(event.pointerId)) return;
-    dragged = true;
-    const rect = crank.getBoundingClientRect();
-    const angle = Math.atan2(event.clientY - (rect.top + rect.height / 2), event.clientX - (rect.left + rect.width / 2)) * 180 / Math.PI + 90;
-    const normalized = Math.min(135, Math.max(-135, angle));
-    setBrightness(Math.round(min + ((normalized + 135) / 270) * (max - min)));
-  });
-  crank.addEventListener('click', () => {
-    if (!dragged) setBrightness(brightness >= 82 ? min : brightness + 10);
-  });
-  crank.addEventListener('keydown', (event) => {
-    if (event.key === 'ArrowUp' || event.key === 'ArrowRight') {
-      event.preventDefault();
-      setBrightness(brightness + 5);
-    }
-    if (event.key === 'ArrowDown' || event.key === 'ArrowLeft') {
-      event.preventDefault();
-      setBrightness(brightness - 5);
-    }
-    if (event.key === 'Home') setBrightness(min);
-    if (event.key === 'End') setBrightness(max);
   });
 
   render();
