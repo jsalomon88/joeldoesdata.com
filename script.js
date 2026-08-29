@@ -2,6 +2,48 @@
    joeldoesdata.com — scroll interactions
    ============================================= */
 
+/* ─── Window crank brightness ─────────────────── */
+(function () {
+  const crank = document.getElementById('brightness-crank');
+  const valueEl = document.getElementById('brightness-value');
+  if (!crank || !valueEl) return;
+
+  const min = 35;
+  const max = 100;
+  const saved = Number.parseInt(localStorage.getItem('jdd-brightness'), 10);
+  let brightness = Number.isFinite(saved) ? Math.min(max, Math.max(min, saved)) : 72;
+
+  function render() {
+    document.documentElement.style.setProperty('--page-brightness', `${brightness / 100}`);
+    crank.style.setProperty('--crank-angle', `${-135 + ((brightness - min) / (max - min)) * 270}deg`);
+    crank.setAttribute('aria-valuenow', brightness);
+    crank.setAttribute('aria-valuetext', `${brightness} percent brightness`);
+    valueEl.textContent = `${brightness}%`;
+  }
+
+  function setBrightness(next) {
+    brightness = Math.min(max, Math.max(min, next));
+    localStorage.setItem('jdd-brightness', brightness);
+    render();
+  }
+
+  crank.addEventListener('click', () => setBrightness(brightness >= 82 ? min : brightness + 10));
+  crank.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowUp' || event.key === 'ArrowRight') {
+      event.preventDefault();
+      setBrightness(brightness + 5);
+    }
+    if (event.key === 'ArrowDown' || event.key === 'ArrowLeft') {
+      event.preventDefault();
+      setBrightness(brightness - 5);
+    }
+    if (event.key === 'Home') setBrightness(min);
+    if (event.key === 'End') setBrightness(max);
+  });
+
+  render();
+})();
+
 /* ─── Reveal on scroll ───────────────────────── */
 
 const revealObserver = new IntersectionObserver((entries) => {
@@ -227,7 +269,7 @@ function buildHeatmap(weeks) {
   activate(0);
 })();
 
-/* ─── Dynamic role duration ──────────────────── */
+/* ─── Dynamic role duration ─────────���────────── */
 
 document.querySelectorAll('.timeline-duration[data-start]').forEach(el => {
   const [y, m] = el.dataset.start.split('-').map(Number);

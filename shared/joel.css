@@ -932,6 +932,76 @@
 .chart-tip.is-visible { opacity: 1; }
 
 /* ---------- MOBILE ---------- */
+/* Brightness is intentionally restrained: it dims the paper and ink together. */
+:root { --page-brightness: 1; }
+[data-site="joeldoesdata"] body { filter: brightness(var(--page-brightness)); }
+
+.brightness-widget {
+  position: fixed;
+  z-index: 20;
+  right: clamp(16px, 3vw, 42px);
+  bottom: clamp(16px, 3vw, 34px);
+  width: 108px;
+  padding: 12px 12px 10px;
+  border: 1px solid var(--hairline-strong);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--bg-1) 92%, transparent);
+  box-shadow: 0 12px 28px rgba(16, 34, 56, 0.12);
+  backdrop-filter: blur(12px);
+  text-align: center;
+}
+.brightness-widget__label,
+.brightness-widget__value {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.brightness-widget__label { margin-bottom: 8px; }
+.brightness-widget__body { position: relative; height: 54px; }
+.brightness-widget__crank {
+  position: relative;
+  display: block;
+  width: 42px;
+  height: 42px;
+  margin: 0 auto;
+  border: 2px solid var(--ink-2);
+  border-radius: 50%;
+  background: var(--bg-2);
+  cursor: pointer;
+  transform: rotate(var(--crank-angle, 60deg));
+  transition: transform 220ms var(--e-io), background 180ms ease;
+}
+.brightness-widget__crank:hover { background: var(--accent-dim); }
+.brightness-widget__crank:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.brightness-widget__hub {
+  position: absolute; inset: 13px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: inset 0 0 0 3px var(--bg-1);
+}
+.brightness-widget__handle {
+  position: absolute;
+  left: 18px; top: -8px;
+  width: 5px; height: 17px;
+  border-radius: 4px;
+  background: var(--ink-1);
+}
+.brightness-widget__ticks { position: absolute; inset: 0; pointer-events: none; }
+.brightness-widget__ticks span {
+  position: absolute; left: 50%; top: -1px;
+  width: 1px; height: 5px;
+  background: var(--ink-4);
+  transform-origin: 0 28px;
+}
+.brightness-widget__ticks span:nth-child(1) { transform: rotate(-55deg); }
+.brightness-widget__ticks span:nth-child(2) { transform: rotate(-27deg); }
+.brightness-widget__ticks span:nth-child(3) { transform: rotate(0deg); }
+.brightness-widget__ticks span:nth-child(4) { transform: rotate(27deg); }
+.brightness-widget__ticks span:nth-child(5) { transform: rotate(55deg); }
+.brightness-widget__value { margin-top: 6px; color: var(--accent-ink); }
+
 /* Bright portfolio refinements, scoped to the public site only. */
 [data-site="joeldoesdata"] .hero {
   background: linear-gradient(115deg, var(--bg-1) 0%, var(--bg-0) 68%);
