@@ -30,16 +30,17 @@
 (function () {
   const companies = document.querySelectorAll('[data-company]');
   const skills = document.querySelectorAll('.skill');
+  const allSkills = ['sql', 'dbt', 'snowflake', 'bigquery', 'data modelling', 'looker', 'sigma', 'power bi', 'metabase', 'data storytelling', 'product & gtm analytics', 'stakeholder comms', 'a/b testing', 'python', 'git', 'html / css', 'llm engineering', 'automation', 'agent deployment', 'claude skill authoring', 'statistical analysis'];
   const map = {
-    agencyanalytics: ['sql', 'looker', 'python', 'automation', 'data storytelling', 'product & gtm'],
-    boldcommerce: ['sql', 'dbt', 'looker', 'power bi', 'product & gtm', 'a/b testing'],
-    freshbooks: ['sql', 'dbt', 'snowflake', 'bigquery', 'data modelling', 'looker', 'storytelling'],
-    ctc: ['sql', 'data modelling', 'python', 'power bi', 'statistical', 'a/b testing']
+    agencyanalytics: allSkills.filter((skill) => skill !== 'power bi'),
+    boldcommerce: allSkills.filter((skill) => !['sigma', 'power bi', 'metabase', 'claude skill authoring', 'agent deployment'].includes(skill)),
+    freshbooks: ['sql', 'dbt', 'bigquery', 'data modelling', 'looker', 'data storytelling', 'product & gtm analytics', 'stakeholder comms', 'a/b testing', 'statistical analysis', 'automation'],
+    ctc: ['sql', 'data modelling', 'power bi', 'stakeholder comms', 'automation']
   };
   function highlight(company) {
     const related = map[company] || [];
     skills.forEach((skill) => {
-      const name = skill.querySelector('.skill__name')?.textContent.toLowerCase() || '';
+      const name = skill.querySelector('.skill__name')?.textContent.toLowerCase().replace(/\s+/g, ' ').trim() || '';
       const isRelated = related.some((item) => name.includes(item));
       skill.classList.toggle('is-related', isRelated);
       skill.classList.toggle('is-muted', Boolean(company) && !isRelated);
