@@ -363,15 +363,23 @@
 .skill:hover .bar i { background: var(--accent); }
 .skill { transition: opacity 180ms ease, color 180ms ease, background 180ms ease; }
 .skill.is-muted { opacity: 0.32; }
-.skill.is-related { opacity: 1; background: var(--accent-dim); }
-.skill.is-related .skill__name, .skill.is-related .skill__level { color: var(--accent-ink); }
+.skill.is-related { opacity: 1; background: transparent !important; }
+.skill.is-related .skill__name,
+.skill.is-related .skill__level { color: var(--accent-ink); }
+.skill.is-related .skill__name { display: inline-block; padding: 0.3rem 0.55rem; border-radius: 999px; background: var(--accent-dim); }
+.skill.is-related .bar { opacity: 1; }
 .skill.is-related .bar i { background: var(--accent); }
 .timeline__item[tabindex="0"] { cursor: pointer; outline: none; }
 .timeline__item[tabindex="0"]:focus-visible .timeline__what h3 { color: var(--accent); }
 .timeline__item[tabindex="0"]:hover .timeline__what h3 { color: var(--accent); }
-.timeline__item.is-related { opacity: 1; background: var(--accent-dim); }
+.timeline__item.is-related { opacity: 1; background: transparent !important; }
+.timeline__item.is-related .timeline__what { width: max-content; max-width: 100%; }
 .timeline__item.is-muted { opacity: 0.32; }
+.timeline__item.is-related .timeline__what { display: inline-block; padding: 0.45rem 0.75rem; margin: -0.45rem -0.75rem; border-radius: 999px; background: var(--accent-dim); }
 .timeline__item.is-related .timeline__what h3 { color: var(--accent); }
+#stack .skill.is-related { background: transparent !important; }
+#stack .skill.is-related .skill__name { width: max-content; max-width: 100%; }
+#stack .skill.is-related .skill__name { background: var(--accent-dim); }
 .skill[tabindex="0"] { cursor: pointer; }
 .skill[tabindex="0"]:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 @media (prefers-reduced-motion: reduce) {
