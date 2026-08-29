@@ -9,7 +9,7 @@
   if (!toggle || !state) return;
 
   const saved = localStorage.getItem('jdd-theme');
-  toggle.checked = saved !== 'dark';
+  toggle.checked = saved === 'light';
 
   function render() {
     const lightMode = toggle.checked;
