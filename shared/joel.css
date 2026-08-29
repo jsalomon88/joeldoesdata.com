@@ -1008,9 +1008,18 @@
 
 /* Bright portfolio refinements, scoped to the public site only. */
 [data-site="joeldoesdata"] .hero {
+  min-height: 100svh;
+  box-sizing: border-box;
+  justify-content: space-between;
+  padding-top: clamp(24px, 4vh, 48px);
+  padding-bottom: clamp(24px, 4vh, 48px);
   background: linear-gradient(115deg, var(--bg-1) 0%, var(--bg-0) 68%);
   border-bottom: 1px solid var(--hairline);
 }
+[data-site="joeldoesdata"] .hero .shell { width: min(100%, 1120px); }
+[data-site="joeldoesdata"] .hero__name { font-size: clamp(58px, 12vw, 176px); }
+[data-site="joeldoesdata"] .hero__tag { margin-top: clamp(20px, 3vh, 36px); }
+[data-site="joeldoesdata"] .hero__links { margin-top: clamp(20px, 3vh, 36px); }
 [data-site="joeldoesdata"] .hero::before {
   background: radial-gradient(circle, var(--accent-glow) 0%, transparent 68%);
   opacity: 0.18;
@@ -1033,7 +1042,11 @@
   .topbar .nav { gap: var(--s-4); }
 
   /* Hero: fill exactly one viewport so scroll indicator lands at the fold */
-  .hero { padding-top: 80px; padding-bottom: var(--s-6); min-height: 100dvh; }
+  .hero { padding-top: 72px; padding-bottom: 24px; min-height: 100svh; }
+  [data-site="joeldoesdata"] .hero__name { font-size: clamp(58px, 21vw, 96px); line-height: 0.9; }
+  [data-site="joeldoesdata"] .hero__first { margin-left: 12px; }
+  [data-site="joeldoesdata"] .hero__tag { font-size: clamp(20px, 6vw, 26px); line-height: 1.2; }
+  [data-site="joeldoesdata"] .hero__links { margin-top: 24px; }
   /* Scroll indicator: absolutely positioned at bottom of hero */
   .scroll-indicator { position: absolute; }
 
