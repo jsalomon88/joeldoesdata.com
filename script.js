@@ -5,6 +5,21 @@
 /* ─── Remove retired portfolio sections ───────── */
 ['how', 'activity', 'demos'].forEach((id) => document.getElementById(id)?.remove());
 
+/* Center the shorter Experience column against Stack on desktop only. */
+window.addEventListener('load', () => {
+  const experience = document.getElementById('experience');
+  const stack = document.getElementById('stack');
+  if (!experience || !stack) return;
+  function centerColumns() {
+    const desktop = window.matchMedia('(min-width: 821px)').matches;
+    experience.style.marginTop = '';
+    experience.style.transform = desktop ? `translateY(${Math.max(0, (stack.offsetHeight - experience.offsetHeight) / 2)}px)` : '';
+  }
+  window.addEventListener('load', centerColumns);
+  window.addEventListener('resize', centerColumns);
+  requestAnimationFrame(centerColumns);
+});
+
 /* ─── Cabin light switch ──────────────────────── */
 (function () {
   const toggle = document.getElementById('theme-switch');
