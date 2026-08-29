@@ -2,6 +2,10 @@
    joeldoesdata.com — scroll interactions
    ============================================= */
 
+/* ─── Remove retired portfolio sections ───────── */
+['how', 'numbers', 'activity', 'demos'].forEach((id) => document.getElementById(id)?.remove());
+document.querySelectorAll('a[href="#activity"]').forEach((link) => link.remove());
+
 /* ─── Cabin light switch ──────────────────────── */
 (function () {
   const toggle = document.getElementById('theme-switch');
