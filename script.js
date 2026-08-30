@@ -44,8 +44,8 @@ document.getElementById('demos')?.remove();
     if (!dragging) return;
     dragging = false;
     const deltaY = endY - startY;
-    // Page motion is vertical: up goes back, down goes forward.
-    if (Math.abs(deltaY) > 45) step(deltaY < 0 ? -1 : 1);
+    // Page motion is natural: up goes forward, down goes back.
+    if (Math.abs(deltaY) > 45) step(deltaY < 0 ? 1 : -1);
   }
   viewport.addEventListener('pointerdown', (event) => { dragging = true; startX = event.clientX; startY = event.clientY; viewport.setPointerCapture?.(event.pointerId); });
   viewport.addEventListener('pointerup', (event) => handleSwipe(event.clientX, event.clientY));
