@@ -14,14 +14,21 @@ document.getElementById('demos')?.remove();
   rail.className = 'section-rail shell';
   rail.setAttribute('aria-label', 'Section previews');
   rail.innerHTML = `
+    <div class="section-rail__intro"><span>Explore the work</span><span>Swipe or use the arrows</span></div>
     <div class="section-rail__track">
-      <a class="section-rail__card" href="#experience"><span class="section-rail__num">02</span><strong>Experience</strong><span>Where I have worked</span><span class="section-rail__arrow" aria-hidden="true">↗</span></a>
-      <a class="section-rail__card" href="#stack"><span class="section-rail__num">03</span><strong>Stack</strong><span>What I use to build</span><span class="section-rail__arrow" aria-hidden="true">↗</span></a>
-      <a class="section-rail__card" href="#stats"><span class="section-rail__num">05</span><strong>By the numbers</strong><span>A few useful signals</span><span class="section-rail__arrow" aria-hidden="true">↗</span></a>
-      <a class="section-rail__card" href="#activity"><span class="section-rail__num">06</span><strong>Activity</strong><span>Recent work in motion</span><span class="section-rail__arrow" aria-hidden="true">↗</span></a>
+      <a class="section-rail__card" href="#experience"><span class="section-rail__num">02</span><strong>Experience</strong><span>Where I have worked</span><span class="section-rail__arrow" aria-hidden="true">→</span></a>
+      <a class="section-rail__card" href="#stack"><span class="section-rail__num">03</span><strong>Stack</strong><span>What I use to build</span><span class="section-rail__arrow" aria-hidden="true">→</span></a>
+      <a class="section-rail__card" href="#stats"><span class="section-rail__num">05</span><strong>By the numbers</strong><span>A few useful signals</span><span class="section-rail__arrow" aria-hidden="true">→</span></a>
+      <a class="section-rail__card" href="#activity"><span class="section-rail__num">06</span><strong>Activity</strong><span>Recent work in motion</span><span class="section-rail__arrow" aria-hidden="true">→</span></a>
     </div>
   `;
   anchor.after(rail);
+  const track = rail.querySelector('.section-rail__track');
+  track.addEventListener('keydown', (event) => {
+    if (!['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+    event.preventDefault();
+    track.scrollBy({ left: event.key === 'ArrowRight' ? track.clientWidth * 0.8 : -track.clientWidth * 0.8, behavior: 'smooth' });
+  });
 })();
 
 /* Center the shorter Experience column against Stack on desktop only. */

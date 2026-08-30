@@ -178,12 +178,24 @@
   color: var(--ink-4);
 }
 
+/* ---------- FOCUSED SECTION CANVAS ---------- */
+@media (min-width: 821px) {
+  #experience, #stack, #stats, #activity { min-height: min(78vh, 760px); padding-top: var(--s-7); padding-bottom: var(--s-7); }
+  #experience .timeline { min-height: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .section-rail__track { scroll-behavior: auto; }
+}
+
 /* ---------- SECTION PREVIEW RAIL ---------- */
-.section-rail { width: 100%; padding-top: var(--s-5); padding-bottom: var(--s-5); overflow: hidden; }
-.section-rail__track { display: flex; gap: var(--s-3); overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; scrollbar-width: none; padding: 2px 0 6px; }
+.section-rail { width: 100%; padding-top: var(--s-5); padding-bottom: var(--s-5); overflow: hidden; border-top: 1px solid var(--hairline); }
+.section-rail__intro { display: flex; justify-content: space-between; gap: var(--s-4); margin-bottom: var(--s-3); color: var(--ink-4); font-family: var(--font-mono); font-size: var(--t-micro); letter-spacing: .14em; text-transform: uppercase; }
+.section-rail__track { display: flex; gap: var(--s-3); overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; overscroll-behavior-x: contain; scrollbar-width: none; padding: 2px 0 6px; }
 .section-rail__track::-webkit-scrollbar { display: none; }
 .section-rail__card { position: relative; flex: 0 0 min(260px, 72vw); min-height: 104px; display: flex; flex-direction: column; justify-content: space-between; gap: 4px; padding: var(--s-4); scroll-snap-align: start; border: 1px solid var(--hairline); color: var(--ink-2); text-decoration: none; transition: border-color 180ms ease, color 180ms ease, background-color 180ms ease; }
 .section-rail__card:hover, .section-rail__card:focus-visible { color: var(--ink-0); border-color: var(--accent); background: var(--accent-dim); outline: none; }
+.section-rail__card:focus-visible { outline: 1px solid var(--accent); outline-offset: 4px; }
+.section-rail__card:active { background: var(--accent-dim); }
 .section-rail__num { font-family: var(--font-mono); font-size: var(--t-micro); color: var(--ink-4); letter-spacing: .14em; }
 .section-rail__card strong { font-family: var(--font-display); font-size: 20px; font-weight: 400; color: inherit; }
 .section-rail__card > span:not(.section-rail__num):not(.section-rail__arrow) { font-size: 13px; color: var(--ink-3); }
