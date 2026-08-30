@@ -46,8 +46,8 @@ document.getElementById('demos')?.remove();
     dragging = false;
     const deltaX = event.clientX - startX;
     const deltaY = event.clientY - startY;
+    // Section paging is intentionally vertical: up goes back, down goes forward.
     if (Math.abs(deltaY) > 45 && Math.abs(deltaY) > Math.abs(deltaX)) step(deltaY < 0 ? -1 : 1);
-    else if (Math.abs(deltaX) > 45) step(deltaX < 0 ? 1 : -1);
   });
   viewport.addEventListener('pointercancel', () => { dragging = false; });
   const hashIndex = sections.findIndex((section) => `#${section.id}` === location.hash);

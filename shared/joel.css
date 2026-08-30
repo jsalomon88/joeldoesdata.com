@@ -180,6 +180,7 @@
 
 /* ---------- TRUE HORIZONTAL SECTION VIEWPORT ---------- */
 .section-viewport { position: fixed; inset: 0; z-index: 1; overflow: hidden; background: var(--bg); touch-action: pan-y; }
+.section-track { user-select: none; }
 .topbar, .brightness-widget { z-index: 10; }
 .section-track > section { isolation: isolate; }
 .section-track { display: flex; width: 100%; height: 100%; transform: translateX(calc(var(--active-section, 0) * -100%)); transition: transform 700ms cubic-bezier(.22,.8,.24,1); will-change: transform; }
