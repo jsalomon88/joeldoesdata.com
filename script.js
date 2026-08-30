@@ -30,7 +30,7 @@ document.getElementById('demos')?.remove();
   viewport.append(track, index);
   document.body.append(viewport);
   const items = [...index.children];
-  let active = 0, startX = 0, dragging = false;
+  let active = 0, startX = 0, startY = 0, dragging = false;
   function goTo(next, updateHash = true) {
     active = Math.max(0, Math.min(sections.length - 1, next));
     track.style.setProperty('--active-section', active);
@@ -40,8 +40,16 @@ document.getElementById('demos')?.remove();
   }
   function step(direction) { goTo(active + direction); }
   window.addEventListener('keydown', (event) => { if (event.key === 'ArrowRight' || event.key === 'PageDown') { event.preventDefault(); step(1); } if (event.key === 'ArrowLeft' || event.key === 'PageUp') { event.preventDefault(); step(-1); } if (event.key === 'Home') goTo(0); if (event.key === 'End') goTo(sections.length - 1); });
-  viewport.addEventListener('pointerdown', (event) => { dragging = true; startX = event.clientX; viewport.setPointerCapture(event.pointerId); });
-  viewport.addEventListener('pointerup', (event) => { if (!dragging) return; dragging = false; const delta = event.clientX - startX; if (Math.abs(delta) > 45) step(delta < 0 ? 1 : -1); });
+  viewport.addEventListener('pointerdown', (event) => { dragging = true; startX = event.clientX; startY = event.clientY; viewport.setPointerCapture(event.pointerId); });
+  viewport.addEventListener('pointerup', (event) => {
+    if (!dragging) return;
+    dragging = false;
+    const deltaX = event.clientX - startX;
+    const deltaY = event.clientY - startY;
+    if (Math.abs(deltaY) > 45 && Math.abs(deltaY) > Math.abs(deltaX)) step(deltaY < 0 ? -1 : 1);
+    else if (Math.abs(deltaX) > 45) step(deltaX < 0 ? 1 : -1);
+  });
+  viewport.addEventListener('pointercancel', () => { dragging = false; });
   const hashIndex = sections.findIndex((section) => `#${section.id}` === location.hash);
   goTo(hashIndex >= 0 ? hashIndex : 0, false);
 })();
@@ -742,7 +750,7 @@ async function loadTokenUsage() {
       labelsEl.appendChild(span);
     });
 
-    // ── Total tokens bar chart ──────────────────
+    // ── Total tokens bar chart ──────────���───────
     const barEl = document.getElementById('token-total-chart');
     const barLabelsEl = document.getElementById('token-total-labels');
     if (barEl) {
