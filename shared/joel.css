@@ -179,7 +179,7 @@
 }
 
 /* ---------- TRUE HORIZONTAL SECTION VIEWPORT ---------- */
-.section-viewport { position: fixed; inset: 0; z-index: 1; overflow: hidden; background: var(--bg); touch-action: pan-y; }
+.section-viewport { position: fixed; inset: 0; z-index: 1; overflow: hidden; background: var(--bg); touch-action: none; }
 .section-track { user-select: none; }
 .topbar, .brightness-widget { z-index: 10; }
 .section-track > section { isolation: isolate; }

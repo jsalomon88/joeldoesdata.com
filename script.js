@@ -40,16 +40,19 @@ document.getElementById('demos')?.remove();
   }
   function step(direction) { goTo(active + direction); }
   window.addEventListener('keydown', (event) => { if (event.key === 'ArrowRight' || event.key === 'PageDown') { event.preventDefault(); step(1); } if (event.key === 'ArrowLeft' || event.key === 'PageUp') { event.preventDefault(); step(-1); } if (event.key === 'Home') goTo(0); if (event.key === 'End') goTo(sections.length - 1); });
-  viewport.addEventListener('pointerdown', (event) => { dragging = true; startX = event.clientX; startY = event.clientY; viewport.setPointerCapture(event.pointerId); });
-  viewport.addEventListener('pointerup', (event) => {
+  function handleSwipe(endX, endY) {
     if (!dragging) return;
     dragging = false;
-    const deltaX = event.clientX - startX;
-    const deltaY = event.clientY - startY;
+    const deltaX = endX - startX;
+    const deltaY = endY - startY;
     // Section paging is intentionally vertical: up goes back, down goes forward.
-    if (Math.abs(deltaY) > 45 && Math.abs(deltaY) > Math.abs(deltaX)) step(deltaY < 0 ? -1 : 1);
-  });
+    if (Math.abs(deltaY) > 45 && Math.abs(deltaY) >= Math.abs(deltaX)) step(deltaY < 0 ? -1 : 1);
+  }
+  viewport.addEventListener('pointerdown', (event) => { dragging = true; startX = event.clientX; startY = event.clientY; viewport.setPointerCapture?.(event.pointerId); });
+  viewport.addEventListener('pointerup', (event) => handleSwipe(event.clientX, event.clientY));
   viewport.addEventListener('pointercancel', () => { dragging = false; });
+  viewport.addEventListener('touchstart', (event) => { const touch = event.changedTouches[0]; dragging = true; startX = touch.clientX; startY = touch.clientY; }, { passive: true });
+  viewport.addEventListener('touchend', (event) => { const touch = event.changedTouches[0]; handleSwipe(touch.clientX, touch.clientY); }, { passive: true });
   const hashIndex = sections.findIndex((section) => `#${section.id}` === location.hash);
   goTo(hashIndex >= 0 ? hashIndex : 0, false);
 })();
@@ -750,7 +753,7 @@ async function loadTokenUsage() {
       labelsEl.appendChild(span);
     });
 
-    // ── Total tokens bar chart ──────────���───────
+    // ── Total tokens bar chart ──────────���─────���─
     const barEl = document.getElementById('token-total-chart');
     const barLabelsEl = document.getElementById('token-total-labels');
     if (barEl) {
