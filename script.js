@@ -43,10 +43,9 @@ document.getElementById('demos')?.remove();
   function handleSwipe(endX, endY) {
     if (!dragging) return;
     dragging = false;
-    const deltaX = endX - startX;
     const deltaY = endY - startY;
-    // Section paging is intentionally vertical: up goes back, down goes forward.
-    if (Math.abs(deltaY) > 45 && Math.abs(deltaY) >= Math.abs(deltaX)) step(deltaY < 0 ? -1 : 1);
+    // Page motion is vertical: up goes back, down goes forward.
+    if (Math.abs(deltaY) > 45) step(deltaY < 0 ? -1 : 1);
   }
   viewport.addEventListener('pointerdown', (event) => { dragging = true; startX = event.clientX; startY = event.clientY; viewport.setPointerCapture?.(event.pointerId); });
   viewport.addEventListener('pointerup', (event) => handleSwipe(event.clientX, event.clientY));
