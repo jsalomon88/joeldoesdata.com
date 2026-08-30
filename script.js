@@ -6,45 +6,45 @@
 document.getElementById('how')?.remove();
 document.getElementById('demos')?.remove();
 
-/* Section preview rail — a quiet, touch-friendly bridge between the main sections. */
+/* True horizontal section viewport with directional motion and touch dragging. */
 (function () {
-  const anchor = document.getElementById('about');
-  if (!anchor || document.querySelector('.section-rail')) return;
-  const rail = document.createElement('nav');
-  rail.className = 'section-rail shell';
-  rail.setAttribute('aria-label', 'Section previews');
-  rail.innerHTML = `
-    <div class="section-rail__intro"><span>Explore the work</span><span>Swipe or use the arrows</span></div>
-    <div class="section-rail__track">
-      <a class="section-rail__card" href="#experience"><span class="section-rail__num">02</span><strong>Experience</strong><span>Where I have worked</span><span class="section-rail__arrow" aria-hidden="true">→</span></a>
-      <a class="section-rail__card" href="#stack"><span class="section-rail__num">03</span><strong>Stack</strong><span>What I use to build</span><span class="section-rail__arrow" aria-hidden="true">→</span></a>
-      <a class="section-rail__card" href="#stats"><span class="section-rail__num">05</span><strong>By the numbers</strong><span>A few useful signals</span><span class="section-rail__arrow" aria-hidden="true">→</span></a>
-      <a class="section-rail__card" href="#activity"><span class="section-rail__num">06</span><strong>Activity</strong><span>Recent work in motion</span><span class="section-rail__arrow" aria-hidden="true">→</span></a>
-    </div>
-  `;
-  anchor.after(rail);
-  const track = rail.querySelector('.section-rail__track');
-  track.addEventListener('keydown', (event) => {
-    if (!['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
-    event.preventDefault();
-    track.scrollBy({ left: event.key === 'ArrowRight' ? track.clientWidth * 0.8 : -track.clientWidth * 0.8, behavior: 'smooth' });
+  const sections = [...document.querySelectorAll('body > section')].filter((section) => !['how', 'demos'].includes(section.id));
+  if (!sections.length || document.querySelector('.section-viewport')) return;
+  const viewport = document.createElement('main');
+  viewport.className = 'section-viewport';
+  const track = document.createElement('div');
+  track.className = 'section-track';
+  const index = document.createElement('nav');
+  index.className = 'section-index';
+  index.setAttribute('aria-label', 'Sections');
+  const names = ['Intro', 'About', 'Experience', 'Stack', 'Numbers', 'Activity', 'Work', 'Architecture'];
+  sections.forEach((section, i) => {
+    track.append(section);
+    const button = document.createElement('button');
+    button.type = 'button'; button.className = 'section-index__item';
+    button.innerHTML = `<span>${String(i + 1).padStart(2, '0')}</span><b>${names[i] || section.id}</b>`;
+    button.setAttribute('aria-label', `Go to ${names[i] || section.id}`);
+    button.addEventListener('click', () => goTo(i));
+    index.append(button);
   });
-})();
-
-/* Center the shorter Experience column against Stack on desktop only. */
-window.addEventListener('load', () => {
-  const experience = document.getElementById('experience');
-  const stack = document.getElementById('stack');
-  if (!experience || !stack) return;
-  function centerColumns() {
-    const desktop = window.matchMedia('(min-width: 821px)').matches;
-    experience.style.transform = '';
-    experience.style.setProperty('--stack-content-height', desktop ? `${stack.querySelector('.stack')?.offsetHeight || 0}px` : '0px');
+  viewport.append(track, index);
+  document.body.append(viewport);
+  const items = [...index.children];
+  let active = 0, startX = 0, dragging = false;
+  function goTo(next, updateHash = true) {
+    active = Math.max(0, Math.min(sections.length - 1, next));
+    track.style.setProperty('--active-section', active);
+    items.forEach((item, i) => item.classList.toggle('is-active', i === active));
+    sections.forEach((section, i) => section.setAttribute('aria-hidden', i === active ? 'false' : 'true'));
+    if (updateHash && sections[active].id) history.replaceState(null, '', `#${sections[active].id}`);
   }
-  window.addEventListener('load', centerColumns);
-  window.addEventListener('resize', centerColumns);
-  requestAnimationFrame(centerColumns);
-});
+  function step(direction) { goTo(active + direction); }
+  window.addEventListener('keydown', (event) => { if (event.key === 'ArrowRight' || event.key === 'PageDown') { event.preventDefault(); step(1); } if (event.key === 'ArrowLeft' || event.key === 'PageUp') { event.preventDefault(); step(-1); } if (event.key === 'Home') goTo(0); if (event.key === 'End') goTo(sections.length - 1); });
+  viewport.addEventListener('pointerdown', (event) => { dragging = true; startX = event.clientX; viewport.setPointerCapture(event.pointerId); });
+  viewport.addEventListener('pointerup', (event) => { if (!dragging) return; dragging = false; const delta = event.clientX - startX; if (Math.abs(delta) > 45) step(delta < 0 ? 1 : -1); });
+  const hashIndex = sections.findIndex((section) => `#${section.id}` === location.hash);
+  goTo(hashIndex >= 0 ? hashIndex : 0, false);
+})();
 
 /* ─── Cabin light switch ──────────────────────── */
 (function () {
