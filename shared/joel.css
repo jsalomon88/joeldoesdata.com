@@ -178,6 +178,18 @@
   color: var(--ink-4);
 }
 
+/* ---------- SECTION PREVIEW RAIL ---------- */
+.section-rail { width: 100%; padding-top: var(--s-5); padding-bottom: var(--s-5); overflow: hidden; }
+.section-rail__track { display: flex; gap: var(--s-3); overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; scrollbar-width: none; padding: 2px 0 6px; }
+.section-rail__track::-webkit-scrollbar { display: none; }
+.section-rail__card { position: relative; flex: 0 0 min(260px, 72vw); min-height: 104px; display: flex; flex-direction: column; justify-content: space-between; gap: 4px; padding: var(--s-4); scroll-snap-align: start; border: 1px solid var(--hairline); color: var(--ink-2); text-decoration: none; transition: border-color 180ms ease, color 180ms ease, background-color 180ms ease; }
+.section-rail__card:hover, .section-rail__card:focus-visible { color: var(--ink-0); border-color: var(--accent); background: var(--accent-dim); outline: none; }
+.section-rail__num { font-family: var(--font-mono); font-size: var(--t-micro); color: var(--ink-4); letter-spacing: .14em; }
+.section-rail__card strong { font-family: var(--font-display); font-size: 20px; font-weight: 400; color: inherit; }
+.section-rail__card > span:not(.section-rail__num):not(.section-rail__arrow) { font-size: 13px; color: var(--ink-3); }
+.section-rail__arrow { position: absolute; right: var(--s-4); top: var(--s-4); color: var(--accent); font-size: 18px; }
+@media (min-width: 821px) { .section-rail { padding-top: var(--s-6); padding-bottom: var(--s-6); } .section-rail__track { gap: var(--s-4); } .section-rail__card { flex-basis: 240px; } }
+
 /* ---------- ABOUT ---------- */
 .about__grid {
   display: grid;
