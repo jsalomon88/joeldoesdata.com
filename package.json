@@ -1,0 +1,27 @@
+{
+  "name": "v0-project",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 3000",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vite build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jsalomon88/joeldoesdata.com.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/jsalomon88/joeldoesdata.com/issues"
+  },
+  "homepage": "https://github.com/jsalomon88/joeldoesdata.com#readme",
+  "devDependencies": {
+    "vite": "^8.2.2"
+  }
+}
