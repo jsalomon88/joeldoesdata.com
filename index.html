@@ -19,7 +19,7 @@
 
 <!-- LIGHT SWITCH -->
 <aside class="brightness-widget" aria-label="Theme control">
-  <span class="brightness-widget__label">Cabin light</span>
+  <span class="brightness-widget__label" aria-label="Dark mode"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.5A8.5 8.5 0 0 1 8.5 4 8.5 8.5 0 1 0 20 15.5Z"></path></svg></span>
   <label class="light-switch">
     <input id="theme-switch" type="checkbox" role="switch" aria-label="Turn light mode on">
     <span class="light-switch__track" aria-hidden="true">
@@ -27,7 +27,7 @@
       <span class="light-switch__endpoint light-switch__endpoint--dark" title="Dark mode"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.5A8.5 8.5 0 0 1 8.5 4 8.5 8.5 0 1 0 20 15.5Z"></path></svg></span>
       <span class="light-switch__handle"></span>
     </span>
-    <span class="light-switch__state" id="theme-state">ON</span>
+    <span class="light-switch__state" id="theme-state" aria-label="Light mode"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path></svg></span>
   </label>
 </aside>
 

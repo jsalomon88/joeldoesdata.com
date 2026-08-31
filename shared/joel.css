@@ -1009,16 +1009,17 @@
   box-shadow: 0 10px 24px rgba(16, 34, 56, 0.12);
   backdrop-filter: blur(12px);
 }
-.brightness-widget__label,
-.brightness-widget__state {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  .brightness-widget__label,
+  .light-switch__state {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   color: var(--ink-3);
-}
-.brightness-widget__state { min-width: 24px; color: var(--accent-ink); }
-.light-switch { display: inline-flex; align-items: center; gap: 7px; cursor: pointer; }
+  }
+  .brightness-widget__label svg,
+  .light-switch__state svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.7; }
+  .light-switch { display: inline-flex; align-items: center; gap: 7px; cursor: pointer; }
+  .light-switch__state { min-width: 20px; color: var(--accent-ink); }
 .light-switch input { position: absolute; opacity: 0; pointer-events: none; }
 .light-switch__track {
   position: relative;
