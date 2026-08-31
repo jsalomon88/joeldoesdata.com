@@ -40,24 +40,28 @@ document.getElementById('demos')?.remove();
   }
   function step(direction) { goTo(active + direction); }
   window.addEventListener('keydown', (event) => { if (event.key === 'ArrowRight' || event.key === 'PageDown') { event.preventDefault(); step(1); } if (event.key === 'ArrowLeft' || event.key === 'PageUp') { event.preventDefault(); step(-1); } if (event.key === 'Home') goTo(0); if (event.key === 'End') goTo(sections.length - 1); });
-  function handleSwipe(endX, endY) {
+  function beginGesture(event) {
+    if (event.pointerType === 'mouse' && event.button !== 0) return;
+    dragging = true;
+    startX = event.clientX;
+    startY = event.clientY;
+    event.currentTarget.setPointerCapture?.(event.pointerId);
+  }
+  function endGesture(event) {
     if (!dragging) return;
     dragging = false;
-    const deltaY = endY - startY;
-    // Page motion is natural: up goes forward, down goes back.
-    if (Math.abs(deltaY) > 45) {
+    const deltaY = event.clientY - startY;
+    // A quick vertical flick changes the page; up advances, down returns.
+    if (Math.abs(deltaY) > 24) {
+      event.preventDefault();
       step(deltaY < 0 ? 1 : -1);
       sections[active]?.scrollTo({ top: 0, behavior: 'auto' });
     }
   }
-  viewport.addEventListener('pointerdown', (event) => { dragging = true; startX = event.clientX; startY = event.clientY; viewport.setPointerCapture?.(event.pointerId); });
-  viewport.addEventListener('pointerup', (event) => handleSwipe(event.clientX, event.clientY));
-  viewport.addEventListener('pointercancel', () => { dragging = false; });
-  viewport.addEventListener('touchstart', (event) => { const touch = event.changedTouches[0]; dragging = true; startX = touch.clientX; startY = touch.clientY; }, { passive: true });
-  viewport.addEventListener('touchend', (event) => { const touch = event.changedTouches[0]; handleSwipe(touch.clientX, touch.clientY); }, { passive: true });
   sections.forEach((section) => {
-    section.addEventListener('touchstart', (event) => { const touch = event.changedTouches[0]; dragging = true; startX = touch.clientX; startY = touch.clientY; }, { capture: true, passive: true });
-    section.addEventListener('touchend', (event) => { const touch = event.changedTouches[0]; handleSwipe(touch.clientX, touch.clientY); }, { capture: true, passive: true });
+    section.addEventListener('pointerdown', beginGesture, { capture: true });
+    section.addEventListener('pointerup', endGesture, { capture: true });
+    section.addEventListener('pointercancel', () => { dragging = false; }, { capture: true });
   });
   const hashIndex = sections.findIndex((section) => `#${section.id}` === location.hash);
   goTo(hashIndex >= 0 ? hashIndex : 0, false);
@@ -141,7 +145,7 @@ document.getElementById('demos')?.remove();
   });
 })();
 
-/* ─── Reveal on scroll ───────────────────────── */
+/* ─── Reveal on scroll ───────────��───────────── */
 
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
