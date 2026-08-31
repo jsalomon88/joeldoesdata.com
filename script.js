@@ -33,6 +33,7 @@ document.getElementById('demos')?.remove();
   let active = 0, startX = 0, startY = 0, dragging = false;
   function goTo(next, updateHash = true) {
     active = Math.max(0, Math.min(sections.length - 1, next));
+    sections[active]?.scrollTo({ top: 0, left: 0, behavior: 'auto' });
     track.style.setProperty('--active-section', active);
     items.forEach((item, i) => item.classList.toggle('is-active', i === active));
     sections.forEach((section, i) => section.setAttribute('aria-hidden', i === active ? 'false' : 'true'));
