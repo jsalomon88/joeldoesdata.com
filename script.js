@@ -40,6 +40,7 @@ document.getElementById('demos')?.remove();
   }
   function step(direction) { goTo(active + direction); }
   window.addEventListener('keydown', (event) => { if (event.key === 'ArrowRight' || event.key === 'PageDown') { event.preventDefault(); step(1); } if (event.key === 'ArrowLeft' || event.key === 'PageUp') { event.preventDefault(); step(-1); } if (event.key === 'Home') goTo(0); if (event.key === 'End') goTo(sections.length - 1); });
+  let touchPaging = false;
   function beginGesture(event) {
     if (event.pointerType === 'mouse' && event.button !== 0) return;
     dragging = true;
@@ -51,7 +52,6 @@ document.getElementById('demos')?.remove();
     if (!dragging) return;
     dragging = false;
     const deltaY = event.clientY - startY;
-    // A quick vertical flick changes the page; up advances, down returns.
     if (Math.abs(deltaY) > 24) {
       event.preventDefault();
       step(deltaY < 0 ? 1 : -1);
@@ -62,6 +62,27 @@ document.getElementById('demos')?.remove();
     section.addEventListener('pointerdown', beginGesture, { capture: true });
     section.addEventListener('pointerup', endGesture, { capture: true });
     section.addEventListener('pointercancel', () => { dragging = false; }, { capture: true });
+    section.addEventListener('touchstart', (event) => {
+      const touch = event.changedTouches[0];
+      dragging = true; startX = touch.clientX; startY = touch.clientY; touchPaging = false;
+    }, { capture: true, passive: true });
+    section.addEventListener('touchmove', (event) => {
+      if (!dragging) return;
+      const touch = event.changedTouches[0];
+      const deltaY = touch.clientY - startY;
+      if (Math.abs(deltaY) > 18 && Math.abs(deltaY) > Math.abs(touch.clientX - startX)) {
+        event.preventDefault(); touchPaging = true;
+      }
+    }, { capture: true, passive: false });
+    section.addEventListener('touchend', (event) => {
+      if (!dragging) return;
+      const touch = event.changedTouches[0];
+      const deltaY = touch.clientY - startY;
+      dragging = false;
+      if (touchPaging || Math.abs(deltaY) > 24) {
+        event.preventDefault(); step(deltaY < 0 ? 1 : -1); sections[active]?.scrollTo({ top: 0, behavior: 'auto' });
+      }
+    }, { capture: true, passive: false });
   });
   const hashIndex = sections.findIndex((section) => `#${section.id}` === location.hash);
   goTo(hashIndex >= 0 ? hashIndex : 0, false);
@@ -158,7 +179,7 @@ const revealObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-/* ─── Staggered children ───────────���─────────── */
+/* ─── Staggered children ───────────���───��─────── */
 
 const childObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
