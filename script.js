@@ -44,6 +44,15 @@ document.getElementById('demos')?.remove();
     goTo(active + direction);
     window.setTimeout(() => { transitionLocked = false; }, 760);
   }
+  document.querySelectorAll('.topbar .nav a[href^="#"]').forEach((link) => {
+    link.addEventListener('click', (event) => {
+      const targetId = link.getAttribute('href').slice(1);
+      const targetIndex = sections.findIndex((section) => section.id === targetId);
+      if (targetIndex < 0) return;
+      event.preventDefault();
+      goTo(targetIndex);
+    });
+  });
   window.addEventListener('keydown', (event) => { if (event.key === 'ArrowRight' || event.key === 'PageDown') { event.preventDefault(); step(1); } if (event.key === 'ArrowLeft' || event.key === 'PageUp') { event.preventDefault(); step(-1); } if (event.key === 'Home') goTo(0); if (event.key === 'End') goTo(sections.length - 1); });
   let gestureMode = 'idle';
   let gestureSection = null;
