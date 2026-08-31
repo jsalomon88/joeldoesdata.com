@@ -194,7 +194,14 @@
 .section-index__item::after { content: ''; width: 18px; height: 1px; background: currentColor; order: -1; opacity: .5; }
 .section-index__item.is-active { color: var(--accent); transform: translateX(-4px); }
 .section-index__item.is-active b { display: inline; }
-@media (max-width: 820px) { .section-track > section { padding-top: 7rem; padding-right: 4.5rem; padding-bottom: 4rem; } .section-index { right: var(--s-2); gap: var(--s-1); } .section-index__item { min-height: 1.75rem; } .section-index__item b { display: none !important; } }
+@media (max-width: 820px) {
+  .section-track > section { padding-top: 7rem; padding-right: 6.75rem; padding-bottom: 4rem; }
+  .section-index { right: var(--s-2); gap: var(--s-1); }
+  .section-index__item { min-height: 1.75rem; }
+  .section-index__item b { display: none !important; }
+  #stack .skill { grid-template-columns: minmax(104px, 1.2fr) minmax(90px, 1fr) 76px; gap: var(--s-2); }
+  #stack .skill__level { white-space: nowrap; font-size: 11px; }
+}
 @media (prefers-reduced-motion: reduce) { .section-track { transition: none; } }
 
 

@@ -22,7 +22,7 @@ document.getElementById('demos')?.remove();
     track.append(section);
     const button = document.createElement('button');
     button.type = 'button'; button.className = 'section-index__item';
-    button.innerHTML = `<span>${String(i + 1).padStart(2, '0')}</span><b>${names[i] || section.id}</b>`;
+    button.innerHTML = `<span>${String(i).padStart(2, '0')}</span><b>${names[i] || section.id}</b>`;
     button.setAttribute('aria-label', `Go to ${names[i] || section.id}`);
     button.addEventListener('click', () => goTo(i));
     index.append(button);
@@ -45,13 +45,20 @@ document.getElementById('demos')?.remove();
     dragging = false;
     const deltaY = endY - startY;
     // Page motion is natural: up goes forward, down goes back.
-    if (Math.abs(deltaY) > 45) step(deltaY < 0 ? 1 : -1);
+    if (Math.abs(deltaY) > 45) {
+      step(deltaY < 0 ? 1 : -1);
+      sections[active]?.scrollTo({ top: 0, behavior: 'auto' });
+    }
   }
   viewport.addEventListener('pointerdown', (event) => { dragging = true; startX = event.clientX; startY = event.clientY; viewport.setPointerCapture?.(event.pointerId); });
   viewport.addEventListener('pointerup', (event) => handleSwipe(event.clientX, event.clientY));
   viewport.addEventListener('pointercancel', () => { dragging = false; });
   viewport.addEventListener('touchstart', (event) => { const touch = event.changedTouches[0]; dragging = true; startX = touch.clientX; startY = touch.clientY; }, { passive: true });
   viewport.addEventListener('touchend', (event) => { const touch = event.changedTouches[0]; handleSwipe(touch.clientX, touch.clientY); }, { passive: true });
+  sections.forEach((section) => {
+    section.addEventListener('touchstart', (event) => { const touch = event.changedTouches[0]; dragging = true; startX = touch.clientX; startY = touch.clientY; }, { capture: true, passive: true });
+    section.addEventListener('touchend', (event) => { const touch = event.changedTouches[0]; handleSwipe(touch.clientX, touch.clientY); }, { capture: true, passive: true });
+  });
   const hashIndex = sections.findIndex((section) => `#${section.id}` === location.hash);
   goTo(hashIndex >= 0 ? hashIndex : 0, false);
 })();
@@ -147,7 +154,7 @@ const revealObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-/* ─── Staggered children ─────────────────────── */
+/* ─── Staggered children ───────────���─────────── */
 
 const childObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
