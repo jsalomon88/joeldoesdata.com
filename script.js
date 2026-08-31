@@ -46,37 +46,32 @@ document.getElementById('demos')?.remove();
   }
   window.addEventListener('keydown', (event) => { if (event.key === 'ArrowRight' || event.key === 'PageDown') { event.preventDefault(); step(1); } if (event.key === 'ArrowLeft' || event.key === 'PageUp') { event.preventDefault(); step(-1); } if (event.key === 'Home') goTo(0); if (event.key === 'End') goTo(sections.length - 1); });
   let gestureMode = 'idle';
-  let lastY = 0;
-  let lastTime = 0;
-  let pagingLocked = false;
+  let gestureSection = null;
   let transitionLocked = false;
-  function resetGesture() { dragging = false; gestureMode = 'idle'; }
+  function resetGesture() { dragging = false; gestureMode = 'idle'; gestureSection = null; }
   function beginTouch(event) {
     const touch = event.changedTouches[0];
-    dragging = true; gestureMode = 'undecided'; startX = touch.clientX; startY = touch.clientY; lastY = startY; lastTime = performance.now();
+    dragging = true; gestureMode = 'undecided'; gestureSection = event.currentTarget; startX = touch.clientX; startY = touch.clientY;
   }
-  function moveTouch(event) {
-    if (!dragging) return;
+  function endTouch(event) {
+    if (!dragging || !gestureSection) return resetGesture();
     const touch = event.changedTouches[0];
     const dx = touch.clientX - startX; const dy = touch.clientY - startY;
-    const now = performance.now(); const velocity = (touch.clientY - lastY) / Math.max(1, now - lastTime);
-    if (gestureMode === 'undecided' && Math.max(Math.abs(dx), Math.abs(dy)) > 10) gestureMode = Math.abs(dy) >= Math.abs(dx) ? 'vertical' : 'horizontal';
-    if (gestureMode === 'vertical') {
-      event.preventDefault();
-      if (Math.abs(dy) > 42 && !pagingLocked) {
-        pagingLocked = true; step(dy < 0 ? 1 : -1); sections[active]?.scrollTo({ top: 0, behavior: 'auto' });
-      } else if (!pagingLocked && Math.abs(velocity) < 1.2) {
-        sections[active]?.scrollBy({ top: lastY - touch.clientY, behavior: 'auto' });
-      }
+    const isVertical = Math.abs(dy) > Math.abs(dx) * 1.25;
+    const atTop = gestureSection.scrollTop <= 2;
+    const atBottom = gestureSection.scrollTop + gestureSection.clientHeight >= gestureSection.scrollHeight - 2;
+    // Native scrolling owns normal movement. Paging only happens on a deliberate
+    // vertical flick at the relevant scroll boundary, preventing accidental page hops.
+    if (isVertical && Math.abs(dy) >= 72 && !transitionLocked && ((dy < 0 && atBottom) || (dy > 0 && atTop))) {
+      step(dy < 0 ? 1 : -1);
+      sections[active]?.scrollTo({ top: 0, behavior: 'auto' });
     }
-    lastY = touch.clientY; lastTime = now;
+    resetGesture();
   }
-  function endTouch() { resetGesture(); window.setTimeout(() => { pagingLocked = false; }, 180); }
   sections.forEach((section) => {
     section.addEventListener('touchstart', beginTouch, { capture: true, passive: true });
-    section.addEventListener('touchmove', moveTouch, { capture: true, passive: false });
     section.addEventListener('touchend', endTouch, { capture: true, passive: true });
-    section.addEventListener('touchcancel', endTouch, { capture: true, passive: true });
+    section.addEventListener('touchcancel', resetGesture, { capture: true, passive: true });
   });
   const hashIndex = sections.findIndex((section) => `#${section.id}` === location.hash);
   goTo(hashIndex >= 0 ? hashIndex : 0, false);
